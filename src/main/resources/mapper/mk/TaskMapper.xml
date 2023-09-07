@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.database.mk.mapper.TaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.lee.database.mk.entity.Task">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="oLevel" column="o_level" jdbcType="INTEGER"/>
+        <result property="oPos" column="o_pos" jdbcType="INTEGER"/>
+        <result property="tLevel" column="t_level" jdbcType="INTEGER"/>
+        <result property="tPos" column="t_pos" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="sLevel" column="s_level" jdbcType="INTEGER"/>
+        <result property="sPos" column="s_pos" jdbcType="INTEGER"/>
+        <result property="sLocation" column="s_location" jdbcType="INTEGER"/>
+        <result property="eLevel" column="e_level" jdbcType="INTEGER"/>
+        <result property="ePos" column="e_pos" jdbcType="INTEGER"/>
+        <result property="eLocation" column="e_location" jdbcType="INTEGER"/>
+        <result property="rLevel" column="r_level" jdbcType="INTEGER"/>
+        <result property="rPos" column="r_pos" jdbcType="INTEGER"/>
+        <result property="rLocation" column="r_location" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="boxNumber" column="box_number" jdbcType="VARCHAR"/>
+        <result property="carNumber" column="car_number" jdbcType="INTEGER"/>
+        <result property="weight" column="weight" jdbcType="INTEGER"/>
+        <result property="priority" column="priority" jdbcType="INTEGER"/>
+        <result property="aisle" column="aisle" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="VARCHAR"/>
+        <result property="wmsid" column="wmsid" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="assignTime" column="assign_time" jdbcType="TIMESTAMP"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="finishTime" column="finish_time" jdbcType="TIMESTAMP"/>
+        <result property="announceId" column="announce_id" jdbcType="INTEGER"/>
+        <result property="targetPos" column="target_pos" jdbcType="VARCHAR"/>
+        <result property="targetSide" column="target_side" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="deadLine" column="dead_line" jdbcType="TIMESTAMP"/>
+        <result property="liftArea" column="lift_area" jdbcType="VARCHAR"/>
+        <result property="carGroup" column="car_group" jdbcType="INTEGER"/>
+        <result property="liftType" column="lift_type" jdbcType="INTEGER"/>
+        <result property="orderState" column="order_state" jdbcType="INTEGER"/>
+        <result property="liftId" column="lift_id" jdbcType="INTEGER"/>
+        <result property="outLevel" column="out_level" jdbcType="INTEGER"/>
+        <result property="runningState" column="running_state" jdbcType="INTEGER"/>
+        <result property="width" column="width" jdbcType="INTEGER"/>
+        <result property="length" column="length" jdbcType="INTEGER"/>
+        <result property="height" column="height" jdbcType="INTEGER"/>
+        <result property="pdTime" column="pd_time" jdbcType="TIMESTAMP"/>
+        <result property="pickupTime" column="pickup_time" jdbcType="TIMESTAMP"/>
+        <result property="leaveTime" column="leave_time" jdbcType="TIMESTAMP"/>
+        <result property="targetFloor" column="target_floor" jdbcType="INTEGER"/>
+        <result property="boxType" column="box_type" jdbcType="VARCHAR"/>
+        <result property="site" column="site" jdbcType="VARCHAR"/>
+        <result property="turn" column="turn" jdbcType="INTEGER"/>
+        <result property="lineState" column="line_state" jdbcType="INTEGER"/>
+        <result property="isclipbox" column="isClipBox" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,pid,o_level,
+        o_pos,t_level,t_pos,
+        type,s_level,s_pos,
+        s_location,e_level,e_pos,
+        e_location,r_level,r_pos,
+        r_location,state,box_number,
+        car_number,weight,priority,
+        aisle,area,wmsid,
+        create_time,assign_time,start_time,
+        finish_time,announce_id,target_pos,
+        target_side,status,dead_line,
+        lift_area,car_group,lift_type,
+        order_state,lift_id,out_level,
+        running_state,width,length,
+        height,pd_time,pickup_time,
+        leave_time,target_floor,box_type,
+        site,turn,line_state,
+        isClipBox
+    </sql>
+    <select id="selectAllByStateAndTypeOrderByELevel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ga_task
+        where
+        state = #{state,jdbcType=NUMERIC}
+        AND type = #{type,jdbcType=NUMERIC}
+        order by e_Level
+    </select>
+    <select id="selectAllByStateAndSite" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ga_task
+        where
+        state = #{state,jdbcType=NUMERIC}
+        AND site = #{site,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllByStateAndTypeAndBoxNumberAndFinishTimeIsNull" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ga_task
+        where
+        state = #{state,jdbcType=NUMERIC}
+        AND type = #{type,jdbcType=NUMERIC}
+        AND box_number = #{boxNumber,jdbcType=VARCHAR}
+        AND finish_time is null
+    </select>
+    <select id="selectByStateAndTypeAndBoxNumberAndSLevelAndFinishTimeIsNull" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ga_task
+        where
+        state = #{state,jdbcType=NUMERIC}
+        AND type = #{type,jdbcType=NUMERIC}
+        AND box_number = #{boxNumber,jdbcType=VARCHAR}
+        AND s_level = #{sLevel,jdbcType=NUMERIC}
+        AND finish_time is null
+    </select>
+</mapper>

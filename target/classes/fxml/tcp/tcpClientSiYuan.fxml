@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0"
+            prefWidth="663.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.lee.control.tcp.MainTCPClientSiYuanController">
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                            <children>
+                                <Label text="GSEE"/>
+                                <Label text="IP :"/>
+                                <TextField fx:id="ip" alignment="CENTER" prefHeight="30.0" prefWidth="140.0"/>
+                                <Label text="PORT :"/>
+                                <TextField fx:id="port" alignment="CENTER" prefHeight="30.0" prefWidth="70.0"/>
+                                <JFXButton fx:id="connectBtn" prefHeight="30.0" prefWidth="70.0"
+                                           style="-fx-background-color: Gainsboro;" text="连接"/>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="40.0"/>
+                            </VBox.margin>
+                        </HBox>
+                        <JFXToggleButton fx:id="autoInbound" text="SY入库任务"/>
+                        <JFXToggleButton fx:id="autoOutbound" text="SY出库任务"/>
+                        <JFXToggleButton fx:id="autoMove" text="SY移库任务"/>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>
