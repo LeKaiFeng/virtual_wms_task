@@ -34,6 +34,23 @@ public class DealSTDRequest {
     public static final Log log = LogFactory.get();
     public static volatile int id = 1;
 
+
+    public static String pushBoxAnnounceKB(int megId, String boxId, Locations locations) {
+        HashMap<Object, Object> responseMap = new LinkedHashMap<Object, Object>() {
+            {
+                put("id", megId);
+                put("messageName", "appointBoxAnnounce");
+                put("boxId", boxId);
+                put("level", locations.getLevel());
+                put("location", locations.getLocation());
+                put("weight", 20);
+                put("wmsId", RandomUtil.randomString(10));
+            }
+        };
+        return JSONUtil.toJsonStr(responseMap);
+    }
+
+
     /**
      * TODO 预约入库（WMS->MFC) 一汽解放
      */

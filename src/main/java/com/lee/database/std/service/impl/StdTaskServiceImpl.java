@@ -57,7 +57,7 @@ public class StdTaskServiceImpl extends ServiceImpl<TaskStdMapper, Task> impleme
 
     @Override
     public int initId(int type) {
-        List<Task> taskList = stdMapper.selectList(new QueryWrapper<Task>().eq("type", type));
+        List<Task> taskList = stdMapper.selectList(new QueryWrapper<Task>().select("type", "id").eq("type", type));
         return taskList.size() + 1;
     }
 

@@ -1,13 +1,13 @@
 spring:
   profiles:
     #   *** 根据项目配置 ***
-    active: dsl
+    active: cc
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    driver-class-name: com.kingbase8.Driver
+    username: system
+    password: Galaxis@2023@KDB
     #    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    url: jdbc:mysql://10.2.7.164:3306/dss-dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:kingbase8://121.229.145.162:54321/xahk?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
 
 mybatis:
@@ -18,11 +18,11 @@ server:
   type: TCP
   WMS:
     port: 9999
-    end: "#"
+    end: "\r\n"
   mfc:
     IP: 10.2.7.164
     port: 9392
-    end: "*"
+    end: "\r\n"
 
 
 # 任务生成策略

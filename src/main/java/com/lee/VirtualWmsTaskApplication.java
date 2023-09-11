@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @MapperScan("com.lee.database.*.mapper")
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class VirtualWmsTaskApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) {
