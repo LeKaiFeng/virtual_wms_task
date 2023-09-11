@@ -148,53 +148,58 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
         int liftPos = lift.getPos();
         AtomicInteger boxNum = new AtomicInteger(1);
         boxNum.set(taskService.initBoxId(liftPos));
+        List<DeviceShelfPd> pds = shelfPdService.selectPds(liftPos);
         while (true) {
             try {
-                if (!autoInbound.isSelected()) {
+                if (autoInbound.isSelected()) {
                     List<ResourceTask> totalTask = taskService.getLiftInboundTask(-1, liftId);
                     levels.forEach(level -> {
-                        List<ResourceTask> currentLevelTask = totalTask.stream().filter(task ->
-                                task.getStartLevel().equals(level)).collect(Collectors.toList());
-                        if (currentLevelTask.size() == 0) {
-                            List<ResourceLocation> inbound = locationsService.inboundLocations(level, aisles);
-                            aisles.forEach(aisle -> {
-                                if (autoInbound.isSelected()) {
-                                    List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
-                                    if (currentLevelAisle.size() > 0) {
-                                        String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
-                                        ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
-                                        if (location == null) {
-                                            log.info("货位确失-> level:{}, aisle:{}", level, aisle);
-                                            return;
-                                        }
-                                        location.setBarcode(boxId);
-                                        inbound.remove(location);
-                                        String request = DealDSSRequest.pushTaskGenerate(1, msgNum.getAndIncrement(), liftId, boxId, null, location);
-                                        boolean tcpSend = send(request);
-                                        int times = 0;
-                                        if (!tcpSend) {
-                                            do {
-                                                times++;
-                                                log.info("入库 发送失败并重发");
-                                                ThreadUtil.sleep(500);
-                                            } while (send(request) && times < 10);
-                                        }
-                                        if (times == 10) {
-                                            log.info("{}次重发未成功,request:{}", times, request);
-                                        }
-                                        ThreadUtil.sleep(100);
+                        List<DeviceShelfPd> validPds = pds.stream().filter(pd -> pd.getLevel().equals(level)).collect(Collectors.toList());
+                        if (validPds.size() > 0) {
+                            List<ResourceTask> currentLevelTask = totalTask.stream().filter(task ->
+                                    task.getStartLevel().equals(level)).collect(Collectors.toList());
+                            if (currentLevelTask.size() == 0) {
+                                List<ResourceLocation> inbound = locationsService.inboundLocations(level, aisles);
+                                aisles.forEach(aisle -> {
+                                    if (autoInbound.isSelected()) {
+                                        List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
+                                        if (currentLevelAisle.size() > 0) {
+                                            String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
+                                            ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
+                                            if (location == null) {
+                                                log.info("货位确失-> level:{}, aisle:{}", level, aisle);
+                                                return;
+                                            }
+                                            location.setBarcode(boxId);
+                                            inbound.remove(location);
+                                            String request = DealDSSRequest.pushTaskGenerate(1, msgNum.getAndIncrement(), liftId, boxId, null, location);
+                                            boolean tcpSend = send(request);
+                                            int times = 0;
+                                            if (!tcpSend) {
+                                                do {
+                                                    times++;
+                                                    log.info("入库 发送失败并重发");
+                                                    ThreadUtil.sleep(500);
+                                                } while (send(request) && times < 10);
+                                            }
+                                            if (times == 10) {
+                                                log.info("{}次重发未成功,request:{}", times, request);
+                                            }
+                                            ThreadUtil.sleep(100);
 
-                                        log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, location.getLocation());
+                                            log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, location.getLocation());
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
+
                     });
                 } else {
                     ThreadUtil.sleep(1000);
                 }
             } catch (Exception e) {
-                log.info("Lift-[{}], pushTaskGenerate failed; {}", liftId, e.getMessage());
+                log.info("Lift-[{}], pushTaskGenerate failed close Thread; {}", liftId, e.getMessage());
                 break;
             }
         }
@@ -252,7 +257,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                 }
                 ThreadUtil.sleep(1000);
             } catch (Exception e) {
-                log.info("Lift-{} request failed; {}", liftId, e.getMessage());
+                log.info("Lift-{} request failed close Thread, {}", liftId, e.getMessage());
                 break;
             }
         }

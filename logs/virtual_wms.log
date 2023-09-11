@@ -877,3 +877,1011 @@ java.lang.InterruptedException: sleep interrupted
 [13:38:24.072][INFO ][main                     ][o.s.s.concurrent.ExecutorConfigurationSupport      :181] Initializing ExecutorService 'taskScheduler'
 [13:38:24.129][INFO ][main                     ][org.springframework.boot.StartupInfoLogger         :61 ] Started VirtualWmsTaskApplicationTests in 2.57 seconds (JVM running for 3.35)
 [13:38:24.324][INFO ][SpringContextShutdownHook][o.s.s.concurrent.ExecutorConfigurationSupport      :218] Shutting down ExecutorService 'taskScheduler'
+[14:26:05.175][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :55 ] Starting application on KLS-WX-382 with PID 28380 (started by DELL in D:\workspace\myTool\virtual_wms_task)
+[14:26:05.177][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.SpringApplication         :655] The following profiles are active: dsl
+[14:26:06.691][INFO ][ForkJoinPool.commonPool-worker-9][o.s.s.concurrent.ExecutorConfigurationSupport      :181] Initializing ExecutorService 'taskScheduler'
+[14:26:06.724][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :61 ] Started application in 1.801 seconds (JVM running for 2.607)
+[14:26:06.816][INFO ][common-thread-pool-0     ][com.zaxxer.hikari.HikariDataSource                 :110] HikariPool-1 - Starting...
+[14:26:07.185][INFO ][common-thread-pool-0     ][com.zaxxer.hikari.HikariDataSource                 :123] HikariPool-1 - Start completed.
+[14:26:07.229][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-1 thread start
+[14:26:07.230][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-2 thread start
+[14:26:07.230][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[1], pos: 210110, ip: 127.0.0.1, start...
+[14:26:07.230][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-3 thread start
+[14:26:07.230][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-4 thread start
+[14:26:07.230][INFO ][boxLift2                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[2], pos: 310110, ip: 127.0.0.1, start...
+[14:26:07.230][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-5 thread start
+[14:26:07.231][INFO ][boxLift3                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[3], pos: 410110, ip: 127.0.0.1, start...
+[14:26:07.231][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-6 thread start
+[14:26:07.231][INFO ][boxLift4                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[4], pos: 510110, ip: 127.0.0.1, start...
+[14:26:07.231][INFO ][boxLift5                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[5], pos: 610110, ip: 127.0.0.1, start...
+[14:26:07.232][INFO ][boxLift6                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[6], pos: 710110, ip: 127.0.0.1, start...
+[14:26:07.232][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :112] init success
+[14:26:07.405][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :121] init msgId: 22, outBoxId: 11, moveBoxId: 1
+[14:26:07.409][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :122] levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+[14:26:07.409][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :123] aisles: [11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111, 121, 131]
+[14:26:07.429][INFO ][TaskGenerate5            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[5], pushTaskGenerate failed; 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN () AND level = ? AND state = ?)
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+[14:26:07.429][INFO ][TaskGenerate3            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[3], pushTaskGenerate failed; 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN () AND level = ? AND state = ?)
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+[14:26:07.429][INFO ][TaskGenerate4            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[4], pushTaskGenerate failed; 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN () AND level = ? AND state = ?)
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+[14:26:07.429][INFO ][TaskGenerate2            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[2], pushTaskGenerate failed; 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN () AND level = ? AND state = ?)
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+[14:26:07.429][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[1], pushTaskGenerate failed; 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN () AND level = ? AND state = ?)
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+[14:26:07.429][INFO ][TaskGenerate6            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[6], pushTaskGenerate failed; 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN () AND level = ? AND state = ?)
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND level = 1 AND state = 0)' at line 3
+[14:28:41.464][INFO ][SpringContextShutdownHook][o.s.s.concurrent.ExecutorConfigurationSupport      :218] Shutting down ExecutorService 'taskScheduler'
+[14:28:41.466][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :350] HikariPool-1 - Shutdown initiated...
+[14:28:41.470][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :352] HikariPool-1 - Shutdown completed.
+[14:28:44.238][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :55 ] Starting application on KLS-WX-382 with PID 28900 (started by DELL in D:\workspace\myTool\virtual_wms_task)
+[14:28:44.240][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.SpringApplication         :655] The following profiles are active: dsl
+[14:28:45.764][INFO ][ForkJoinPool.commonPool-worker-9][o.s.s.concurrent.ExecutorConfigurationSupport      :181] Initializing ExecutorService 'taskScheduler'
+[14:28:45.795][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :61 ] Started application in 1.801 seconds (JVM running for 2.62)
+[14:28:45.888][INFO ][common-thread-pool-0     ][com.zaxxer.hikari.HikariDataSource                 :110] HikariPool-1 - Starting...
+[14:28:46.397][INFO ][common-thread-pool-0     ][com.zaxxer.hikari.HikariDataSource                 :123] HikariPool-1 - Start completed.
+[14:28:46.434][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-1 thread start
+[14:28:46.434][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-2 thread start
+[14:28:46.435][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-3 thread start
+[14:28:46.435][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[1], pos: 210110, ip: 127.0.0.1, start...
+[14:28:46.435][INFO ][boxLift2                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[2], pos: 310110, ip: 127.0.0.1, start...
+[14:28:46.435][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-4 thread start
+[14:28:46.435][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-5 thread start
+[14:28:46.435][INFO ][boxLift3                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[3], pos: 410110, ip: 127.0.0.1, start...
+[14:28:46.435][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-6 thread start
+[14:28:46.435][INFO ][boxLift4                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[4], pos: 510110, ip: 127.0.0.1, start...
+[14:28:46.435][INFO ][boxLift5                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[5], pos: 610110, ip: 127.0.0.1, start...
+[14:28:46.435][INFO ][boxLift6                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[6], pos: 710110, ip: 127.0.0.1, start...
+[14:28:46.436][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :112] init success
+[14:28:58.522][INFO ][SpringContextShutdownHook][o.s.s.concurrent.ExecutorConfigurationSupport      :218] Shutting down ExecutorService 'taskScheduler'
+[14:28:58.524][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :350] HikariPool-1 - Shutdown initiated...
+[14:28:58.544][INFO ][TaskGenerate5            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[5], pushTaskGenerate failed; nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+### The error may exist in com/lee/database/dss/mapper/ResourceTaskMapper.java (best guess)
+### The error may involve com.lee.database.dss.mapper.ResourceTaskMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+[14:28:58.544][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[1], pushTaskGenerate failed; nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+### The error may exist in com/lee/database/dss/mapper/ResourceTaskMapper.java (best guess)
+### The error may involve com.lee.database.dss.mapper.ResourceTaskMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+[14:28:58.622][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :352] HikariPool-1 - Shutdown completed.
+[14:29:41.852][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :55 ] Starting application on KLS-WX-382 with PID 11688 (started by DELL in D:\workspace\myTool\virtual_wms_task)
+[14:29:41.854][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.SpringApplication         :655] The following profiles are active: dsl
+[14:29:43.403][INFO ][ForkJoinPool.commonPool-worker-9][o.s.s.concurrent.ExecutorConfigurationSupport      :181] Initializing ExecutorService 'taskScheduler'
+[14:29:43.434][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :61 ] Started application in 1.828 seconds (JVM running for 2.646)
+[14:29:43.528][INFO ][JavaFX Application Thread][com.zaxxer.hikari.HikariDataSource                 :110] HikariPool-1 - Starting...
+[14:29:43.937][INFO ][JavaFX Application Thread][com.zaxxer.hikari.HikariDataSource                 :123] HikariPool-1 - Start completed.
+[14:29:43.977][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-1 thread start
+[14:29:43.978][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :208] BoxLift-[1], pos: 210110, ip: 127.0.0.1, start...
+[14:29:43.978][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :112] init success
+[14:29:44.101][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :121] init msgId: 22, outBoxId: 11, moveBoxId: 1
+[14:29:44.104][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :122] levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+[14:29:44.104][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :123] aisles: [11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111, 121, 131]
+[14:29:48.599][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :106] 开始连接mfc...
+[14:29:48.623][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :139] 初始化netty, 10.2.7.164:9392
+[14:29:48.953][INFO ][nioEventLoopGroup-2-1    ][com.lee.netty.NettyClient                          :61 ] 本地Netty Client 连接成功, result:true, 10.2.7.164:9392
+[14:30:40.004][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":22,"type":"taskGenerate","body":{"taskList":[{"wmsId":"giz9i9u5nzvx","taskType":1,"barcode":"BoxLift-1-1","level":1,"endLocation":110321,"mkId":1,"boxType":3,"width":300,"length":400,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:40.105][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-1 to level/location: 1/110321 
+[14:30:40.107][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":23,"type":"taskGenerate","body":{"taskList":[{"wmsId":"l78lvrejw54l","taskType":1,"barcode":"BoxLift-1-2","level":1,"endLocation":210308,"mkId":1,"boxType":1,"width":600,"length":400,"height":200,"weight":30,"boxAttr":2}]}}
+[14:30:40.207][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-2 to level/location: 1/210308 
+[14:30:40.208][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":24,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3q1k77eoofuw","taskType":1,"barcode":"BoxLift-1-3","level":1,"endLocation":310428,"mkId":1,"boxType":3,"width":300,"length":700,"height":300,"weight":20,"boxAttr":1}]}}
+[14:30:40.309][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-3 to level/location: 1/310428 
+[14:30:40.310][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":25,"type":"taskGenerate","body":{"taskList":[{"wmsId":"6g3wgtmxrp8d","taskType":1,"barcode":"BoxLift-1-4","level":1,"endLocation":410128,"mkId":1,"boxType":1,"width":500,"length":600,"height":100,"weight":40,"boxAttr":2}]}}
+[14:30:40.411][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-4 to level/location: 1/410128 
+[14:30:40.412][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":26,"type":"taskGenerate","body":{"taskList":[{"wmsId":"jmgx2673wt3t","taskType":1,"barcode":"BoxLift-1-5","level":1,"endLocation":510221,"mkId":1,"boxType":3,"width":600,"length":600,"height":300,"weight":20,"boxAttr":3}]}}
+[14:30:40.514][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-5 to level/location: 1/510221 
+[14:30:40.514][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":27,"type":"taskGenerate","body":{"taskList":[{"wmsId":"vnpuc7bt9nrv","taskType":1,"barcode":"BoxLift-1-6","level":1,"endLocation":610392,"mkId":1,"boxType":1,"width":500,"length":300,"height":200,"weight":30,"boxAttr":2}]}}
+[14:30:40.614][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-6 to level/location: 1/610392 
+[14:30:40.615][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":28,"type":"taskGenerate","body":{"taskList":[{"wmsId":"5w8j9x349own","taskType":1,"barcode":"BoxLift-1-7","level":1,"endLocation":710217,"mkId":1,"boxType":3,"width":300,"length":500,"height":400,"weight":10,"boxAttr":3}]}}
+[14:30:40.716][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-7 to level/location: 1/710217 
+[14:30:40.717][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":29,"type":"taskGenerate","body":{"taskList":[{"wmsId":"r0qz5rzrimpc","taskType":1,"barcode":"BoxLift-1-8","level":1,"endLocation":810202,"mkId":1,"boxType":3,"width":300,"length":400,"height":400,"weight":40,"boxAttr":1}]}}
+[14:30:40.819][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-8 to level/location: 1/810202 
+[14:30:40.820][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":30,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ppc7bdq3u335","taskType":1,"barcode":"BoxLift-1-9","level":1,"endLocation":910111,"mkId":1,"boxType":2,"width":500,"length":600,"height":100,"weight":50,"boxAttr":3}]}}
+[14:30:40.920][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-9 to level/location: 1/910111 
+[14:30:40.921][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":31,"type":"taskGenerate","body":{"taskList":[{"wmsId":"e2zszmb7wsbi","taskType":1,"barcode":"BoxLift-1-10","level":1,"endLocation":1010131,"mkId":1,"boxType":1,"width":400,"length":300,"height":300,"weight":10,"boxAttr":2}]}}
+[14:30:41.021][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-10 to level/location: 1/1010131 
+[14:30:41.021][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":32,"type":"taskGenerate","body":{"taskList":[{"wmsId":"u0yb5tzjnuca","taskType":1,"barcode":"BoxLift-1-11","level":1,"endLocation":1110452,"mkId":1,"boxType":1,"width":500,"length":500,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:41.122][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-11 to level/location: 1/1110452 
+[14:30:41.124][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":33,"type":"taskGenerate","body":{"taskList":[{"wmsId":"a2o2aexap6pw","taskType":1,"barcode":"BoxLift-1-12","level":1,"endLocation":1210348,"mkId":1,"boxType":1,"width":500,"length":300,"height":300,"weight":40,"boxAttr":1}]}}
+[14:30:41.224][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-12 to level/location: 1/1210348 
+[14:30:41.225][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":34,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3cpclzoxkwj4","taskType":1,"barcode":"BoxLift-1-13","level":1,"endLocation":1310242,"mkId":1,"boxType":3,"width":300,"length":700,"height":400,"weight":10,"boxAttr":3}]}}
+[14:30:41.326][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-13 to level/location: 1/1310242 
+[14:30:41.450][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":35,"type":"taskGenerate","body":{"taskList":[{"wmsId":"7zjojqu1upz0","taskType":1,"barcode":"BoxLift-1-14","level":2,"endLocation":110427,"mkId":1,"boxType":1,"width":600,"length":300,"height":200,"weight":40,"boxAttr":2}]}}
+[14:30:41.551][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-14 to level/location: 2/110427 
+[14:30:41.552][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":36,"type":"taskGenerate","body":{"taskList":[{"wmsId":"4m9f199s1ulh","taskType":1,"barcode":"BoxLift-1-15","level":2,"endLocation":210211,"mkId":1,"boxType":3,"width":600,"length":700,"height":300,"weight":10,"boxAttr":2}]}}
+[14:30:41.653][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-15 to level/location: 2/210211 
+[14:30:41.653][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":37,"type":"taskGenerate","body":{"taskList":[{"wmsId":"vz0ppf8bwz2o","taskType":1,"barcode":"BoxLift-1-16","level":2,"endLocation":310372,"mkId":1,"boxType":1,"width":400,"length":300,"height":100,"weight":50,"boxAttr":2}]}}
+[14:30:41.754][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-16 to level/location: 2/310372 
+[14:30:41.755][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":38,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wwsxbn29bhoe","taskType":1,"barcode":"BoxLift-1-17","level":2,"endLocation":410181,"mkId":1,"boxType":1,"width":500,"length":300,"height":300,"weight":30,"boxAttr":1}]}}
+[14:30:41.855][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-17 to level/location: 2/410181 
+[14:30:41.856][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":39,"type":"taskGenerate","body":{"taskList":[{"wmsId":"eau91esbjog9","taskType":1,"barcode":"BoxLift-1-18","level":2,"endLocation":510308,"mkId":1,"boxType":3,"width":600,"length":600,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:41.957][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-18 to level/location: 2/510308 
+[14:30:41.958][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":40,"type":"taskGenerate","body":{"taskList":[{"wmsId":"anftc1pyodri","taskType":1,"barcode":"BoxLift-1-19","level":2,"endLocation":610398,"mkId":1,"boxType":2,"width":600,"length":600,"height":300,"weight":20,"boxAttr":3}]}}
+[14:30:42.059][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-19 to level/location: 2/610398 
+[14:30:42.059][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":41,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ffcqfn0evbm3","taskType":1,"barcode":"BoxLift-1-20","level":2,"endLocation":710427,"mkId":1,"boxType":1,"width":500,"length":700,"height":200,"weight":40,"boxAttr":2}]}}
+[14:30:42.159][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-20 to level/location: 2/710427 
+[14:30:42.159][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":42,"type":"taskGenerate","body":{"taskList":[{"wmsId":"32rntrfepfva","taskType":1,"barcode":"BoxLift-1-21","level":2,"endLocation":810152,"mkId":1,"boxType":3,"width":300,"length":300,"height":200,"weight":50,"boxAttr":2}]}}
+[14:30:42.260][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-21 to level/location: 2/810152 
+[14:30:42.260][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":43,"type":"taskGenerate","body":{"taskList":[{"wmsId":"s981i9mlr8yl","taskType":1,"barcode":"BoxLift-1-22","level":2,"endLocation":910251,"mkId":1,"boxType":2,"width":600,"length":400,"height":400,"weight":10,"boxAttr":3}]}}
+[14:30:42.360][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-22 to level/location: 2/910251 
+[14:30:42.361][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":44,"type":"taskGenerate","body":{"taskList":[{"wmsId":"koq2xi7lbyfq","taskType":1,"barcode":"BoxLift-1-23","level":2,"endLocation":1010252,"mkId":1,"boxType":1,"width":300,"length":600,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:42.461][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-23 to level/location: 2/1010252 
+[14:30:42.461][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":45,"type":"taskGenerate","body":{"taskList":[{"wmsId":"9x0ts76o6aig","taskType":1,"barcode":"BoxLift-1-24","level":2,"endLocation":1110237,"mkId":1,"boxType":2,"width":400,"length":300,"height":200,"weight":10,"boxAttr":3}]}}
+[14:30:42.562][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-24 to level/location: 2/1110237 
+[14:30:42.563][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":46,"type":"taskGenerate","body":{"taskList":[{"wmsId":"uop8jiyi1dc4","taskType":1,"barcode":"BoxLift-1-25","level":2,"endLocation":1210332,"mkId":1,"boxType":3,"width":300,"length":300,"height":400,"weight":30,"boxAttr":2}]}}
+[14:30:42.663][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-25 to level/location: 2/1210332 
+[14:30:42.663][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":47,"type":"taskGenerate","body":{"taskList":[{"wmsId":"uodr7wqqvk1v","taskType":1,"barcode":"BoxLift-1-26","level":2,"endLocation":1310398,"mkId":1,"boxType":3,"width":300,"length":700,"height":300,"weight":10,"boxAttr":1}]}}
+[14:30:42.764][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-26 to level/location: 2/1310398 
+[14:30:42.886][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":48,"type":"taskGenerate","body":{"taskList":[{"wmsId":"yioy5l53z8pf","taskType":1,"barcode":"BoxLift-1-27","level":3,"endLocation":110121,"mkId":1,"boxType":1,"width":500,"length":400,"height":200,"weight":30,"boxAttr":1}]}}
+[14:30:42.986][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-27 to level/location: 3/110121 
+[14:30:42.986][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":49,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3w1fhvuudekv","taskType":1,"barcode":"BoxLift-1-28","level":3,"endLocation":210191,"mkId":1,"boxType":3,"width":300,"length":500,"height":300,"weight":20,"boxAttr":1}]}}
+[14:30:43.088][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-28 to level/location: 3/210191 
+[14:30:43.089][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":50,"type":"taskGenerate","body":{"taskList":[{"wmsId":"f9p5qj9h2qzn","taskType":1,"barcode":"BoxLift-1-29","level":3,"endLocation":310251,"mkId":1,"boxType":1,"width":500,"length":400,"height":300,"weight":40,"boxAttr":3}]}}
+[14:30:43.137][INFO ][boxLift1                 ][com.lee.util.DeviceHttpRequest                     :49 ] 请求失败 -> http://127.0.0.1:8090/input?type=1&id=1&reqType=1&req=1&barcode=BoxLift-1-1  null
+[14:30:43.137][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :229] boxLift-[1], request level:1, barcode:BoxLift-1-1 null
+[14:30:43.137][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :255] Lift-1 request failed; null
+[14:30:43.190][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-29 to level/location: 3/310251 
+[14:30:43.190][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":51,"type":"taskGenerate","body":{"taskList":[{"wmsId":"j7g7inxo2yjv","taskType":1,"barcode":"BoxLift-1-30","level":3,"endLocation":410241,"mkId":1,"boxType":1,"width":500,"length":400,"height":400,"weight":30,"boxAttr":3}]}}
+[14:30:43.291][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-30 to level/location: 3/410241 
+[14:30:43.292][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":52,"type":"taskGenerate","body":{"taskList":[{"wmsId":"u1rh3qoqa2pp","taskType":1,"barcode":"BoxLift-1-31","level":3,"endLocation":510321,"mkId":1,"boxType":3,"width":400,"length":400,"height":300,"weight":20,"boxAttr":2}]}}
+[14:30:43.392][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-31 to level/location: 3/510321 
+[14:30:43.393][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":53,"type":"taskGenerate","body":{"taskList":[{"wmsId":"4tf2t6i1ubg0","taskType":1,"barcode":"BoxLift-1-32","level":3,"endLocation":610457,"mkId":1,"boxType":1,"width":600,"length":400,"height":100,"weight":20,"boxAttr":3}]}}
+[14:30:43.493][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-32 to level/location: 3/610457 
+[14:30:43.494][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":54,"type":"taskGenerate","body":{"taskList":[{"wmsId":"4ozco97xpqeu","taskType":1,"barcode":"BoxLift-1-33","level":3,"endLocation":710411,"mkId":1,"boxType":1,"width":500,"length":700,"height":300,"weight":30,"boxAttr":3}]}}
+[14:30:43.594][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-33 to level/location: 3/710411 
+[14:30:43.595][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":55,"type":"taskGenerate","body":{"taskList":[{"wmsId":"sa4yrrtchhwp","taskType":1,"barcode":"BoxLift-1-34","level":3,"endLocation":810138,"mkId":1,"boxType":3,"width":600,"length":600,"height":400,"weight":20,"boxAttr":3}]}}
+[14:30:43.696][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-34 to level/location: 3/810138 
+[14:30:43.697][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":56,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ev9ivlqv6zy0","taskType":1,"barcode":"BoxLift-1-35","level":3,"endLocation":910471,"mkId":1,"boxType":3,"width":500,"length":300,"height":100,"weight":10,"boxAttr":3}]}}
+[14:30:43.799][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-35 to level/location: 3/910471 
+[14:30:43.800][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":57,"type":"taskGenerate","body":{"taskList":[{"wmsId":"raewr7e2codr","taskType":1,"barcode":"BoxLift-1-36","level":3,"endLocation":1010401,"mkId":1,"boxType":1,"width":500,"length":700,"height":100,"weight":40,"boxAttr":2}]}}
+[14:30:43.900][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-36 to level/location: 3/1010401 
+[14:30:43.901][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":58,"type":"taskGenerate","body":{"taskList":[{"wmsId":"0oazw3abem0g","taskType":1,"barcode":"BoxLift-1-37","level":3,"endLocation":1110111,"mkId":1,"boxType":2,"width":500,"length":600,"height":200,"weight":40,"boxAttr":2}]}}
+[14:30:44.002][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-37 to level/location: 3/1110111 
+[14:30:44.003][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":59,"type":"taskGenerate","body":{"taskList":[{"wmsId":"fse4vqrqd0x3","taskType":1,"barcode":"BoxLift-1-38","level":3,"endLocation":1210292,"mkId":1,"boxType":2,"width":300,"length":500,"height":400,"weight":40,"boxAttr":1}]}}
+[14:30:44.104][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-38 to level/location: 3/1210292 
+[14:30:44.105][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":60,"type":"taskGenerate","body":{"taskList":[{"wmsId":"w8to0dij34tb","taskType":1,"barcode":"BoxLift-1-39","level":3,"endLocation":1310417,"mkId":1,"boxType":1,"width":500,"length":300,"height":100,"weight":30,"boxAttr":1}]}}
+[14:30:44.205][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-39 to level/location: 3/1310417 
+[14:30:44.331][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":61,"type":"taskGenerate","body":{"taskList":[{"wmsId":"9y1xmjvsbcny","taskType":1,"barcode":"BoxLift-1-40","level":4,"endLocation":110427,"mkId":1,"boxType":3,"width":600,"length":500,"height":100,"weight":40,"boxAttr":2}]}}
+[14:30:44.431][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-40 to level/location: 4/110427 
+[14:30:44.432][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":62,"type":"taskGenerate","body":{"taskList":[{"wmsId":"07d4qojqdco3","taskType":1,"barcode":"BoxLift-1-41","level":4,"endLocation":210381,"mkId":1,"boxType":1,"width":400,"length":600,"height":300,"weight":30,"boxAttr":1}]}}
+[14:30:44.533][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-41 to level/location: 4/210381 
+[14:30:44.534][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":63,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2oafixmb7o2t","taskType":1,"barcode":"BoxLift-1-42","level":4,"endLocation":310218,"mkId":1,"boxType":1,"width":400,"length":300,"height":400,"weight":40,"boxAttr":2}]}}
+[14:30:44.634][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-42 to level/location: 4/310218 
+[14:30:44.635][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":64,"type":"taskGenerate","body":{"taskList":[{"wmsId":"1eo84sn26rq9","taskType":1,"barcode":"BoxLift-1-43","level":4,"endLocation":410402,"mkId":1,"boxType":3,"width":400,"length":700,"height":400,"weight":30,"boxAttr":1}]}}
+[14:30:44.736][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-43 to level/location: 4/410402 
+[14:30:44.737][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":65,"type":"taskGenerate","body":{"taskList":[{"wmsId":"76kymggxzyoc","taskType":1,"barcode":"BoxLift-1-44","level":4,"endLocation":510437,"mkId":1,"boxType":2,"width":300,"length":700,"height":300,"weight":10,"boxAttr":1}]}}
+[14:30:44.838][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-44 to level/location: 4/510437 
+[14:30:44.839][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":66,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2kiyyyxo9c3g","taskType":1,"barcode":"BoxLift-1-45","level":4,"endLocation":610151,"mkId":1,"boxType":2,"width":400,"length":700,"height":300,"weight":50,"boxAttr":2}]}}
+[14:30:44.939][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-45 to level/location: 4/610151 
+[14:30:44.940][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":67,"type":"taskGenerate","body":{"taskList":[{"wmsId":"y0v8sjv1ffx6","taskType":1,"barcode":"BoxLift-1-46","level":4,"endLocation":710332,"mkId":1,"boxType":2,"width":300,"length":400,"height":300,"weight":40,"boxAttr":3}]}}
+[14:30:45.041][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-46 to level/location: 4/710332 
+[14:30:45.042][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":68,"type":"taskGenerate","body":{"taskList":[{"wmsId":"0xydc7vdnqt2","taskType":1,"barcode":"BoxLift-1-47","level":4,"endLocation":810348,"mkId":1,"boxType":3,"width":300,"length":300,"height":300,"weight":10,"boxAttr":2}]}}
+[14:30:45.143][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-47 to level/location: 4/810348 
+[14:30:45.144][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":69,"type":"taskGenerate","body":{"taskList":[{"wmsId":"y4gnfq3a1dlq","taskType":1,"barcode":"BoxLift-1-48","level":4,"endLocation":910318,"mkId":1,"boxType":1,"width":600,"length":300,"height":100,"weight":50,"boxAttr":1}]}}
+[14:30:45.244][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-48 to level/location: 4/910318 
+[14:30:45.245][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":70,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kylzc8gtkkui","taskType":1,"barcode":"BoxLift-1-49","level":4,"endLocation":1010347,"mkId":1,"boxType":3,"width":600,"length":400,"height":100,"weight":10,"boxAttr":3}]}}
+[14:30:45.346][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-49 to level/location: 4/1010347 
+[14:30:45.347][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":71,"type":"taskGenerate","body":{"taskList":[{"wmsId":"hdovxa2rucis","taskType":1,"barcode":"BoxLift-1-50","level":4,"endLocation":1110387,"mkId":1,"boxType":3,"width":400,"length":500,"height":400,"weight":30,"boxAttr":2}]}}
+[14:30:45.448][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-50 to level/location: 4/1110387 
+[14:30:45.449][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":72,"type":"taskGenerate","body":{"taskList":[{"wmsId":"gu75ym7f9unr","taskType":1,"barcode":"BoxLift-1-51","level":4,"endLocation":1210441,"mkId":1,"boxType":1,"width":500,"length":400,"height":100,"weight":40,"boxAttr":1}]}}
+[14:30:45.550][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-51 to level/location: 4/1210441 
+[14:30:45.551][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":73,"type":"taskGenerate","body":{"taskList":[{"wmsId":"utoi295lnhcy","taskType":1,"barcode":"BoxLift-1-52","level":4,"endLocation":1310358,"mkId":1,"boxType":2,"width":500,"length":300,"height":200,"weight":40,"boxAttr":3}]}}
+[14:30:45.651][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-52 to level/location: 4/1310358 
+[14:30:45.777][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":74,"type":"taskGenerate","body":{"taskList":[{"wmsId":"z9qinsm1ism4","taskType":1,"barcode":"BoxLift-1-53","level":5,"endLocation":110431,"mkId":1,"boxType":1,"width":300,"length":500,"height":200,"weight":40,"boxAttr":2}]}}
+[14:30:45.877][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-53 to level/location: 5/110431 
+[14:30:45.877][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":75,"type":"taskGenerate","body":{"taskList":[{"wmsId":"corv51o8616m","taskType":1,"barcode":"BoxLift-1-54","level":5,"endLocation":210461,"mkId":1,"boxType":1,"width":400,"length":600,"height":200,"weight":40,"boxAttr":2}]}}
+[14:30:45.979][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-54 to level/location: 5/210461 
+[14:30:45.980][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":76,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kgqfxtr7wzep","taskType":1,"barcode":"BoxLift-1-55","level":5,"endLocation":310218,"mkId":1,"boxType":2,"width":600,"length":500,"height":400,"weight":20,"boxAttr":2}]}}
+[14:30:46.080][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-55 to level/location: 5/310218 
+[14:30:46.081][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":77,"type":"taskGenerate","body":{"taskList":[{"wmsId":"gs6r0cuijxbc","taskType":1,"barcode":"BoxLift-1-56","level":5,"endLocation":410262,"mkId":1,"boxType":2,"width":600,"length":500,"height":200,"weight":30,"boxAttr":1}]}}
+[14:30:46.183][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-56 to level/location: 5/410262 
+[14:30:46.184][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":78,"type":"taskGenerate","body":{"taskList":[{"wmsId":"usxypg8s1mdt","taskType":1,"barcode":"BoxLift-1-57","level":5,"endLocation":510412,"mkId":1,"boxType":1,"width":400,"length":500,"height":200,"weight":30,"boxAttr":3}]}}
+[14:30:46.284][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-57 to level/location: 5/510412 
+[14:30:46.286][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":79,"type":"taskGenerate","body":{"taskList":[{"wmsId":"p5cjza8akwwh","taskType":1,"barcode":"BoxLift-1-58","level":5,"endLocation":610287,"mkId":1,"boxType":3,"width":400,"length":300,"height":100,"weight":40,"boxAttr":1}]}}
+[14:30:46.386][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-58 to level/location: 5/610287 
+[14:30:46.387][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":80,"type":"taskGenerate","body":{"taskList":[{"wmsId":"habjmrt9mm7u","taskType":1,"barcode":"BoxLift-1-59","level":5,"endLocation":710382,"mkId":1,"boxType":3,"width":300,"length":300,"height":300,"weight":30,"boxAttr":2}]}}
+[14:30:46.488][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-59 to level/location: 5/710382 
+[14:30:46.488][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":81,"type":"taskGenerate","body":{"taskList":[{"wmsId":"0v16f7dt4sfs","taskType":1,"barcode":"BoxLift-1-60","level":5,"endLocation":810321,"mkId":1,"boxType":1,"width":300,"length":300,"height":100,"weight":20,"boxAttr":3}]}}
+[14:30:46.588][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-60 to level/location: 5/810321 
+[14:30:46.588][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":82,"type":"taskGenerate","body":{"taskList":[{"wmsId":"mdkoauuszco9","taskType":1,"barcode":"BoxLift-1-61","level":5,"endLocation":910361,"mkId":1,"boxType":2,"width":600,"length":500,"height":400,"weight":20,"boxAttr":1}]}}
+[14:30:46.689][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-61 to level/location: 5/910361 
+[14:30:46.689][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":83,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rud0js66xrbu","taskType":1,"barcode":"BoxLift-1-62","level":5,"endLocation":1010438,"mkId":1,"boxType":1,"width":400,"length":500,"height":400,"weight":30,"boxAttr":3}]}}
+[14:30:46.790][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-62 to level/location: 5/1010438 
+[14:30:46.790][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":84,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2qcejkd11v69","taskType":1,"barcode":"BoxLift-1-63","level":5,"endLocation":1110278,"mkId":1,"boxType":3,"width":600,"length":600,"height":100,"weight":40,"boxAttr":3}]}}
+[14:30:46.890][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-63 to level/location: 5/1110278 
+[14:30:46.890][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":85,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ipe0w4hpgmr7","taskType":1,"barcode":"BoxLift-1-64","level":5,"endLocation":1210141,"mkId":1,"boxType":2,"width":400,"length":700,"height":200,"weight":40,"boxAttr":1}]}}
+[14:30:46.990][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-64 to level/location: 5/1210141 
+[14:30:46.990][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":86,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2tusdf7p5ej3","taskType":1,"barcode":"BoxLift-1-65","level":5,"endLocation":1310462,"mkId":1,"boxType":3,"width":500,"length":500,"height":400,"weight":10,"boxAttr":2}]}}
+[14:30:47.091][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-65 to level/location: 5/1310462 
+[14:30:47.247][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":87,"type":"taskGenerate","body":{"taskList":[{"wmsId":"b4ynvbxo7sbb","taskType":1,"barcode":"BoxLift-1-66","level":6,"endLocation":110481,"mkId":1,"boxType":1,"width":400,"length":600,"height":300,"weight":20,"boxAttr":1}]}}
+[14:30:47.348][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-66 to level/location: 6/110481 
+[14:30:47.348][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":88,"type":"taskGenerate","body":{"taskList":[{"wmsId":"1ycsth2n4c6w","taskType":1,"barcode":"BoxLift-1-67","level":6,"endLocation":210128,"mkId":1,"boxType":3,"width":600,"length":500,"height":100,"weight":20,"boxAttr":2}]}}
+[14:30:47.449][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-67 to level/location: 6/210128 
+[14:30:47.450][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":89,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kw7ommndoq4i","taskType":1,"barcode":"BoxLift-1-68","level":6,"endLocation":310372,"mkId":1,"boxType":1,"width":400,"length":300,"height":300,"weight":20,"boxAttr":3}]}}
+[14:30:47.550][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-68 to level/location: 6/310372 
+[14:30:47.551][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":90,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2o1611356epq","taskType":1,"barcode":"BoxLift-1-69","level":6,"endLocation":410117,"mkId":1,"boxType":1,"width":500,"length":400,"height":100,"weight":30,"boxAttr":2}]}}
+[14:30:47.652][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-69 to level/location: 6/410117 
+[14:30:47.653][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":91,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wl966uaaahyi","taskType":1,"barcode":"BoxLift-1-70","level":6,"endLocation":510412,"mkId":1,"boxType":2,"width":500,"length":700,"height":400,"weight":40,"boxAttr":3}]}}
+[14:30:47.754][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-70 to level/location: 6/510412 
+[14:30:47.755][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":92,"type":"taskGenerate","body":{"taskList":[{"wmsId":"iui70wis49as","taskType":1,"barcode":"BoxLift-1-71","level":6,"endLocation":610471,"mkId":1,"boxType":1,"width":500,"length":300,"height":300,"weight":30,"boxAttr":2}]}}
+[14:30:47.855][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-71 to level/location: 6/610471 
+[14:30:47.856][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":93,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wfmrwdnjv72r","taskType":1,"barcode":"BoxLift-1-72","level":6,"endLocation":710362,"mkId":1,"boxType":3,"width":300,"length":600,"height":200,"weight":30,"boxAttr":1}]}}
+[14:30:47.956][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-72 to level/location: 6/710362 
+[14:30:47.956][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":94,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ey09yqzwdng9","taskType":1,"barcode":"BoxLift-1-73","level":6,"endLocation":810467,"mkId":1,"boxType":2,"width":300,"length":300,"height":400,"weight":10,"boxAttr":2}]}}
+[14:30:48.056][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-73 to level/location: 6/810467 
+[14:30:48.056][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":95,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kjlph6u7gya2","taskType":1,"barcode":"BoxLift-1-74","level":6,"endLocation":910397,"mkId":1,"boxType":3,"width":400,"length":300,"height":400,"weight":30,"boxAttr":2}]}}
+[14:30:48.157][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-74 to level/location: 6/910397 
+[14:30:48.158][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":96,"type":"taskGenerate","body":{"taskList":[{"wmsId":"zmdrkvyayrsw","taskType":1,"barcode":"BoxLift-1-75","level":6,"endLocation":1010267,"mkId":1,"boxType":2,"width":400,"length":500,"height":200,"weight":40,"boxAttr":1}]}}
+[14:30:48.259][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-75 to level/location: 6/1010267 
+[14:30:48.260][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":97,"type":"taskGenerate","body":{"taskList":[{"wmsId":"1670sngesckq","taskType":1,"barcode":"BoxLift-1-76","level":6,"endLocation":1110397,"mkId":1,"boxType":1,"width":400,"length":700,"height":400,"weight":10,"boxAttr":3}]}}
+[14:30:48.361][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-76 to level/location: 6/1110397 
+[14:30:48.361][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":98,"type":"taskGenerate","body":{"taskList":[{"wmsId":"zq5dogpwmxzh","taskType":1,"barcode":"BoxLift-1-77","level":6,"endLocation":1210151,"mkId":1,"boxType":2,"width":500,"length":400,"height":100,"weight":20,"boxAttr":1}]}}
+[14:30:48.461][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-77 to level/location: 6/1210151 
+[14:30:48.462][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":99,"type":"taskGenerate","body":{"taskList":[{"wmsId":"nsrrmev31znh","taskType":1,"barcode":"BoxLift-1-78","level":6,"endLocation":1310478,"mkId":1,"boxType":1,"width":400,"length":700,"height":300,"weight":10,"boxAttr":2}]}}
+[14:30:48.563][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-78 to level/location: 6/1310478 
+[14:30:48.824][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":100,"type":"taskGenerate","body":{"taskList":[{"wmsId":"koo6v8fwbiao","taskType":1,"barcode":"BoxLift-1-79","level":7,"endLocation":110421,"mkId":1,"boxType":3,"width":400,"length":600,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:48.924][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-79 to level/location: 7/110421 
+[14:30:48.924][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":101,"type":"taskGenerate","body":{"taskList":[{"wmsId":"31f0m10b9e0j","taskType":1,"barcode":"BoxLift-1-80","level":7,"endLocation":210377,"mkId":1,"boxType":2,"width":400,"length":700,"height":300,"weight":40,"boxAttr":1}]}}
+[14:30:49.024][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-80 to level/location: 7/210377 
+[14:30:49.026][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":102,"type":"taskGenerate","body":{"taskList":[{"wmsId":"an35te16uyt5","taskType":1,"barcode":"BoxLift-1-81","level":7,"endLocation":310297,"mkId":1,"boxType":3,"width":300,"length":700,"height":200,"weight":10,"boxAttr":1}]}}
+[14:30:49.126][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-81 to level/location: 7/310297 
+[14:30:49.127][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":103,"type":"taskGenerate","body":{"taskList":[{"wmsId":"g3atvcgevqs7","taskType":1,"barcode":"BoxLift-1-82","level":7,"endLocation":410297,"mkId":1,"boxType":1,"width":600,"length":600,"height":200,"weight":10,"boxAttr":2}]}}
+[14:30:49.227][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-82 to level/location: 7/410297 
+[14:30:49.228][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":104,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ukl1pn5szuis","taskType":1,"barcode":"BoxLift-1-83","level":7,"endLocation":510312,"mkId":1,"boxType":3,"width":400,"length":500,"height":200,"weight":40,"boxAttr":1}]}}
+[14:30:49.329][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-83 to level/location: 7/510312 
+[14:30:49.330][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":105,"type":"taskGenerate","body":{"taskList":[{"wmsId":"nyd3ag6lvw44","taskType":1,"barcode":"BoxLift-1-84","level":7,"endLocation":610288,"mkId":1,"boxType":3,"width":400,"length":400,"height":400,"weight":30,"boxAttr":2}]}}
+[14:30:49.430][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-84 to level/location: 7/610288 
+[14:30:49.430][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":106,"type":"taskGenerate","body":{"taskList":[{"wmsId":"gzr20jkfd2g0","taskType":1,"barcode":"BoxLift-1-85","level":7,"endLocation":710387,"mkId":1,"boxType":2,"width":300,"length":400,"height":300,"weight":20,"boxAttr":2}]}}
+[14:30:49.530][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-85 to level/location: 7/710387 
+[14:30:49.531][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":107,"type":"taskGenerate","body":{"taskList":[{"wmsId":"r505gx864ae8","taskType":1,"barcode":"BoxLift-1-86","level":7,"endLocation":810447,"mkId":1,"boxType":2,"width":400,"length":600,"height":200,"weight":50,"boxAttr":1}]}}
+[14:30:49.632][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-86 to level/location: 7/810447 
+[14:30:49.633][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":108,"type":"taskGenerate","body":{"taskList":[{"wmsId":"dzb4cp3ya83r","taskType":1,"barcode":"BoxLift-1-87","level":7,"endLocation":910197,"mkId":1,"boxType":1,"width":500,"length":400,"height":400,"weight":40,"boxAttr":2}]}}
+[14:30:49.733][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-87 to level/location: 7/910197 
+[14:30:49.734][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":109,"type":"taskGenerate","body":{"taskList":[{"wmsId":"dy2a4v61wvwd","taskType":1,"barcode":"BoxLift-1-88","level":7,"endLocation":1010207,"mkId":1,"boxType":1,"width":600,"length":500,"height":400,"weight":40,"boxAttr":3}]}}
+[14:30:49.834][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-88 to level/location: 7/1010207 
+[14:30:49.835][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":110,"type":"taskGenerate","body":{"taskList":[{"wmsId":"oh4adzw2w1qf","taskType":1,"barcode":"BoxLift-1-89","level":7,"endLocation":1110117,"mkId":1,"boxType":2,"width":600,"length":500,"height":300,"weight":30,"boxAttr":1}]}}
+[14:30:49.938][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-89 to level/location: 7/1110117 
+[14:30:49.939][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":111,"type":"taskGenerate","body":{"taskList":[{"wmsId":"drt7qgo88ni6","taskType":1,"barcode":"BoxLift-1-90","level":7,"endLocation":1210331,"mkId":1,"boxType":3,"width":500,"length":500,"height":100,"weight":30,"boxAttr":3}]}}
+[14:30:50.039][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-90 to level/location: 7/1210331 
+[14:30:50.040][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":112,"type":"taskGenerate","body":{"taskList":[{"wmsId":"la2y9xn31qwm","taskType":1,"barcode":"BoxLift-1-91","level":7,"endLocation":1310261,"mkId":1,"boxType":3,"width":400,"length":400,"height":200,"weight":50,"boxAttr":3}]}}
+[14:30:50.141][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-91 to level/location: 7/1310261 
+[14:30:50.309][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":113,"type":"taskGenerate","body":{"taskList":[{"wmsId":"99f03hu8g3d0","taskType":1,"barcode":"BoxLift-1-92","level":8,"endLocation":110197,"mkId":1,"boxType":3,"width":300,"length":300,"height":300,"weight":40,"boxAttr":2}]}}
+[14:30:50.410][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-92 to level/location: 8/110197 
+[14:30:50.411][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":114,"type":"taskGenerate","body":{"taskList":[{"wmsId":"61bqnigti7ew","taskType":1,"barcode":"BoxLift-1-93","level":8,"endLocation":210411,"mkId":1,"boxType":3,"width":500,"length":600,"height":300,"weight":50,"boxAttr":2}]}}
+[14:30:50.511][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-93 to level/location: 8/210411 
+[14:30:50.511][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":115,"type":"taskGenerate","body":{"taskList":[{"wmsId":"in8fwf9jcgom","taskType":1,"barcode":"BoxLift-1-94","level":8,"endLocation":310217,"mkId":1,"boxType":1,"width":300,"length":500,"height":400,"weight":20,"boxAttr":3}]}}
+[14:30:50.612][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-94 to level/location: 8/310217 
+[14:30:50.613][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":116,"type":"taskGenerate","body":{"taskList":[{"wmsId":"y7f4l8rlj20c","taskType":1,"barcode":"BoxLift-1-95","level":8,"endLocation":410178,"mkId":1,"boxType":2,"width":400,"length":300,"height":400,"weight":30,"boxAttr":3}]}}
+[14:30:50.714][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-95 to level/location: 8/410178 
+[14:30:50.715][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":117,"type":"taskGenerate","body":{"taskList":[{"wmsId":"qj7xlun2xldz","taskType":1,"barcode":"BoxLift-1-96","level":8,"endLocation":510262,"mkId":1,"boxType":2,"width":600,"length":300,"height":200,"weight":40,"boxAttr":3}]}}
+[14:30:50.815][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-96 to level/location: 8/510262 
+[14:30:50.816][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":118,"type":"taskGenerate","body":{"taskList":[{"wmsId":"bc2aiqqfqvvi","taskType":1,"barcode":"BoxLift-1-97","level":8,"endLocation":610227,"mkId":1,"boxType":1,"width":400,"length":500,"height":300,"weight":20,"boxAttr":3}]}}
+[14:30:50.917][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-97 to level/location: 8/610227 
+[14:30:50.918][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":119,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wxmnji5s79ht","taskType":1,"barcode":"BoxLift-1-98","level":8,"endLocation":710208,"mkId":1,"boxType":1,"width":300,"length":700,"height":100,"weight":50,"boxAttr":1}]}}
+[14:30:51.018][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-98 to level/location: 8/710208 
+[14:30:51.019][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":120,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kutii2ewm4bt","taskType":1,"barcode":"BoxLift-1-99","level":8,"endLocation":810347,"mkId":1,"boxType":2,"width":500,"length":500,"height":100,"weight":20,"boxAttr":2}]}}
+[14:30:51.120][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-99 to level/location: 8/810347 
+[14:30:51.121][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":121,"type":"taskGenerate","body":{"taskList":[{"wmsId":"8vumk9spdoas","taskType":1,"barcode":"BoxLift-1-100","level":8,"endLocation":910468,"mkId":1,"boxType":3,"width":500,"length":700,"height":400,"weight":40,"boxAttr":3}]}}
+[14:30:51.221][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-100 to level/location: 8/910468 
+[14:30:51.222][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":122,"type":"taskGenerate","body":{"taskList":[{"wmsId":"clzh3tfa0c37","taskType":1,"barcode":"BoxLift-1-101","level":8,"endLocation":1010132,"mkId":1,"boxType":2,"width":400,"length":300,"height":100,"weight":30,"boxAttr":1}]}}
+[14:30:51.322][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-101 to level/location: 8/1010132 
+[14:30:51.323][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":123,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ida7eriq893o","taskType":1,"barcode":"BoxLift-1-102","level":8,"endLocation":1110398,"mkId":1,"boxType":3,"width":300,"length":300,"height":300,"weight":40,"boxAttr":1}]}}
+[14:30:51.424][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-102 to level/location: 8/1110398 
+[14:30:51.424][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":124,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rwo9gu2n850q","taskType":1,"barcode":"BoxLift-1-103","level":8,"endLocation":1210122,"mkId":1,"boxType":2,"width":300,"length":600,"height":400,"weight":30,"boxAttr":2}]}}
+[14:30:51.524][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-103 to level/location: 8/1210122 
+[14:30:51.524][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":125,"type":"taskGenerate","body":{"taskList":[{"wmsId":"9tngafvwk5s2","taskType":1,"barcode":"BoxLift-1-104","level":8,"endLocation":1310272,"mkId":1,"boxType":1,"width":600,"length":500,"height":200,"weight":30,"boxAttr":3}]}}
+[14:30:51.625][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-104 to level/location: 8/1310272 
+[14:30:51.744][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":126,"type":"taskGenerate","body":{"taskList":[{"wmsId":"txrr2qk1625b","taskType":1,"barcode":"BoxLift-1-105","level":9,"endLocation":110291,"mkId":1,"boxType":3,"width":500,"length":500,"height":300,"weight":30,"boxAttr":1}]}}
+[14:30:51.844][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-105 to level/location: 9/110291 
+[14:30:51.845][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":127,"type":"taskGenerate","body":{"taskList":[{"wmsId":"0c2ixejdqxie","taskType":1,"barcode":"BoxLift-1-106","level":9,"endLocation":210141,"mkId":1,"boxType":2,"width":600,"length":400,"height":100,"weight":50,"boxAttr":3}]}}
+[14:30:51.946][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-106 to level/location: 9/210141 
+[14:30:51.947][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":128,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ad174hqxk7we","taskType":1,"barcode":"BoxLift-1-107","level":9,"endLocation":310467,"mkId":1,"boxType":1,"width":400,"length":300,"height":400,"weight":10,"boxAttr":3}]}}
+[14:30:52.048][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-107 to level/location: 9/310467 
+[14:30:52.049][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":129,"type":"taskGenerate","body":{"taskList":[{"wmsId":"797s5c9uba0u","taskType":1,"barcode":"BoxLift-1-108","level":9,"endLocation":410481,"mkId":1,"boxType":1,"width":500,"length":400,"height":400,"weight":30,"boxAttr":2}]}}
+[14:30:52.150][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-108 to level/location: 9/410481 
+[14:30:52.150][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":130,"type":"taskGenerate","body":{"taskList":[{"wmsId":"qqwoybqnlyc7","taskType":1,"barcode":"BoxLift-1-109","level":9,"endLocation":510438,"mkId":1,"boxType":1,"width":300,"length":700,"height":400,"weight":50,"boxAttr":2}]}}
+[14:30:52.250][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-109 to level/location: 9/510438 
+[14:30:52.251][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":131,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ndld0gres59u","taskType":1,"barcode":"BoxLift-1-110","level":9,"endLocation":610277,"mkId":1,"boxType":1,"width":300,"length":400,"height":400,"weight":50,"boxAttr":3}]}}
+[14:30:52.351][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-110 to level/location: 9/610277 
+[14:30:52.352][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":132,"type":"taskGenerate","body":{"taskList":[{"wmsId":"so6ff4nzu8to","taskType":1,"barcode":"BoxLift-1-111","level":9,"endLocation":710218,"mkId":1,"boxType":2,"width":400,"length":300,"height":400,"weight":50,"boxAttr":2}]}}
+[14:30:52.453][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-111 to level/location: 9/710218 
+[14:30:52.454][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":133,"type":"taskGenerate","body":{"taskList":[{"wmsId":"s8zky9yltq7s","taskType":1,"barcode":"BoxLift-1-112","level":9,"endLocation":810267,"mkId":1,"boxType":1,"width":300,"length":600,"height":100,"weight":30,"boxAttr":1}]}}
+[14:30:52.554][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-112 to level/location: 9/810267 
+[14:30:52.555][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":134,"type":"taskGenerate","body":{"taskList":[{"wmsId":"imh83nzi436z","taskType":1,"barcode":"BoxLift-1-113","level":9,"endLocation":910147,"mkId":1,"boxType":3,"width":300,"length":600,"height":400,"weight":40,"boxAttr":2}]}}
+[14:30:52.656][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-113 to level/location: 9/910147 
+[14:30:52.656][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":135,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ul8bw6shj2jd","taskType":1,"barcode":"BoxLift-1-114","level":9,"endLocation":1010387,"mkId":1,"boxType":3,"width":600,"length":400,"height":400,"weight":40,"boxAttr":3}]}}
+[14:30:52.756][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-114 to level/location: 9/1010387 
+[14:30:52.757][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":136,"type":"taskGenerate","body":{"taskList":[{"wmsId":"9muaofrsmvhl","taskType":1,"barcode":"BoxLift-1-115","level":9,"endLocation":1110288,"mkId":1,"boxType":1,"width":500,"length":400,"height":200,"weight":10,"boxAttr":2}]}}
+[14:30:52.857][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-115 to level/location: 9/1110288 
+[14:30:52.858][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":137,"type":"taskGenerate","body":{"taskList":[{"wmsId":"vcxjzhou4gvp","taskType":1,"barcode":"BoxLift-1-116","level":9,"endLocation":1210328,"mkId":1,"boxType":2,"width":400,"length":700,"height":100,"weight":30,"boxAttr":1}]}}
+[14:30:52.958][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-116 to level/location: 9/1210328 
+[14:30:52.958][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":138,"type":"taskGenerate","body":{"taskList":[{"wmsId":"xy8amq7b24ic","taskType":1,"barcode":"BoxLift-1-117","level":9,"endLocation":1310262,"mkId":1,"boxType":3,"width":400,"length":600,"height":400,"weight":30,"boxAttr":1}]}}
+[14:30:53.059][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-117 to level/location: 9/1310262 
+[14:30:53.172][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":139,"type":"taskGenerate","body":{"taskList":[{"wmsId":"7og20vzusrr3","taskType":1,"barcode":"BoxLift-1-118","level":10,"endLocation":110441,"mkId":1,"boxType":3,"width":600,"length":600,"height":400,"weight":20,"boxAttr":1}]}}
+[14:30:53.272][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-118 to level/location: 10/110441 
+[14:30:53.273][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":140,"type":"taskGenerate","body":{"taskList":[{"wmsId":"8atw5ffnyswa","taskType":1,"barcode":"BoxLift-1-119","level":10,"endLocation":210128,"mkId":1,"boxType":3,"width":600,"length":600,"height":100,"weight":50,"boxAttr":1}]}}
+[14:30:53.373][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-119 to level/location: 10/210128 
+[14:30:53.374][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":141,"type":"taskGenerate","body":{"taskList":[{"wmsId":"6w2slpq5dd1y","taskType":1,"barcode":"BoxLift-1-120","level":10,"endLocation":310348,"mkId":1,"boxType":2,"width":400,"length":500,"height":200,"weight":40,"boxAttr":1}]}}
+[14:30:53.474][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-120 to level/location: 10/310348 
+[14:30:53.474][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":142,"type":"taskGenerate","body":{"taskList":[{"wmsId":"5vd9bobxefzl","taskType":1,"barcode":"BoxLift-1-121","level":10,"endLocation":410122,"mkId":1,"boxType":1,"width":600,"length":700,"height":300,"weight":40,"boxAttr":1}]}}
+[14:30:53.575][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-121 to level/location: 10/410122 
+[14:30:53.576][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":143,"type":"taskGenerate","body":{"taskList":[{"wmsId":"emmss0agn00f","taskType":1,"barcode":"BoxLift-1-122","level":10,"endLocation":510447,"mkId":1,"boxType":3,"width":300,"length":500,"height":100,"weight":30,"boxAttr":3}]}}
+[14:30:53.676][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-122 to level/location: 10/510447 
+[14:30:53.677][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":144,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3fh9fkc3cyze","taskType":1,"barcode":"BoxLift-1-123","level":10,"endLocation":610248,"mkId":1,"boxType":2,"width":300,"length":600,"height":400,"weight":50,"boxAttr":2}]}}
+[14:30:53.778][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-123 to level/location: 10/610248 
+[14:30:53.779][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":145,"type":"taskGenerate","body":{"taskList":[{"wmsId":"hm6voesnczf4","taskType":1,"barcode":"BoxLift-1-124","level":10,"endLocation":710407,"mkId":1,"boxType":1,"width":300,"length":600,"height":200,"weight":50,"boxAttr":3}]}}
+[14:30:53.879][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-124 to level/location: 10/710407 
+[14:30:53.879][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":146,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ug3cpucasvdm","taskType":1,"barcode":"BoxLift-1-125","level":10,"endLocation":810277,"mkId":1,"boxType":3,"width":300,"length":300,"height":100,"weight":10,"boxAttr":3}]}}
+[14:30:53.979][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-125 to level/location: 10/810277 
+[14:30:53.980][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":147,"type":"taskGenerate","body":{"taskList":[{"wmsId":"oy72rmjaiyjq","taskType":1,"barcode":"BoxLift-1-126","level":10,"endLocation":910381,"mkId":1,"boxType":2,"width":500,"length":500,"height":200,"weight":10,"boxAttr":2}]}}
+[14:30:54.081][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-126 to level/location: 10/910381 
+[14:30:54.082][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":148,"type":"taskGenerate","body":{"taskList":[{"wmsId":"qd3k5coqyggo","taskType":1,"barcode":"BoxLift-1-127","level":10,"endLocation":1010147,"mkId":1,"boxType":2,"width":500,"length":500,"height":200,"weight":20,"boxAttr":3}]}}
+[14:30:54.182][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-127 to level/location: 10/1010147 
+[14:30:54.182][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":149,"type":"taskGenerate","body":{"taskList":[{"wmsId":"pcyghroebnnz","taskType":1,"barcode":"BoxLift-1-128","level":10,"endLocation":1110408,"mkId":1,"boxType":3,"width":500,"length":600,"height":100,"weight":40,"boxAttr":1}]}}
+[14:30:54.283][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-128 to level/location: 10/1110408 
+[14:30:54.284][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":150,"type":"taskGenerate","body":{"taskList":[{"wmsId":"gtoynk8mg3bs","taskType":1,"barcode":"BoxLift-1-129","level":10,"endLocation":1210392,"mkId":1,"boxType":2,"width":500,"length":300,"height":300,"weight":30,"boxAttr":3}]}}
+[14:30:54.384][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-129 to level/location: 10/1210392 
+[14:30:54.385][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":151,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kvcl13m801kx","taskType":1,"barcode":"BoxLift-1-130","level":10,"endLocation":1310298,"mkId":1,"boxType":2,"width":600,"length":500,"height":200,"weight":50,"boxAttr":3}]}}
+[14:30:54.485][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-130 to level/location: 10/1310298 
+[14:30:54.594][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":152,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3lvim8zn3t7i","taskType":1,"barcode":"BoxLift-1-131","level":11,"endLocation":110217,"mkId":1,"boxType":1,"width":300,"length":700,"height":400,"weight":20,"boxAttr":1}]}}
+[14:30:54.694][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-131 to level/location: 11/110217 
+[14:30:54.694][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":153,"type":"taskGenerate","body":{"taskList":[{"wmsId":"bha4ikb61w18","taskType":1,"barcode":"BoxLift-1-132","level":11,"endLocation":210191,"mkId":1,"boxType":3,"width":500,"length":700,"height":200,"weight":50,"boxAttr":2}]}}
+[14:30:54.794][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-132 to level/location: 11/210191 
+[14:30:54.794][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":154,"type":"taskGenerate","body":{"taskList":[{"wmsId":"srt33szdgmcj","taskType":1,"barcode":"BoxLift-1-133","level":11,"endLocation":310118,"mkId":1,"boxType":3,"width":500,"length":500,"height":100,"weight":40,"boxAttr":1}]}}
+[14:30:54.895][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-133 to level/location: 11/310118 
+[14:30:54.895][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":155,"type":"taskGenerate","body":{"taskList":[{"wmsId":"hx70phdlfijp","taskType":1,"barcode":"BoxLift-1-134","level":11,"endLocation":410227,"mkId":1,"boxType":2,"width":600,"length":300,"height":400,"weight":10,"boxAttr":2}]}}
+[14:30:54.996][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-134 to level/location: 11/410227 
+[14:30:54.996][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":156,"type":"taskGenerate","body":{"taskList":[{"wmsId":"a4x1qklvucjs","taskType":1,"barcode":"BoxLift-1-135","level":11,"endLocation":510361,"mkId":1,"boxType":2,"width":500,"length":600,"height":200,"weight":10,"boxAttr":3}]}}
+[14:30:55.096][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-135 to level/location: 11/510361 
+[14:30:55.096][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":157,"type":"taskGenerate","body":{"taskList":[{"wmsId":"x8mtgmgntzvu","taskType":1,"barcode":"BoxLift-1-136","level":11,"endLocation":610262,"mkId":1,"boxType":1,"width":500,"length":400,"height":300,"weight":30,"boxAttr":2}]}}
+[14:30:55.197][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-136 to level/location: 11/610262 
+[14:30:55.198][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":158,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3zwxncy91cg4","taskType":1,"barcode":"BoxLift-1-137","level":11,"endLocation":710248,"mkId":1,"boxType":3,"width":600,"length":500,"height":200,"weight":50,"boxAttr":1}]}}
+[14:30:55.299][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-137 to level/location: 11/710248 
+[14:30:55.300][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":159,"type":"taskGenerate","body":{"taskList":[{"wmsId":"6zppz3l6v0y0","taskType":1,"barcode":"BoxLift-1-138","level":11,"endLocation":810282,"mkId":1,"boxType":2,"width":600,"length":400,"height":400,"weight":50,"boxAttr":1}]}}
+[14:30:55.401][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-138 to level/location: 11/810282 
+[14:30:55.402][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":160,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3ivwpkin2z24","taskType":1,"barcode":"BoxLift-1-139","level":11,"endLocation":910467,"mkId":1,"boxType":3,"width":300,"length":500,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:55.502][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-139 to level/location: 11/910467 
+[14:30:55.503][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":161,"type":"taskGenerate","body":{"taskList":[{"wmsId":"42bw3xxnbbk1","taskType":1,"barcode":"BoxLift-1-140","level":11,"endLocation":1010318,"mkId":1,"boxType":2,"width":600,"length":700,"height":100,"weight":40,"boxAttr":2}]}}
+[14:30:55.603][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-140 to level/location: 11/1010318 
+[14:30:55.604][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":162,"type":"taskGenerate","body":{"taskList":[{"wmsId":"uo9lopyuvqc3","taskType":1,"barcode":"BoxLift-1-141","level":11,"endLocation":1110382,"mkId":1,"boxType":3,"width":600,"length":600,"height":300,"weight":20,"boxAttr":3}]}}
+[14:30:55.704][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-141 to level/location: 11/1110382 
+[14:30:55.705][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":163,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wjrc26a1c2k5","taskType":1,"barcode":"BoxLift-1-142","level":11,"endLocation":1210482,"mkId":1,"boxType":2,"width":600,"length":400,"height":400,"weight":30,"boxAttr":1}]}}
+[14:30:55.806][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-142 to level/location: 11/1210482 
+[14:30:55.807][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":164,"type":"taskGenerate","body":{"taskList":[{"wmsId":"5l7hur0ka8xv","taskType":1,"barcode":"BoxLift-1-143","level":11,"endLocation":1310398,"mkId":1,"boxType":3,"width":600,"length":600,"height":100,"weight":30,"boxAttr":2}]}}
+[14:30:55.908][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-143 to level/location: 11/1310398 
+[14:30:56.041][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":165,"type":"taskGenerate","body":{"taskList":[{"wmsId":"1mce8sanuqkt","taskType":1,"barcode":"BoxLift-1-144","level":12,"endLocation":110261,"mkId":1,"boxType":3,"width":500,"length":400,"height":200,"weight":20,"boxAttr":1}]}}
+[14:30:56.142][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-144 to level/location: 12/110261 
+[14:30:56.142][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":166,"type":"taskGenerate","body":{"taskList":[{"wmsId":"brlj4m9ye1b0","taskType":1,"barcode":"BoxLift-1-145","level":12,"endLocation":210177,"mkId":1,"boxType":1,"width":600,"length":400,"height":400,"weight":10,"boxAttr":1}]}}
+[14:30:56.243][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-145 to level/location: 12/210177 
+[14:30:56.243][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":167,"type":"taskGenerate","body":{"taskList":[{"wmsId":"h6xhd14esz90","taskType":1,"barcode":"BoxLift-1-146","level":12,"endLocation":310302,"mkId":1,"boxType":3,"width":400,"length":600,"height":300,"weight":40,"boxAttr":3}]}}
+[14:30:56.343][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-146 to level/location: 12/310302 
+[14:30:56.344][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":168,"type":"taskGenerate","body":{"taskList":[{"wmsId":"0u0taijojz00","taskType":1,"barcode":"BoxLift-1-147","level":12,"endLocation":410471,"mkId":1,"boxType":3,"width":300,"length":400,"height":400,"weight":30,"boxAttr":1}]}}
+[14:30:56.445][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-147 to level/location: 12/410471 
+[14:30:56.445][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":169,"type":"taskGenerate","body":{"taskList":[{"wmsId":"aufnjmw59cwj","taskType":1,"barcode":"BoxLift-1-148","level":12,"endLocation":510182,"mkId":1,"boxType":3,"width":500,"length":400,"height":100,"weight":40,"boxAttr":3}]}}
+[14:30:56.546][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-148 to level/location: 12/510182 
+[14:30:56.547][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":170,"type":"taskGenerate","body":{"taskList":[{"wmsId":"zjdpn7t27glq","taskType":1,"barcode":"BoxLift-1-149","level":12,"endLocation":610397,"mkId":1,"boxType":3,"width":500,"length":400,"height":100,"weight":10,"boxAttr":1}]}}
+[14:30:56.647][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-149 to level/location: 12/610397 
+[14:30:56.650][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":171,"type":"taskGenerate","body":{"taskList":[{"wmsId":"b5douod7w4dr","taskType":1,"barcode":"BoxLift-1-150","level":12,"endLocation":710158,"mkId":1,"boxType":3,"width":600,"length":600,"height":200,"weight":30,"boxAttr":1}]}}
+[14:30:56.751][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-150 to level/location: 12/710158 
+[14:30:56.752][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":172,"type":"taskGenerate","body":{"taskList":[{"wmsId":"dqkl2mejdktn","taskType":1,"barcode":"BoxLift-1-151","level":12,"endLocation":810318,"mkId":1,"boxType":1,"width":500,"length":500,"height":400,"weight":50,"boxAttr":3}]}}
+[14:30:56.852][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-151 to level/location: 12/810318 
+[14:30:56.852][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":173,"type":"taskGenerate","body":{"taskList":[{"wmsId":"w80pg67u0t3b","taskType":1,"barcode":"BoxLift-1-152","level":12,"endLocation":910148,"mkId":1,"boxType":2,"width":600,"length":500,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:56.952][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-152 to level/location: 12/910148 
+[14:30:56.953][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":174,"type":"taskGenerate","body":{"taskList":[{"wmsId":"znuyjiummpzd","taskType":1,"barcode":"BoxLift-1-153","level":12,"endLocation":1010271,"mkId":1,"boxType":3,"width":400,"length":600,"height":200,"weight":30,"boxAttr":2}]}}
+[14:30:57.054][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-153 to level/location: 12/1010271 
+[14:30:57.055][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":175,"type":"taskGenerate","body":{"taskList":[{"wmsId":"aam9dvlljcuc","taskType":1,"barcode":"BoxLift-1-154","level":12,"endLocation":1110462,"mkId":1,"boxType":1,"width":300,"length":500,"height":200,"weight":50,"boxAttr":1}]}}
+[14:30:57.156][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-154 to level/location: 12/1110462 
+[14:30:57.157][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":176,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2xo4zmdvwfrd","taskType":1,"barcode":"BoxLift-1-155","level":12,"endLocation":1210118,"mkId":1,"boxType":3,"width":300,"length":300,"height":400,"weight":50,"boxAttr":3}]}}
+[14:30:57.258][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-155 to level/location: 12/1210118 
+[14:30:57.259][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":177,"type":"taskGenerate","body":{"taskList":[{"wmsId":"d2xwkvlsf0nm","taskType":1,"barcode":"BoxLift-1-156","level":12,"endLocation":1310238,"mkId":1,"boxType":3,"width":500,"length":700,"height":100,"weight":30,"boxAttr":3}]}}
+[14:30:57.359][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-156 to level/location: 12/1310238 
+[14:30:57.474][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":178,"type":"taskGenerate","body":{"taskList":[{"wmsId":"9cx6kpsbtmpw","taskType":1,"barcode":"BoxLift-1-157","level":13,"endLocation":110307,"mkId":1,"boxType":3,"width":600,"length":500,"height":200,"weight":40,"boxAttr":1}]}}
+[14:30:57.575][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-157 to level/location: 13/110307 
+[14:30:57.575][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":179,"type":"taskGenerate","body":{"taskList":[{"wmsId":"5qymh2t3jiee","taskType":1,"barcode":"BoxLift-1-158","level":13,"endLocation":210458,"mkId":1,"boxType":3,"width":600,"length":700,"height":400,"weight":10,"boxAttr":2}]}}
+[14:30:57.676][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-158 to level/location: 13/210458 
+[14:30:57.676][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":180,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ckhllmg4sg6i","taskType":1,"barcode":"BoxLift-1-159","level":13,"endLocation":310242,"mkId":1,"boxType":2,"width":500,"length":600,"height":300,"weight":10,"boxAttr":2}]}}
+[14:30:57.778][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-159 to level/location: 13/310242 
+[14:30:57.779][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":181,"type":"taskGenerate","body":{"taskList":[{"wmsId":"swbx61gysus0","taskType":1,"barcode":"BoxLift-1-160","level":13,"endLocation":410442,"mkId":1,"boxType":3,"width":400,"length":300,"height":200,"weight":10,"boxAttr":1}]}}
+[14:30:57.880][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-160 to level/location: 13/410442 
+[14:30:57.881][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":182,"type":"taskGenerate","body":{"taskList":[{"wmsId":"jmj8zwmp7ggl","taskType":1,"barcode":"BoxLift-1-161","level":13,"endLocation":510467,"mkId":1,"boxType":3,"width":500,"length":300,"height":300,"weight":30,"boxAttr":2}]}}
+[14:30:57.981][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-161 to level/location: 13/510467 
+[14:30:57.981][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":183,"type":"taskGenerate","body":{"taskList":[{"wmsId":"c09zbee031e3","taskType":1,"barcode":"BoxLift-1-162","level":13,"endLocation":610272,"mkId":1,"boxType":2,"width":400,"length":500,"height":200,"weight":40,"boxAttr":1}]}}
+[14:30:58.082][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-162 to level/location: 13/610272 
+[14:30:58.082][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":184,"type":"taskGenerate","body":{"taskList":[{"wmsId":"lwh7qegnqmmr","taskType":1,"barcode":"BoxLift-1-163","level":13,"endLocation":710242,"mkId":1,"boxType":1,"width":500,"length":500,"height":100,"weight":40,"boxAttr":2}]}}
+[14:30:58.183][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-163 to level/location: 13/710242 
+[14:30:58.183][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":185,"type":"taskGenerate","body":{"taskList":[{"wmsId":"618eolv01h1k","taskType":1,"barcode":"BoxLift-1-164","level":13,"endLocation":810197,"mkId":1,"boxType":2,"width":400,"length":300,"height":200,"weight":20,"boxAttr":1}]}}
+[14:30:58.284][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-164 to level/location: 13/810197 
+[14:30:58.285][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":186,"type":"taskGenerate","body":{"taskList":[{"wmsId":"s4q3pjphlq0q","taskType":1,"barcode":"BoxLift-1-165","level":13,"endLocation":910307,"mkId":1,"boxType":1,"width":500,"length":700,"height":100,"weight":20,"boxAttr":3}]}}
+[14:30:58.386][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-165 to level/location: 13/910307 
+[14:30:58.386][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":187,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wu94tu299njo","taskType":1,"barcode":"BoxLift-1-166","level":13,"endLocation":1010238,"mkId":1,"boxType":3,"width":300,"length":700,"height":400,"weight":10,"boxAttr":2}]}}
+[14:30:58.486][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-166 to level/location: 13/1010238 
+[14:30:58.487][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":188,"type":"taskGenerate","body":{"taskList":[{"wmsId":"eyuphwq2ow8o","taskType":1,"barcode":"BoxLift-1-167","level":13,"endLocation":1110282,"mkId":1,"boxType":3,"width":600,"length":600,"height":200,"weight":50,"boxAttr":3}]}}
+[14:30:58.587][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-167 to level/location: 13/1110282 
+[14:30:58.587][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":189,"type":"taskGenerate","body":{"taskList":[{"wmsId":"oju9tltogx6j","taskType":1,"barcode":"BoxLift-1-168","level":13,"endLocation":1210398,"mkId":1,"boxType":1,"width":500,"length":300,"height":300,"weight":10,"boxAttr":3}]}}
+[14:30:58.687][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-168 to level/location: 13/1210398 
+[14:30:58.688][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":190,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ag24d2dbfnwo","taskType":1,"barcode":"BoxLift-1-169","level":13,"endLocation":1310187,"mkId":1,"boxType":2,"width":300,"length":400,"height":100,"weight":20,"boxAttr":2}]}}
+[14:30:58.789][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-169 to level/location: 13/1310187 
+[14:30:58.926][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":191,"type":"taskGenerate","body":{"taskList":[{"wmsId":"delheu4fmh7x","taskType":1,"barcode":"BoxLift-1-170","level":14,"endLocation":110327,"mkId":1,"boxType":3,"width":600,"length":700,"height":100,"weight":30,"boxAttr":2}]}}
+[14:30:59.027][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-170 to level/location: 14/110327 
+[14:30:59.027][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":192,"type":"taskGenerate","body":{"taskList":[{"wmsId":"90gnfdj8cpiy","taskType":1,"barcode":"BoxLift-1-171","level":14,"endLocation":210261,"mkId":1,"boxType":1,"width":600,"length":500,"height":300,"weight":50,"boxAttr":3}]}}
+[14:30:59.127][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-171 to level/location: 14/210261 
+[14:30:59.127][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":193,"type":"taskGenerate","body":{"taskList":[{"wmsId":"l3pc9dm76q84","taskType":1,"barcode":"BoxLift-1-172","level":14,"endLocation":310327,"mkId":1,"boxType":3,"width":600,"length":500,"height":300,"weight":30,"boxAttr":1}]}}
+[14:30:59.227][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-172 to level/location: 14/310327 
+[14:30:59.228][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":194,"type":"taskGenerate","body":{"taskList":[{"wmsId":"anil7h1rniz3","taskType":1,"barcode":"BoxLift-1-173","level":14,"endLocation":410192,"mkId":1,"boxType":2,"width":400,"length":700,"height":400,"weight":20,"boxAttr":3}]}}
+[14:30:59.328][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-173 to level/location: 14/410192 
+[14:30:59.329][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":195,"type":"taskGenerate","body":{"taskList":[{"wmsId":"o1kphd489bjq","taskType":1,"barcode":"BoxLift-1-174","level":14,"endLocation":510167,"mkId":1,"boxType":1,"width":300,"length":300,"height":400,"weight":50,"boxAttr":2}]}}
+[14:30:59.430][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-174 to level/location: 14/510167 
+[14:30:59.430][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":196,"type":"taskGenerate","body":{"taskList":[{"wmsId":"buowlrhvjwvt","taskType":1,"barcode":"BoxLift-1-175","level":14,"endLocation":610391,"mkId":1,"boxType":3,"width":500,"length":600,"height":300,"weight":50,"boxAttr":2}]}}
+[14:30:59.531][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-175 to level/location: 14/610391 
+[14:30:59.532][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":197,"type":"taskGenerate","body":{"taskList":[{"wmsId":"tdk95cgblskx","taskType":1,"barcode":"BoxLift-1-176","level":14,"endLocation":710437,"mkId":1,"boxType":2,"width":600,"length":600,"height":300,"weight":20,"boxAttr":2}]}}
+[14:30:59.632][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-176 to level/location: 14/710437 
+[14:30:59.633][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":198,"type":"taskGenerate","body":{"taskList":[{"wmsId":"dkmgigwhh4vp","taskType":1,"barcode":"BoxLift-1-177","level":14,"endLocation":810218,"mkId":1,"boxType":3,"width":400,"length":400,"height":100,"weight":40,"boxAttr":3}]}}
+[14:30:59.734][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-177 to level/location: 14/810218 
+[14:30:59.734][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":199,"type":"taskGenerate","body":{"taskList":[{"wmsId":"96jh9incak9f","taskType":1,"barcode":"BoxLift-1-178","level":14,"endLocation":910458,"mkId":1,"boxType":1,"width":300,"length":400,"height":300,"weight":50,"boxAttr":1}]}}
+[14:30:59.834][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-178 to level/location: 14/910458 
+[14:30:59.835][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":200,"type":"taskGenerate","body":{"taskList":[{"wmsId":"1d263udl4r7s","taskType":1,"barcode":"BoxLift-1-179","level":14,"endLocation":1010212,"mkId":1,"boxType":3,"width":600,"length":300,"height":400,"weight":40,"boxAttr":1}]}}
+[14:30:59.936][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-179 to level/location: 14/1010212 
+[14:30:59.937][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":201,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kbeoobc495iu","taskType":1,"barcode":"BoxLift-1-180","level":14,"endLocation":1110288,"mkId":1,"boxType":2,"width":400,"length":400,"height":100,"weight":30,"boxAttr":1}]}}
+[14:31:00.037][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-180 to level/location: 14/1110288 
+[14:31:00.037][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":202,"type":"taskGenerate","body":{"taskList":[{"wmsId":"teclyf0u51wq","taskType":1,"barcode":"BoxLift-1-181","level":14,"endLocation":1210358,"mkId":1,"boxType":3,"width":600,"length":300,"height":100,"weight":20,"boxAttr":2}]}}
+[14:31:00.138][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-181 to level/location: 14/1210358 
+[14:31:00.138][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":203,"type":"taskGenerate","body":{"taskList":[{"wmsId":"8nysssoaxfd6","taskType":1,"barcode":"BoxLift-1-182","level":14,"endLocation":1310441,"mkId":1,"boxType":2,"width":300,"length":600,"height":200,"weight":30,"boxAttr":2}]}}
+[14:31:00.238][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-182 to level/location: 14/1310441 
+[14:31:00.409][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":204,"type":"taskGenerate","body":{"taskList":[{"wmsId":"j8deldyfnywi","taskType":1,"barcode":"BoxLift-1-183","level":15,"endLocation":110437,"mkId":1,"boxType":2,"width":500,"length":700,"height":200,"weight":30,"boxAttr":2}]}}
+[14:31:00.510][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-183 to level/location: 15/110437 
+[14:31:00.510][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":205,"type":"taskGenerate","body":{"taskList":[{"wmsId":"jfiyq71ba95i","taskType":1,"barcode":"BoxLift-1-184","level":15,"endLocation":210431,"mkId":1,"boxType":3,"width":500,"length":500,"height":100,"weight":40,"boxAttr":3}]}}
+[14:31:00.610][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-184 to level/location: 15/210431 
+[14:31:00.611][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":206,"type":"taskGenerate","body":{"taskList":[{"wmsId":"do32q1tpmf80","taskType":1,"barcode":"BoxLift-1-185","level":15,"endLocation":310228,"mkId":1,"boxType":1,"width":400,"length":600,"height":100,"weight":30,"boxAttr":2}]}}
+[14:31:00.711][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-185 to level/location: 15/310228 
+[14:31:00.712][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":207,"type":"taskGenerate","body":{"taskList":[{"wmsId":"pro1kml1ftpb","taskType":1,"barcode":"BoxLift-1-186","level":15,"endLocation":410481,"mkId":1,"boxType":1,"width":600,"length":600,"height":400,"weight":30,"boxAttr":3}]}}
+[14:31:00.812][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-186 to level/location: 15/410481 
+[14:31:00.813][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":208,"type":"taskGenerate","body":{"taskList":[{"wmsId":"komu4p7f4hnp","taskType":1,"barcode":"BoxLift-1-187","level":15,"endLocation":510168,"mkId":1,"boxType":1,"width":400,"length":600,"height":100,"weight":10,"boxAttr":3}]}}
+[14:31:00.914][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-187 to level/location: 15/510168 
+[14:31:00.915][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":209,"type":"taskGenerate","body":{"taskList":[{"wmsId":"83ixe38ey0gh","taskType":1,"barcode":"BoxLift-1-188","level":15,"endLocation":610182,"mkId":1,"boxType":1,"width":600,"length":300,"height":100,"weight":50,"boxAttr":1}]}}
+[14:31:01.015][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-188 to level/location: 15/610182 
+[14:31:01.016][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":210,"type":"taskGenerate","body":{"taskList":[{"wmsId":"519y93l64246","taskType":1,"barcode":"BoxLift-1-189","level":15,"endLocation":710247,"mkId":1,"boxType":1,"width":300,"length":600,"height":300,"weight":30,"boxAttr":2}]}}
+[14:31:01.116][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-189 to level/location: 15/710247 
+[14:31:01.117][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":211,"type":"taskGenerate","body":{"taskList":[{"wmsId":"h0b9dn66hhyj","taskType":1,"barcode":"BoxLift-1-190","level":15,"endLocation":810322,"mkId":1,"boxType":2,"width":400,"length":600,"height":200,"weight":50,"boxAttr":1}]}}
+[14:31:01.218][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-190 to level/location: 15/810322 
+[14:31:01.219][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":212,"type":"taskGenerate","body":{"taskList":[{"wmsId":"50f29i94qkk6","taskType":1,"barcode":"BoxLift-1-191","level":15,"endLocation":910208,"mkId":1,"boxType":1,"width":600,"length":400,"height":200,"weight":50,"boxAttr":1}]}}
+[14:31:01.319][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-191 to level/location: 15/910208 
+[14:31:01.320][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":213,"type":"taskGenerate","body":{"taskList":[{"wmsId":"04qnnh20e9cd","taskType":1,"barcode":"BoxLift-1-192","level":15,"endLocation":1010381,"mkId":1,"boxType":2,"width":400,"length":300,"height":100,"weight":30,"boxAttr":1}]}}
+[14:31:01.420][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-192 to level/location: 15/1010381 
+[14:31:01.420][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":214,"type":"taskGenerate","body":{"taskList":[{"wmsId":"6rwhud5iuzya","taskType":1,"barcode":"BoxLift-1-193","level":15,"endLocation":1110131,"mkId":1,"boxType":3,"width":400,"length":500,"height":300,"weight":10,"boxAttr":1}]}}
+[14:31:01.522][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-193 to level/location: 15/1110131 
+[14:31:01.523][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":215,"type":"taskGenerate","body":{"taskList":[{"wmsId":"yatvugv2sna1","taskType":1,"barcode":"BoxLift-1-194","level":15,"endLocation":1210238,"mkId":1,"boxType":3,"width":400,"length":300,"height":200,"weight":20,"boxAttr":1}]}}
+[14:31:01.623][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-194 to level/location: 15/1210238 
+[14:31:01.624][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":216,"type":"taskGenerate","body":{"taskList":[{"wmsId":"9yvtswdrdeiy","taskType":1,"barcode":"BoxLift-1-195","level":15,"endLocation":1310477,"mkId":1,"boxType":3,"width":500,"length":700,"height":200,"weight":20,"boxAttr":2}]}}
+[14:31:01.724][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-195 to level/location: 15/1310477 
+[14:31:01.914][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":217,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ihs17gjfj3wh","taskType":1,"barcode":"BoxLift-1-196","level":16,"endLocation":110447,"mkId":1,"boxType":2,"width":500,"length":700,"height":300,"weight":20,"boxAttr":1}]}}
+[14:31:02.014][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-196 to level/location: 16/110447 
+[14:31:02.015][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":218,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rha24q3q8yhb","taskType":1,"barcode":"BoxLift-1-197","level":16,"endLocation":210191,"mkId":1,"boxType":3,"width":400,"length":400,"height":100,"weight":30,"boxAttr":3}]}}
+[14:31:02.115][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-197 to level/location: 16/210191 
+[14:31:02.116][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":219,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rrg4kidbi0bd","taskType":1,"barcode":"BoxLift-1-198","level":16,"endLocation":310157,"mkId":1,"boxType":2,"width":600,"length":300,"height":100,"weight":10,"boxAttr":2}]}}
+[14:31:02.217][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-198 to level/location: 16/310157 
+[14:31:02.218][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":220,"type":"taskGenerate","body":{"taskList":[{"wmsId":"x958hv1qpaad","taskType":1,"barcode":"BoxLift-1-199","level":16,"endLocation":410111,"mkId":1,"boxType":2,"width":500,"length":600,"height":200,"weight":40,"boxAttr":1}]}}
+[14:31:02.319][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-199 to level/location: 16/410111 
+[14:31:02.320][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":221,"type":"taskGenerate","body":{"taskList":[{"wmsId":"gbg6ilkn1y9a","taskType":1,"barcode":"BoxLift-1-200","level":16,"endLocation":510347,"mkId":1,"boxType":2,"width":500,"length":500,"height":400,"weight":40,"boxAttr":2}]}}
+[14:31:02.421][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-200 to level/location: 16/510347 
+[14:31:02.422][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":222,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3djsqjt9u6za","taskType":1,"barcode":"BoxLift-1-201","level":16,"endLocation":610468,"mkId":1,"boxType":3,"width":500,"length":700,"height":400,"weight":50,"boxAttr":1}]}}
+[14:31:02.523][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-201 to level/location: 16/610468 
+[14:31:02.524][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":223,"type":"taskGenerate","body":{"taskList":[{"wmsId":"d5wyvw0b2ny8","taskType":1,"barcode":"BoxLift-1-202","level":16,"endLocation":710271,"mkId":1,"boxType":3,"width":600,"length":500,"height":100,"weight":20,"boxAttr":2}]}}
+[14:31:02.624][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-202 to level/location: 16/710271 
+[14:31:02.625][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":224,"type":"taskGenerate","body":{"taskList":[{"wmsId":"y14na29w33jr","taskType":1,"barcode":"BoxLift-1-203","level":16,"endLocation":810148,"mkId":1,"boxType":2,"width":400,"length":500,"height":100,"weight":10,"boxAttr":2}]}}
+[14:31:02.726][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-203 to level/location: 16/810148 
+[14:31:02.727][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":225,"type":"taskGenerate","body":{"taskList":[{"wmsId":"irq9d3av4pqs","taskType":1,"barcode":"BoxLift-1-204","level":16,"endLocation":910467,"mkId":1,"boxType":1,"width":600,"length":700,"height":200,"weight":30,"boxAttr":2}]}}
+[14:31:02.827][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-204 to level/location: 16/910467 
+[14:31:02.827][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":226,"type":"taskGenerate","body":{"taskList":[{"wmsId":"lmy3s8smqs1q","taskType":1,"barcode":"BoxLift-1-205","level":16,"endLocation":1010472,"mkId":1,"boxType":3,"width":300,"length":400,"height":100,"weight":10,"boxAttr":2}]}}
+[14:31:02.928][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-205 to level/location: 16/1010472 
+[14:31:02.929][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":227,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ncp04ir42kal","taskType":1,"barcode":"BoxLift-1-206","level":16,"endLocation":1110468,"mkId":1,"boxType":1,"width":300,"length":600,"height":300,"weight":20,"boxAttr":3}]}}
+[14:31:03.029][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-206 to level/location: 16/1110468 
+[14:31:03.029][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":228,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rcjhfl4wg0b5","taskType":1,"barcode":"BoxLift-1-207","level":16,"endLocation":1210232,"mkId":1,"boxType":3,"width":600,"length":400,"height":200,"weight":20,"boxAttr":1}]}}
+[14:31:03.130][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-207 to level/location: 16/1210232 
+[14:31:03.131][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":229,"type":"taskGenerate","body":{"taskList":[{"wmsId":"gstynsl45ex3","taskType":1,"barcode":"BoxLift-1-208","level":16,"endLocation":1310147,"mkId":1,"boxType":3,"width":300,"length":700,"height":400,"weight":50,"boxAttr":2}]}}
+[14:31:03.231][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-208 to level/location: 16/1310147 
+[14:31:03.735][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":230,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ia71apftx8zf","taskType":1,"barcode":"BoxLift-1-209","level":17,"endLocation":110201,"mkId":1,"boxType":3,"width":400,"length":400,"height":400,"weight":20,"boxAttr":3}]}}
+[14:31:03.835][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-209 to level/location: 17/110201 
+[14:31:03.835][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":231,"type":"taskGenerate","body":{"taskList":[{"wmsId":"304hm75c93yd","taskType":1,"barcode":"BoxLift-1-210","level":17,"endLocation":210468,"mkId":1,"boxType":2,"width":400,"length":600,"height":400,"weight":40,"boxAttr":3}]}}
+[14:31:03.936][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-210 to level/location: 17/210468 
+[14:31:03.936][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":232,"type":"taskGenerate","body":{"taskList":[{"wmsId":"e2wagvfr2g0m","taskType":1,"barcode":"BoxLift-1-211","level":17,"endLocation":310441,"mkId":1,"boxType":1,"width":300,"length":300,"height":100,"weight":40,"boxAttr":2}]}}
+[14:31:04.037][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-211 to level/location: 17/310441 
+[14:31:04.038][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":233,"type":"taskGenerate","body":{"taskList":[{"wmsId":"qten4ql0sge5","taskType":1,"barcode":"BoxLift-1-212","level":17,"endLocation":410218,"mkId":1,"boxType":1,"width":300,"length":400,"height":200,"weight":50,"boxAttr":2}]}}
+[14:31:04.139][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-212 to level/location: 17/410218 
+[14:31:04.140][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":234,"type":"taskGenerate","body":{"taskList":[{"wmsId":"b4wtdgmjuq4c","taskType":1,"barcode":"BoxLift-1-213","level":17,"endLocation":510152,"mkId":1,"boxType":3,"width":300,"length":500,"height":300,"weight":10,"boxAttr":3}]}}
+[14:31:04.241][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-213 to level/location: 17/510152 
+[14:31:04.241][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":235,"type":"taskGenerate","body":{"taskList":[{"wmsId":"c0tg0uofp3ih","taskType":1,"barcode":"BoxLift-1-214","level":17,"endLocation":610381,"mkId":1,"boxType":2,"width":300,"length":600,"height":400,"weight":10,"boxAttr":1}]}}
+[14:31:04.341][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-214 to level/location: 17/610381 
+[14:31:04.342][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":236,"type":"taskGenerate","body":{"taskList":[{"wmsId":"sb24dqgdi5r9","taskType":1,"barcode":"BoxLift-1-215","level":17,"endLocation":710252,"mkId":1,"boxType":2,"width":400,"length":600,"height":200,"weight":10,"boxAttr":2}]}}
+[14:31:04.442][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-215 to level/location: 17/710252 
+[14:31:04.443][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":237,"type":"taskGenerate","body":{"taskList":[{"wmsId":"vgwudrf4bya3","taskType":1,"barcode":"BoxLift-1-216","level":17,"endLocation":810461,"mkId":1,"boxType":1,"width":600,"length":400,"height":300,"weight":10,"boxAttr":1}]}}
+[14:31:04.543][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-216 to level/location: 17/810461 
+[14:31:04.544][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":238,"type":"taskGenerate","body":{"taskList":[{"wmsId":"s2aeqjkidnfp","taskType":1,"barcode":"BoxLift-1-217","level":17,"endLocation":910151,"mkId":1,"boxType":2,"width":600,"length":700,"height":300,"weight":40,"boxAttr":2}]}}
+[14:31:04.645][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-217 to level/location: 17/910151 
+[14:31:04.645][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":239,"type":"taskGenerate","body":{"taskList":[{"wmsId":"y0sy0vyn6po9","taskType":1,"barcode":"BoxLift-1-218","level":17,"endLocation":1010421,"mkId":1,"boxType":2,"width":400,"length":300,"height":300,"weight":40,"boxAttr":3}]}}
+[14:31:04.746][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-218 to level/location: 17/1010421 
+[14:31:04.747][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":240,"type":"taskGenerate","body":{"taskList":[{"wmsId":"4omjtudmh2f2","taskType":1,"barcode":"BoxLift-1-219","level":17,"endLocation":1110482,"mkId":1,"boxType":3,"width":600,"length":500,"height":200,"weight":20,"boxAttr":1}]}}
+[14:31:04.847][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-219 to level/location: 17/1110482 
+[14:31:04.848][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":241,"type":"taskGenerate","body":{"taskList":[{"wmsId":"hv3qizajh2hw","taskType":1,"barcode":"BoxLift-1-220","level":17,"endLocation":1210298,"mkId":1,"boxType":2,"width":300,"length":300,"height":300,"weight":50,"boxAttr":3}]}}
+[14:31:04.948][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-220 to level/location: 17/1210298 
+[14:31:04.950][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":242,"type":"taskGenerate","body":{"taskList":[{"wmsId":"7qdd127qpus6","taskType":1,"barcode":"BoxLift-1-221","level":17,"endLocation":1310311,"mkId":1,"boxType":2,"width":400,"length":500,"height":400,"weight":30,"boxAttr":1}]}}
+[14:31:05.050][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-221 to level/location: 17/1310311 
+[14:31:05.324][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":243,"type":"taskGenerate","body":{"taskList":[{"wmsId":"kgv9wduu49j6","taskType":1,"barcode":"BoxLift-1-222","level":18,"endLocation":110381,"mkId":1,"boxType":1,"width":600,"length":300,"height":200,"weight":40,"boxAttr":1}]}}
+[14:31:05.424][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-222 to level/location: 18/110381 
+[14:31:05.424][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":244,"type":"taskGenerate","body":{"taskList":[{"wmsId":"hqhsinkqjrj9","taskType":1,"barcode":"BoxLift-1-223","level":18,"endLocation":210201,"mkId":1,"boxType":2,"width":500,"length":500,"height":400,"weight":50,"boxAttr":2}]}}
+[14:31:05.526][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-223 to level/location: 18/210201 
+[14:31:05.526][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":245,"type":"taskGenerate","body":{"taskList":[{"wmsId":"wvo31fv1gjgx","taskType":1,"barcode":"BoxLift-1-224","level":18,"endLocation":310111,"mkId":1,"boxType":1,"width":300,"length":500,"height":200,"weight":10,"boxAttr":3}]}}
+[14:31:05.626][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-224 to level/location: 18/310111 
+[14:31:05.626][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":246,"type":"taskGenerate","body":{"taskList":[{"wmsId":"33yr2p1isqes","taskType":1,"barcode":"BoxLift-1-225","level":18,"endLocation":410122,"mkId":1,"boxType":3,"width":500,"length":400,"height":400,"weight":50,"boxAttr":2}]}}
+[14:31:05.726][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-225 to level/location: 18/410122 
+[14:31:05.726][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":247,"type":"taskGenerate","body":{"taskList":[{"wmsId":"658nj496epfh","taskType":1,"barcode":"BoxLift-1-226","level":18,"endLocation":510397,"mkId":1,"boxType":1,"width":300,"length":500,"height":100,"weight":30,"boxAttr":3}]}}
+[14:31:05.827][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-226 to level/location: 18/510397 
+[14:31:05.827][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":248,"type":"taskGenerate","body":{"taskList":[{"wmsId":"7bd3c7c01zqs","taskType":1,"barcode":"BoxLift-1-227","level":18,"endLocation":610301,"mkId":1,"boxType":2,"width":400,"length":500,"height":400,"weight":30,"boxAttr":2}]}}
+[14:31:05.928][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-227 to level/location: 18/610301 
+[14:31:05.928][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":249,"type":"taskGenerate","body":{"taskList":[{"wmsId":"u9n2ku4mziws","taskType":1,"barcode":"BoxLift-1-228","level":18,"endLocation":710138,"mkId":1,"boxType":1,"width":600,"length":600,"height":400,"weight":30,"boxAttr":1}]}}
+[14:31:06.029][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-228 to level/location: 18/710138 
+[14:31:06.030][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":250,"type":"taskGenerate","body":{"taskList":[{"wmsId":"vy5kwpephdot","taskType":1,"barcode":"BoxLift-1-229","level":18,"endLocation":810387,"mkId":1,"boxType":2,"width":500,"length":600,"height":300,"weight":40,"boxAttr":2}]}}
+[14:31:06.131][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-229 to level/location: 18/810387 
+[14:31:06.131][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":251,"type":"taskGenerate","body":{"taskList":[{"wmsId":"489ze6rfpo4h","taskType":1,"barcode":"BoxLift-1-230","level":18,"endLocation":910442,"mkId":1,"boxType":3,"width":300,"length":600,"height":400,"weight":30,"boxAttr":1}]}}
+[14:31:06.231][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-230 to level/location: 18/910442 
+[14:31:06.231][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":252,"type":"taskGenerate","body":{"taskList":[{"wmsId":"aqh02o7z4i16","taskType":1,"barcode":"BoxLift-1-231","level":18,"endLocation":1010241,"mkId":1,"boxType":3,"width":500,"length":400,"height":400,"weight":10,"boxAttr":3}]}}
+[14:31:06.331][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-231 to level/location: 18/1010241 
+[14:31:06.332][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":253,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ksg0bktlod7i","taskType":1,"barcode":"BoxLift-1-232","level":18,"endLocation":1110377,"mkId":1,"boxType":1,"width":600,"length":500,"height":100,"weight":20,"boxAttr":2}]}}
+[14:31:06.433][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-232 to level/location: 18/1110377 
+[14:31:06.433][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":254,"type":"taskGenerate","body":{"taskList":[{"wmsId":"i8dl92qawp90","taskType":1,"barcode":"BoxLift-1-233","level":18,"endLocation":1210342,"mkId":1,"boxType":2,"width":500,"length":600,"height":200,"weight":20,"boxAttr":2}]}}
+[14:31:06.534][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-233 to level/location: 18/1210342 
+[14:31:06.534][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":255,"type":"taskGenerate","body":{"taskList":[{"wmsId":"xk1l7vqfvqwb","taskType":1,"barcode":"BoxLift-1-234","level":18,"endLocation":1310401,"mkId":1,"boxType":2,"width":400,"length":300,"height":200,"weight":10,"boxAttr":1}]}}
+[14:31:06.634][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-234 to level/location: 18/1310401 
+[14:31:06.758][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":256,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ypeozitht8r9","taskType":1,"barcode":"BoxLift-1-235","level":19,"endLocation":110167,"mkId":1,"boxType":2,"width":400,"length":300,"height":400,"weight":30,"boxAttr":2}]}}
+[14:31:06.858][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-235 to level/location: 19/110167 
+[14:31:06.858][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":257,"type":"taskGenerate","body":{"taskList":[{"wmsId":"y29mw6uftrm8","taskType":1,"barcode":"BoxLift-1-236","level":19,"endLocation":210167,"mkId":1,"boxType":3,"width":300,"length":400,"height":100,"weight":20,"boxAttr":3}]}}
+[14:31:06.959][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-236 to level/location: 19/210167 
+[14:31:06.959][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":258,"type":"taskGenerate","body":{"taskList":[{"wmsId":"m455hnbso5j8","taskType":1,"barcode":"BoxLift-1-237","level":19,"endLocation":310121,"mkId":1,"boxType":1,"width":500,"length":400,"height":200,"weight":20,"boxAttr":1}]}}
+[14:31:07.061][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-237 to level/location: 19/310121 
+[14:31:07.062][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":259,"type":"taskGenerate","body":{"taskList":[{"wmsId":"zbsmtrrow55h","taskType":1,"barcode":"BoxLift-1-238","level":19,"endLocation":410151,"mkId":1,"boxType":3,"width":600,"length":600,"height":200,"weight":10,"boxAttr":1}]}}
+[14:31:07.163][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-238 to level/location: 19/410151 
+[14:31:07.163][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":260,"type":"taskGenerate","body":{"taskList":[{"wmsId":"eeytwynmbu1m","taskType":1,"barcode":"BoxLift-1-239","level":19,"endLocation":510172,"mkId":1,"boxType":2,"width":500,"length":500,"height":200,"weight":50,"boxAttr":2}]}}
+[14:31:07.264][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-239 to level/location: 19/510172 
+[14:31:07.265][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":261,"type":"taskGenerate","body":{"taskList":[{"wmsId":"d0cf81hliqxf","taskType":1,"barcode":"BoxLift-1-240","level":19,"endLocation":610281,"mkId":1,"boxType":3,"width":300,"length":700,"height":200,"weight":20,"boxAttr":3}]}}
+[14:31:07.366][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-240 to level/location: 19/610281 
+[14:31:07.367][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":262,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ze8kiea1443j","taskType":1,"barcode":"BoxLift-1-241","level":19,"endLocation":710207,"mkId":1,"boxType":1,"width":500,"length":400,"height":400,"weight":40,"boxAttr":3}]}}
+[14:31:07.468][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-241 to level/location: 19/710207 
+[14:31:07.469][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":263,"type":"taskGenerate","body":{"taskList":[{"wmsId":"7iipwgw79tk4","taskType":1,"barcode":"BoxLift-1-242","level":19,"endLocation":810162,"mkId":1,"boxType":2,"width":400,"length":700,"height":200,"weight":20,"boxAttr":2}]}}
+[14:31:07.569][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-242 to level/location: 19/810162 
+[14:31:07.570][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":264,"type":"taskGenerate","body":{"taskList":[{"wmsId":"stfey1sisqyu","taskType":1,"barcode":"BoxLift-1-243","level":19,"endLocation":910201,"mkId":1,"boxType":2,"width":500,"length":600,"height":200,"weight":40,"boxAttr":2}]}}
+[14:31:07.670][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-243 to level/location: 19/910201 
+[14:31:07.671][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":265,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ry3lfczly7d9","taskType":1,"barcode":"BoxLift-1-244","level":19,"endLocation":1010467,"mkId":1,"boxType":3,"width":300,"length":300,"height":200,"weight":40,"boxAttr":3}]}}
+[14:31:07.772][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-244 to level/location: 19/1010467 
+[14:31:07.773][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":266,"type":"taskGenerate","body":{"taskList":[{"wmsId":"qy3wml2tz7a1","taskType":1,"barcode":"BoxLift-1-245","level":19,"endLocation":1110317,"mkId":1,"boxType":3,"width":500,"length":300,"height":200,"weight":10,"boxAttr":2}]}}
+[14:31:07.874][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-245 to level/location: 19/1110317 
+[14:31:07.875][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":267,"type":"taskGenerate","body":{"taskList":[{"wmsId":"8na26b5pnc42","taskType":1,"barcode":"BoxLift-1-246","level":19,"endLocation":1210317,"mkId":1,"boxType":1,"width":400,"length":600,"height":300,"weight":40,"boxAttr":1}]}}
+[14:31:07.975][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-246 to level/location: 19/1210317 
+[14:31:07.975][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":268,"type":"taskGenerate","body":{"taskList":[{"wmsId":"a2jommosxvsp","taskType":1,"barcode":"BoxLift-1-247","level":19,"endLocation":1310222,"mkId":1,"boxType":2,"width":500,"length":300,"height":200,"weight":40,"boxAttr":1}]}}
+[14:31:08.075][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-247 to level/location: 19/1310222 
+[14:31:08.205][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":269,"type":"taskGenerate","body":{"taskList":[{"wmsId":"bpi41ri1cclx","taskType":1,"barcode":"BoxLift-1-248","level":8,"endLocation":110411,"mkId":1,"boxType":2,"width":400,"length":500,"height":200,"weight":10,"boxAttr":3}]}}
+[14:31:08.305][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-248 to level/location: 8/110411 
+[14:31:08.305][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":270,"type":"taskGenerate","body":{"taskList":[{"wmsId":"4d5nkfr9eftr","taskType":1,"barcode":"BoxLift-1-249","level":8,"endLocation":210392,"mkId":1,"boxType":2,"width":600,"length":400,"height":200,"weight":30,"boxAttr":3}]}}
+[14:31:08.406][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-249 to level/location: 8/210392 
+[14:31:08.407][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":271,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rqc402n2lp15","taskType":1,"barcode":"BoxLift-1-250","level":8,"endLocation":310161,"mkId":1,"boxType":3,"width":500,"length":300,"height":200,"weight":20,"boxAttr":2}]}}
+[14:31:08.507][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-250 to level/location: 8/310161 
+[14:31:08.508][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":272,"type":"taskGenerate","body":{"taskList":[{"wmsId":"u9994dfau8cd","taskType":1,"barcode":"BoxLift-1-251","level":8,"endLocation":410197,"mkId":1,"boxType":1,"width":500,"length":500,"height":100,"weight":10,"boxAttr":1}]}}
+[14:31:08.609][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-251 to level/location: 8/410197 
+[14:31:08.610][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":273,"type":"taskGenerate","body":{"taskList":[{"wmsId":"r89puz8h0ehu","taskType":1,"barcode":"BoxLift-1-252","level":8,"endLocation":510421,"mkId":1,"boxType":3,"width":600,"length":400,"height":300,"weight":20,"boxAttr":2}]}}
+[14:31:08.710][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-252 to level/location: 8/510421 
+[14:31:08.712][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":274,"type":"taskGenerate","body":{"taskList":[{"wmsId":"it0l0koepgl2","taskType":1,"barcode":"BoxLift-1-253","level":8,"endLocation":610258,"mkId":1,"boxType":1,"width":600,"length":600,"height":400,"weight":30,"boxAttr":3}]}}
+[14:31:08.813][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-253 to level/location: 8/610258 
+[14:31:08.814][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":275,"type":"taskGenerate","body":{"taskList":[{"wmsId":"1eu9tsiagxwq","taskType":1,"barcode":"BoxLift-1-254","level":8,"endLocation":710392,"mkId":1,"boxType":3,"width":400,"length":400,"height":200,"weight":50,"boxAttr":3}]}}
+[14:31:08.914][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-254 to level/location: 8/710392 
+[14:31:08.915][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":276,"type":"taskGenerate","body":{"taskList":[{"wmsId":"286n9ljblzkb","taskType":1,"barcode":"BoxLift-1-255","level":8,"endLocation":810351,"mkId":1,"boxType":3,"width":500,"length":400,"height":100,"weight":10,"boxAttr":3}]}}
+[14:31:09.017][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-255 to level/location: 8/810351 
+[14:31:09.018][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":277,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rssxp5cvnz4c","taskType":1,"barcode":"BoxLift-1-256","level":8,"endLocation":910487,"mkId":1,"boxType":2,"width":600,"length":400,"height":100,"weight":20,"boxAttr":1}]}}
+[14:31:09.118][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-256 to level/location: 8/910487 
+[14:31:09.119][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":278,"type":"taskGenerate","body":{"taskList":[{"wmsId":"husys9w43z9y","taskType":1,"barcode":"BoxLift-1-257","level":8,"endLocation":1010341,"mkId":1,"boxType":3,"width":300,"length":700,"height":300,"weight":20,"boxAttr":1}]}}
+[14:31:09.220][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-257 to level/location: 8/1010341 
+[14:31:09.220][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":279,"type":"taskGenerate","body":{"taskList":[{"wmsId":"80k77cudh83a","taskType":1,"barcode":"BoxLift-1-258","level":8,"endLocation":1110211,"mkId":1,"boxType":3,"width":300,"length":500,"height":400,"weight":10,"boxAttr":3}]}}
+[14:31:09.320][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-258 to level/location: 8/1110211 
+[14:31:09.321][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":280,"type":"taskGenerate","body":{"taskList":[{"wmsId":"707dtijq5zhh","taskType":1,"barcode":"BoxLift-1-259","level":8,"endLocation":1210218,"mkId":1,"boxType":3,"width":300,"length":300,"height":200,"weight":30,"boxAttr":3}]}}
+[14:31:09.422][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-259 to level/location: 8/1210218 
+[14:31:09.423][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":281,"type":"taskGenerate","body":{"taskList":[{"wmsId":"z4cxps25fu4c","taskType":1,"barcode":"BoxLift-1-260","level":8,"endLocation":1310377,"mkId":1,"boxType":2,"width":300,"length":700,"height":100,"weight":20,"boxAttr":2}]}}
+[14:31:09.523][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-260 to level/location: 8/1310377 
+[14:31:10.067][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":282,"type":"taskGenerate","body":{"taskList":[{"wmsId":"2m3mafkkont5","taskType":1,"barcode":"BoxLift-1-261","level":9,"endLocation":110271,"mkId":1,"boxType":1,"width":300,"length":600,"height":100,"weight":50,"boxAttr":1}]}}
+[14:31:10.167][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-261 to level/location: 9/110271 
+[14:31:10.167][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":283,"type":"taskGenerate","body":{"taskList":[{"wmsId":"rofujzgs6mu4","taskType":1,"barcode":"BoxLift-1-262","level":9,"endLocation":210227,"mkId":1,"boxType":3,"width":600,"length":500,"height":200,"weight":30,"boxAttr":2}]}}
+[14:31:10.268][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-262 to level/location: 9/210227 
+[14:31:10.269][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":284,"type":"taskGenerate","body":{"taskList":[{"wmsId":"evjscyi8yn8s","taskType":1,"barcode":"BoxLift-1-263","level":9,"endLocation":310337,"mkId":1,"boxType":2,"width":500,"length":300,"height":300,"weight":20,"boxAttr":3}]}}
+[14:31:10.370][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-263 to level/location: 9/310337 
+[14:31:10.371][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":285,"type":"taskGenerate","body":{"taskList":[{"wmsId":"j5ydpf0qff8o","taskType":1,"barcode":"BoxLift-1-264","level":9,"endLocation":410487,"mkId":1,"boxType":3,"width":500,"length":700,"height":200,"weight":50,"boxAttr":1}]}}
+[14:31:10.471][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-264 to level/location: 9/410487 
+[14:31:10.471][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":286,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ayxchxnsko40","taskType":1,"barcode":"BoxLift-1-265","level":9,"endLocation":510367,"mkId":1,"boxType":3,"width":300,"length":700,"height":300,"weight":10,"boxAttr":3}]}}
+[14:31:10.572][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-265 to level/location: 9/510367 
+[14:31:44.011][WARN ][HikariPool-1 housekeeper ][com.zaxxer.hikari.pool.HikariPool$HouseKeeper      :779] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=46s30ms978µs500ns).
+[14:31:44.116][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":287,"type":"taskGenerate","body":{"taskList":[{"wmsId":"vd9sw2nydfnt","taskType":1,"barcode":"BoxLift-1-266","level":8,"endLocation":110321,"mkId":1,"boxType":2,"width":400,"length":400,"height":300,"weight":20,"boxAttr":3}]}}
+[14:31:44.217][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-266 to level/location: 8/110321 
+[14:31:44.217][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":288,"type":"taskGenerate","body":{"taskList":[{"wmsId":"h4ecvpx1rz62","taskType":1,"barcode":"BoxLift-1-267","level":8,"endLocation":210298,"mkId":1,"boxType":2,"width":600,"length":500,"height":200,"weight":30,"boxAttr":3}]}}
+[14:31:44.317][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-267 to level/location: 8/210298 
+[14:31:44.317][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":289,"type":"taskGenerate","body":{"taskList":[{"wmsId":"j9rayurwy15k","taskType":1,"barcode":"BoxLift-1-268","level":8,"endLocation":310317,"mkId":1,"boxType":3,"width":500,"length":600,"height":300,"weight":50,"boxAttr":1}]}}
+[14:31:44.417][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-268 to level/location: 8/310317 
+[14:31:44.417][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":290,"type":"taskGenerate","body":{"taskList":[{"wmsId":"ngybhfabkr32","taskType":1,"barcode":"BoxLift-1-269","level":8,"endLocation":410128,"mkId":1,"boxType":3,"width":400,"length":700,"height":300,"weight":50,"boxAttr":1}]}}
+[14:31:44.517][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-269 to level/location: 8/410128 
+[14:31:44.517][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":291,"type":"taskGenerate","body":{"taskList":[{"wmsId":"r0renxdit0lz","taskType":1,"barcode":"BoxLift-1-270","level":8,"endLocation":510432,"mkId":1,"boxType":3,"width":400,"length":600,"height":300,"weight":30,"boxAttr":1}]}}
+[14:31:44.618][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-270 to level/location: 8/510432 
+[14:31:44.618][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":292,"type":"taskGenerate","body":{"taskList":[{"wmsId":"xjdfmczrcioh","taskType":1,"barcode":"BoxLift-1-271","level":8,"endLocation":610437,"mkId":1,"boxType":3,"width":400,"length":700,"height":300,"weight":20,"boxAttr":1}]}}
+[14:31:44.719][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-271 to level/location: 8/610437 
+[14:31:44.719][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":293,"type":"taskGenerate","body":{"taskList":[{"wmsId":"hj3vevybv7k1","taskType":1,"barcode":"BoxLift-1-272","level":8,"endLocation":710118,"mkId":1,"boxType":2,"width":300,"length":300,"height":300,"weight":40,"boxAttr":1}]}}
+[14:31:44.820][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-272 to level/location: 8/710118 
+[14:31:44.820][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":294,"type":"taskGenerate","body":{"taskList":[{"wmsId":"07eq03wpehfr","taskType":1,"barcode":"BoxLift-1-273","level":8,"endLocation":810198,"mkId":1,"boxType":1,"width":500,"length":400,"height":100,"weight":10,"boxAttr":3}]}}
+[14:31:44.921][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-273 to level/location: 8/810198 
+[14:31:44.921][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":295,"type":"taskGenerate","body":{"taskList":[{"wmsId":"m0vwgvzxcr38","taskType":1,"barcode":"BoxLift-1-274","level":8,"endLocation":910111,"mkId":1,"boxType":3,"width":400,"length":600,"height":100,"weight":20,"boxAttr":3}]}}
+[14:31:45.022][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-274 to level/location: 8/910111 
+[14:31:45.024][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":296,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3tira4m23vpy","taskType":1,"barcode":"BoxLift-1-275","level":8,"endLocation":1010401,"mkId":1,"boxType":3,"width":600,"length":500,"height":400,"weight":50,"boxAttr":2}]}}
+[14:31:45.125][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-275 to level/location: 8/1010401 
+[14:31:45.125][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":297,"type":"taskGenerate","body":{"taskList":[{"wmsId":"h8kvahlnhz7q","taskType":1,"barcode":"BoxLift-1-276","level":8,"endLocation":1110181,"mkId":1,"boxType":3,"width":400,"length":700,"height":100,"weight":40,"boxAttr":3}]}}
+[14:31:45.226][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-276 to level/location: 8/1110181 
+[14:31:45.226][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":298,"type":"taskGenerate","body":{"taskList":[{"wmsId":"74gg66s7uyvg","taskType":1,"barcode":"BoxLift-1-277","level":8,"endLocation":1210121,"mkId":1,"boxType":3,"width":500,"length":700,"height":400,"weight":30,"boxAttr":1}]}}
+[14:31:45.327][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-277 to level/location: 8/1210121 
+[14:31:45.327][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":299,"type":"taskGenerate","body":{"taskList":[{"wmsId":"3il3sk4noli5","taskType":1,"barcode":"BoxLift-1-278","level":8,"endLocation":1310207,"mkId":1,"boxType":2,"width":300,"length":600,"height":200,"weight":20,"boxAttr":1}]}}
+[14:31:45.427][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-278 to level/location: 8/1310207 
+[14:31:45.494][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :379] client send : {"id":300,"type":"taskGenerate","body":{"taskList":[{"wmsId":"fc86efokzpj3","taskType":1,"barcode":"BoxLift-1-279","level":9,"endLocation":110207,"mkId":1,"boxType":3,"width":500,"length":300,"height":400,"weight":50,"boxAttr":1}]}}
+[14:31:45.594][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :187] push task barcode: BoxLift-1-279 to level/location: 9/110207 
+[14:36:01.176][WARN ][HikariPool-1 housekeeper ][com.zaxxer.hikari.pool.HikariPool$HouseKeeper      :779] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m13s592ms219µs400ns).
+[14:36:01.202][INFO ][SpringContextShutdownHook][o.s.s.concurrent.ExecutorConfigurationSupport      :218] Shutting down ExecutorService 'taskScheduler'
+[14:36:01.203][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :350] HikariPool-1 - Shutdown initiated...
+[14:36:01.206][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :352] HikariPool-1 - Shutdown completed.
+[14:36:01.211][WARN ][TaskGenerate1            ][com.zaxxer.hikari.pool.ProxyConnection             :157] HikariPool-1 - Connection com.mysql.cj.jdbc.ConnectionImpl@50bae33e marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 22 milliseconds ago. The last packet sent successfully to the server was 22 milliseconds ago.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:371)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doQuery(MybatisSimpleExecutor.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at com.baomidou.mybatisplus.core.executor.MybatisCachingExecutor.query(MybatisCachingExecutor.java:163)
+	at com.baomidou.mybatisplus.core.executor.MybatisCachingExecutor.query(MybatisCachingExecutor.java:90)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at sun.reflect.GeneratedMethodAccessor68.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at com.sun.proxy.$Proxy56.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:177)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:78)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:96)
+	at com.sun.proxy.$Proxy65.selectList(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor67.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy66.selectList(Unknown Source)
+	at com.lee.database.dss.service.impl.ResourceLocationServiceImpl.inboundLocations(ResourceLocationServiceImpl.java:81)
+	at com.lee.database.dss.service.impl.ResourceLocationServiceImpl$$FastClassBySpringCGLIB$$eabf2bab.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
+	at com.lee.database.dss.service.impl.ResourceLocationServiceImpl$$EnhancerBySpringCGLIB$$33fcd02d.inboundLocations(<generated>)
+	at com.lee.control.tcp.MainTCPClientDslController.lambda$pushTaskGenerate$7(MainTCPClientDslController.java:159)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.lee.control.tcp.MainTCPClientDslController.pushTaskGenerate(MainTCPClientDslController.java:155)
+	at com.lee.control.tcp.MainTCPClientDslController.lambda$null$0(MainTCPClientDslController.java:102)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 22 milliseconds ago. The last packet sent successfully to the server was 22 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:520)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:700)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:639)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:987)
+	at com.mysql.cj.NativeSession.execSQL(NativeSession.java:666)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:930)
+	... 42 common frames omitted
+Caused by: java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.security.ssl.InputRecord.readFully(InputRecord.java:465)
+	at sun.security.ssl.InputRecord.readV3Record(InputRecord.java:593)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:532)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:933)
+	at sun.security.ssl.AppInputStream.read(AppInputStream.java:105)
+	at java.io.FilterInputStream.read(FilterInputStream.java:133)
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:81)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:52)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:41)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:54)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:44)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:514)
+	... 47 common frames omitted
+[14:36:01.236][WARN ][TaskGenerate1            ][o.s.jdbc.support.SQLErrorCodesFactory              :221] Error while extracting database name - falling back to empty error codes
+org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data; nested exception is org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:345)
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:373)
+	at org.springframework.jdbc.support.SQLErrorCodesFactory.getErrorCodes(SQLErrorCodesFactory.java:215)
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.setDataSource(SQLErrorCodeSQLExceptionTranslator.java:137)
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.<init>(SQLErrorCodeSQLExceptionTranslator.java:100)
+	at org.mybatis.spring.MyBatisExceptionTranslator.lambda$new$0(MyBatisExceptionTranslator.java:54)
+	at org.mybatis.spring.MyBatisExceptionTranslator.initExceptionTranslator(MyBatisExceptionTranslator.java:102)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:87)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:440)
+	at com.sun.proxy.$Proxy56.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:177)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:78)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:96)
+	at com.sun.proxy.$Proxy65.selectList(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor67.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy66.selectList(Unknown Source)
+	at com.lee.database.dss.service.impl.ResourceLocationServiceImpl.inboundLocations(ResourceLocationServiceImpl.java:81)
+	at com.lee.database.dss.service.impl.ResourceLocationServiceImpl$$FastClassBySpringCGLIB$$eabf2bab.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
+	at com.lee.database.dss.service.impl.ResourceLocationServiceImpl$$EnhancerBySpringCGLIB$$33fcd02d.inboundLocations(<generated>)
+	at com.lee.control.tcp.MainTCPClientDslController.lambda$pushTaskGenerate$7(MainTCPClientDslController.java:159)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.lee.control.tcp.MainTCPClientDslController.pushTaskGenerate(MainTCPClientDslController.java:155)
+	at com.lee.control.tcp.MainTCPClientDslController.lambda$null$0(MainTCPClientDslController.java:102)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:82)
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:336)
+	... 34 common frames omitted
+Caused by: java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:96)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79)
+	... 35 common frames omitted
+[14:36:01.237][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :197] Lift-[1], pushTaskGenerate failed; 
+### Error querying database.  Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 22 milliseconds ago. The last packet sent successfully to the server was 22 milliseconds ago.
+### The error may exist in com/lee/database/dss/mapper/ResourceLocationMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  level,location,pos,aisle,type,area,resource_id,state,barcode,box_type,weight  FROM ga_resource_location     WHERE (state <> ? AND aisle IN (?,?,?,?,?,?,?,?,?,?,?,?,?) AND level = ? AND state = ?)
+### Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 22 milliseconds ago. The last packet sent successfully to the server was 22 milliseconds ago.
+; Communications link failure
+
+The last packet successfully received from the server was 22 milliseconds ago. The last packet sent successfully to the server was 22 milliseconds ago.; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 22 milliseconds ago. The last packet sent successfully to the server was 22 milliseconds ago.
+[14:43:03.531][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :55 ] Starting application on KLS-WX-382 with PID 12908 (started by DELL in D:\workspace\myTool\virtual_wms_task)
+[14:43:03.533][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.SpringApplication         :655] The following profiles are active: dsl
+[14:43:05.095][INFO ][ForkJoinPool.commonPool-worker-9][o.s.s.concurrent.ExecutorConfigurationSupport      :181] Initializing ExecutorService 'taskScheduler'
+[14:43:05.126][INFO ][ForkJoinPool.commonPool-worker-9][org.springframework.boot.StartupInfoLogger         :61 ] Started application in 1.839 seconds (JVM running for 2.678)
+[14:43:05.219][INFO ][common-thread-pool-0     ][com.zaxxer.hikari.HikariDataSource                 :110] HikariPool-1 - Starting...
+[14:43:05.594][INFO ][common-thread-pool-0     ][com.zaxxer.hikari.HikariDataSource                 :123] HikariPool-1 - Start completed.
+[14:43:05.633][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :100] boxLift-1 thread start
+[14:43:05.634][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :112] init success
+[14:43:05.634][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :213] BoxLift-[1], pos: 210110, ip: 127.0.0.1, start...
+[14:43:05.737][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :121] init msgId: 301, outBoxId: 11, moveBoxId: 1
+[14:43:05.740][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :122] levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+[14:43:05.740][INFO ][common-thread-pool-0     ][com.lee.control.tcp.MainTCPClientDslController     :123] aisles: [11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111, 121, 131]
+[14:43:15.008][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :106] 开始连接mfc...
+[14:43:15.031][INFO ][JavaFX Application Thread][com.lee.control.tcp.MainTCPClientDslController     :139] 初始化netty, 10.2.7.164:9392
+[14:43:18.361][INFO ][nioEventLoopGroup-2-1    ][com.lee.netty.NettyClient                          :61 ] 本地Netty Client 连接成功, result:true, 10.2.7.164:9392
+[14:43:20.736][INFO ][boxLift1                 ][com.lee.util.DeviceHttpRequest                     :49 ] 请求失败 -> http://127.0.0.1:8090/input?type=1&id=1&reqType=1&req=1&barcode=BoxLift-1-1  null
+[14:43:20.737][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :234] boxLift-[1], request level:1, barcode:BoxLift-1-1 null
+[14:43:20.737][INFO ][boxLift1                 ][com.lee.control.tcp.MainTCPClientDslController     :260] Lift-1 request failed; null
+[14:46:09.200][INFO ][SpringContextShutdownHook][o.s.s.concurrent.ExecutorConfigurationSupport      :218] Shutting down ExecutorService 'taskScheduler'
+[14:46:09.202][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :350] HikariPool-1 - Shutdown initiated...
+[14:46:09.206][INFO ][SpringContextShutdownHook][com.zaxxer.hikari.HikariDataSource                 :352] HikariPool-1 - Shutdown completed.
+[14:46:09.209][WARN ][TaskGenerate1            ][com.zaxxer.hikari.pool.ProxyConnection             :157] HikariPool-1 - Connection com.mysql.cj.jdbc.ConnectionImpl@5b085a5c marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 16 milliseconds ago. The last packet sent successfully to the server was 29 milliseconds ago.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:371)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doQuery(MybatisSimpleExecutor.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at com.baomidou.mybatisplus.core.executor.MybatisCachingExecutor.query(MybatisCachingExecutor.java:163)
+	at com.baomidou.mybatisplus.core.executor.MybatisCachingExecutor.query(MybatisCachingExecutor.java:90)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at sun.reflect.GeneratedMethodAccessor67.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at com.sun.proxy.$Proxy56.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:177)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:78)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:96)
+	at com.sun.proxy.$Proxy61.selectList(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor66.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy62.selectList(Unknown Source)
+	at com.lee.database.dss.service.impl.ResourceTaskServiceImpl.getLiftInboundTask(ResourceTaskServiceImpl.java:87)
+	at com.lee.database.dss.service.impl.ResourceTaskServiceImpl$$FastClassBySpringCGLIB$$d102a15b.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
+	at com.lee.database.dss.service.impl.ResourceTaskServiceImpl$$EnhancerBySpringCGLIB$$9f788d83.getLiftInboundTask(<generated>)
+	at com.lee.control.tcp.MainTCPClientDslController.pushTaskGenerate(MainTCPClientDslController.java:155)
+	at com.lee.control.tcp.MainTCPClientDslController.lambda$null$0(MainTCPClientDslController.java:102)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 16 milliseconds ago. The last packet sent successfully to the server was 29 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:520)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:700)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:639)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:987)
+	at com.mysql.cj.NativeSession.execSQL(NativeSession.java:666)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:930)
+	... 40 common frames omitted
+Caused by: java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.security.ssl.InputRecord.readFully(InputRecord.java:465)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:503)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:933)
+	at sun.security.ssl.AppInputStream.read(AppInputStream.java:105)
+	at java.io.FilterInputStream.read(FilterInputStream.java:133)
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:81)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:52)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:41)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:54)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:44)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:514)
+	... 45 common frames omitted
+[14:46:09.235][WARN ][TaskGenerate1            ][o.s.jdbc.support.SQLErrorCodesFactory              :221] Error while extracting database name - falling back to empty error codes
+org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data; nested exception is org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:345)
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:373)
+	at org.springframework.jdbc.support.SQLErrorCodesFactory.getErrorCodes(SQLErrorCodesFactory.java:215)
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.setDataSource(SQLErrorCodeSQLExceptionTranslator.java:137)
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.<init>(SQLErrorCodeSQLExceptionTranslator.java:100)
+	at org.mybatis.spring.MyBatisExceptionTranslator.lambda$new$0(MyBatisExceptionTranslator.java:54)
+	at org.mybatis.spring.MyBatisExceptionTranslator.initExceptionTranslator(MyBatisExceptionTranslator.java:102)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:87)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:440)
+	at com.sun.proxy.$Proxy56.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:177)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:78)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:96)
+	at com.sun.proxy.$Proxy61.selectList(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor66.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy62.selectList(Unknown Source)
+	at com.lee.database.dss.service.impl.ResourceTaskServiceImpl.getLiftInboundTask(ResourceTaskServiceImpl.java:87)
+	at com.lee.database.dss.service.impl.ResourceTaskServiceImpl$$FastClassBySpringCGLIB$$d102a15b.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
+	at com.lee.database.dss.service.impl.ResourceTaskServiceImpl$$EnhancerBySpringCGLIB$$9f788d83.getLiftInboundTask(<generated>)
+	at com.lee.control.tcp.MainTCPClientDslController.pushTaskGenerate(MainTCPClientDslController.java:155)
+	at com.lee.control.tcp.MainTCPClientDslController.lambda$null$0(MainTCPClientDslController.java:102)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:82)
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:336)
+	... 32 common frames omitted
+Caused by: java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:96)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79)
+	... 33 common frames omitted
+[14:46:09.238][INFO ][TaskGenerate1            ][com.lee.control.tcp.MainTCPClientDslController     :202] Lift-[1], pushTaskGenerate failed; 
+### Error querying database.  Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 16 milliseconds ago. The last packet sent successfully to the server was 29 milliseconds ago.
+### The error may exist in com/lee/database/dss/mapper/ResourceTaskMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT   id,start_level,state,type,barcode   FROM ga_resource_task     WHERE (type = ? AND barcode LIKE ? AND state IN (?,?,?,?))
+### Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 16 milliseconds ago. The last packet sent successfully to the server was 29 milliseconds ago.
+; Communications link failure
+
+The last packet successfully received from the server was 16 milliseconds ago. The last packet sent successfully to the server was 29 milliseconds ago.; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 16 milliseconds ago. The last packet sent successfully to the server was 29 milliseconds ago.
