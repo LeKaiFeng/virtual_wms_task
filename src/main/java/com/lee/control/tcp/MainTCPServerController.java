@@ -14,8 +14,10 @@ import com.lee.util.ThreadUtil;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLController;
 import de.felixroske.jfxsupport.FXMLView;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import javafx.fxml.FXML;
@@ -84,7 +86,7 @@ public class MainTCPServerController extends AbstractFxmlView implements Initial
             protected void initChannel(SocketChannel ch) throws Exception {
                 ch.pipeline()
                         .addLast(new LineBasedFrameDecoder(1024))
-                        //.addLast(new DelimiterBasedFrameDecoder(1024, Unpooled.copiedBuffer(wmsEnd.getBytes())))
+                        .addLast(new DelimiterBasedFrameDecoder(1024, Unpooled.copiedBuffer(wmsEnd.getBytes())))
                         .addLast(new StringDecoder())
                         .addLast(new StringEncoder())
                         //.addLast(new Base64Encoder())

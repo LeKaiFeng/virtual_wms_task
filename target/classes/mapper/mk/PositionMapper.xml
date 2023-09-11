@@ -5,20 +5,21 @@
 <mapper namespace="com.lee.database.mk.mapper.PositionMapper">
 
     <resultMap id="BaseResultMap" type="com.lee.database.mk.entity.Position">
-            <id property="level" column="level" jdbcType="INTEGER"/>
-            <id property="pos" column="pos" jdbcType="INTEGER"/>
-            <result property="junction" column="junction" jdbcType="INTEGER"/>
-            <result property="direction" column="direction" jdbcType="INTEGER"/>
-            <result property="distance" column="distance" jdbcType="INTEGER"/>
-            <result property="type" column="type" jdbcType="INTEGER"/>
-            <result property="aisle" column="aisle" jdbcType="INTEGER"/>
-            <result property="distanceAcross" column="distance_across" jdbcType="INTEGER"/>
-            <result property="directionAcross" column="direction_across" jdbcType="INTEGER"/>
-            <result property="liftArea" column="lift_area" jdbcType="VARCHAR"/>
+        <id property="level" column="level" jdbcType="INTEGER"/>
+        <id property="pos" column="pos" jdbcType="INTEGER"/>
+        <result property="junction" column="junction" jdbcType="INTEGER"/>
+        <result property="direction" column="direction" jdbcType="INTEGER"/>
+        <result property="distance" column="distance" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="aisle" column="aisle" jdbcType="INTEGER"/>
+        <result property="distanceAcross" column="distance_across" jdbcType="INTEGER"/>
+        <result property="directionAcross" column="direction_across" jdbcType="INTEGER"/>
+        <result property="liftArea" column="lift_area" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        level,pos,junction,
+        level
+        ,pos,junction,
         direction,distance,type,
         aisle,distance_across,direction_across,
         lift_area

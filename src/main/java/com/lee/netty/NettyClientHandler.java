@@ -1,5 +1,6 @@
 package com.lee.netty;
 
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
@@ -44,7 +45,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         //当被通知Channel是活跃的时候,发送一条消息
-        // ctx.writeAndFlush(Unpooled.copiedBuffer("client is started!", CharsetUtil.UTF_8));
+//         ctx.writeAndFlush(Unpooled.copiedBuffer("client is started!", CharsetUtil.UTF_8));
     }
 
     /**

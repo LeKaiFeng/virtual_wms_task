@@ -7,12 +7,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import com.lee.database.dss.entity.*;
 import com.lee.database.dss.service.impl.*;
-import com.lee.database.mk.entity.*;
-import com.lee.database.mk.service.impl.*;
 import com.lee.netty.NettyClient;
 import com.lee.netty.NettyClientHandler;
 import com.lee.netty.deal.DealDSSRequest;
-import com.lee.netty.deal.DealRequestCommon;
 import com.lee.util.*;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLController;
@@ -20,6 +17,7 @@ import de.felixroske.jfxsupport.FXMLView;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import javafx.fxml.FXML;
@@ -48,6 +46,8 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public String gseeIp;
     @Value("${server.GSEE.port}")
     public String gseePort;
+    @Value("${server.WMS.end}")
+    public String wmsEnd;
     @Value("${server.GSEE.end}")
     public String gseeEnd;
     @Value("${strategy.inbound.machine}")
@@ -90,7 +90,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     @Autowired
     protected ResourceLocationServiceImpl locationsService;
     @Autowired
-    protected MessageReceiveServiceImpl messageReceiveService;
+    protected GaRunningMessageReceiveServiceImpl messageReceiveService;
     public NettyClient nettyClient;
     public volatile int msgId = 1;
     protected int inboundBoxId;
@@ -98,13 +98,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public volatile int moveBoxId = 1;
     List<Integer> levels = new ArrayList<>();
     List<Integer> aisles = new ArrayList<>();
-
     List<DeviceBoxLift> lifts = new ArrayList<>();
-
-    protected final String site1 = "1079";
-    protected final String site2 = "1081";
-
-    //protected String deviceIp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -112,7 +106,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
         boxLiftService.list().forEach(boxLift -> {
             log.info("boxLift-{} 线程启动", boxLift.getId());
             lifts.add(boxLift);
-            ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> sendRequest(boxLift)).start();
+//            ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> sendRequest(boxLift)).start();
         });
         connectBtn.setOnMouseClicked(event -> {
             log.info("开始连接GSEE...");
@@ -125,8 +119,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     }
 
     public void initId() {
-        //deviceIp = boxLiftService.getIp();
-        msgId = 1;
+        msgId = messageReceiveService.count() + 1;
         inboundBoxId = taskService.initTaskIdByType(1);
         outBoxId = taskService.initTaskIdByType(2);
         moveBoxId = taskService.initTaskIdByType(15);
@@ -145,7 +138,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
             protected void initChannel(SocketChannel socketChannel) throws Exception {
                 socketChannel.pipeline()
                         //.addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer("\r\n".getBytes())))
-                        //.addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer(gseeEnd.getBytes())))
+                        .addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer(gseeEnd.getBytes())))
                         .addLast(new StringDecoder())
                         .addLast(new StringEncoder())
                         .addLast("clientHandler", new NettyClientHandler());
@@ -165,37 +158,42 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                 int liftId = lift.getId();
                 List<ResourceTask> totalTask = taskService.getLiftInboundTask(-1, liftId);
                 levels.forEach(level -> {
-                    List<ResourceTask> currentLevelTask = totalTask.stream().filter(task -> task.getStartLevel().equals(level)).collect(Collectors.toList());
+                    List<ResourceTask> currentLevelTask = totalTask.stream().filter(task ->
+                            task.getStartLevel().equals(level)).collect(Collectors.toList());
                     if (currentLevelTask.size() == 0) {
                         List<ResourceLocation> inbound = locationsService.inboundLocations(level, aisles);
                         aisles.forEach(aisle -> {
-                            List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
-                            if (currentLevelAisle.size() > 0) {
-                                String boxId = Constance.BOX_PREFIX + liftId + "-" + inboundBoxId;
-                                ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
-                                if (location == null) {
-                                    log.info("货位确失-> level:{}, aisle:{}", level, aisle);
-                                    return;
+                            if (autoInbound.isSelected()) {
+
+
+                                List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
+                                if (currentLevelAisle.size() > 0) {
+                                    String boxId = Constance.BOX_PREFIX + liftId + "-" + inboundBoxId;
+                                    ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
+                                    if (location == null) {
+                                        log.info("货位确失-> level:{}, aisle:{}", level, aisle);
+                                        return;
+                                    }
+                                    location.setBarcode(boxId);
+                                    inbound.remove(location);
+                                    String request = DealDSSRequest.pushTaskGenerate(1, msgId, liftId, boxId, null, location);
+                                    boolean tcpSend = send(request);
+                                    int times = 0;
+                                    if (!tcpSend) {
+                                        do {
+                                            times++;
+                                            log.info("入库 发送失败并重发");
+                                            ThreadUtil.sleep(500);
+                                        } while (send(request) && times < 10);
+                                    }
+                                    if (times == 10) {
+                                        log.info("{}次重发未成功,request:{}", times, request);
+                                    }
+                                    ThreadUtil.sleep(500);
+                                    inboundBoxId++;
+                                    msgId++;
+                                    log.info("insert task  barcode:{} to level/location: {}/{} ", boxId, level, location.getLocation());
                                 }
-                                location.setBarcode(boxId);
-                                inbound.remove(location);
-                                String request = DealDSSRequest.pushTaskGenerate(1, msgId, liftId, boxId, null, location);
-                                boolean tcpSend = send(request);
-                                int times = 0;
-                                if (!tcpSend) {
-                                    do {
-                                        times++;
-                                        log.info("入库 发送失败并重发");
-                                        ThreadUtil.sleep(500);
-                                    } while (send(request) && times < 10);
-                                }
-                                if (times == 10) {
-                                    log.info("{}次重发未成功,request:{}", times, request);
-                                }
-                                ThreadUtil.sleep(500);
-                                inboundBoxId++;
-                                msgId++;
-                                log.info("insert task  barcode:{} to level/location: {}/{} ", boxId, level, location.getLocation());
                             }
                         });
                     }
@@ -385,7 +383,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
 
     public boolean send(String request) {
         if (nettyClient.isConnect()) {
-            boolean write = nettyClient.write(Unpooled.wrappedBuffer((request + "\r\n").getBytes()));
+            boolean write = nettyClient.write(Unpooled.wrappedBuffer((request + wmsEnd).getBytes()));
             log.info("client send : {}", request);
             return write;
         } else {

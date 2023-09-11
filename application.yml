@@ -20,7 +20,7 @@ server:
     end: "#"
   GSEE:
     IP: 127.0.0.1
-    port: 9392
+    port: 2000
     end: "*"
 
 

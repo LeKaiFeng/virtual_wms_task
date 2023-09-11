@@ -5,42 +5,43 @@
 <mapper namespace="com.lee.database.std.mapper.BoxliftStdMapper">
 
     <resultMap id="BaseResultMap" type="com.lee.database.std.entity.Boxlift">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="type" column="type" jdbcType="VARCHAR"/>
-            <result property="groupId" column="group_id" jdbcType="INTEGER"/>
-            <result property="ip" column="ip" jdbcType="VARCHAR"/>
-            <result property="port" column="port" jdbcType="INTEGER"/>
-            <result property="workmode" column="workmode" jdbcType="INTEGER"/>
-            <result property="allowLevel" column="allow_level" jdbcType="VARCHAR"/>
-            <result property="pos" column="pos" jdbcType="INTEGER"/>
-            <result property="boxNumber" column="box_number" jdbcType="VARCHAR"/>
-            <result property="targetLevel" column="target_level" jdbcType="INTEGER"/>
-            <result property="state" column="state" jdbcType="INTEGER"/>
-            <result property="liftArea" column="lift_area" jdbcType="VARCHAR"/>
-            <result property="announceContent" column="announce_content" jdbcType="VARCHAR"/>
-            <result property="useS7" column="use_s7" jdbcType="INTEGER"/>
-            <result property="rack" column="rack" jdbcType="INTEGER"/>
-            <result property="slot" column="slot" jdbcType="INTEGER"/>
-            <result property="boxliftStateDbNum" column="boxlift_state_db_num" jdbcType="INTEGER"/>
-            <result property="boxliftStateDbStart" column="boxlift_state_db_start" jdbcType="INTEGER"/>
-            <result property="barcodeLength" column="barcode_length" jdbcType="INTEGER"/>
-            <result property="barcodeCount" column="barcode_count" jdbcType="INTEGER"/>
-            <result property="deviceCount" column="device_count" jdbcType="INTEGER"/>
-            <result property="boxliftId" column="boxlift_id" jdbcType="INTEGER"/>
-            <result property="requesetLevel" column="requeset_level" jdbcType="INTEGER"/>
-            <result property="inLongError" column="in_long_error" jdbcType="INTEGER"/>
-            <result property="outLongError" column="out_long_error" jdbcType="INTEGER"/>
-            <result property="isMaster" column="is_master" jdbcType="INTEGER"/>
-            <result property="requestLevel" column="request_level" jdbcType="INTEGER"/>
-            <result property="virtualLevel" column="virtual_level" jdbcType="INTEGER"/>
-            <result property="inToLiftEvent" column="in_to_lift_event" jdbcType="VARCHAR"/>
-            <result property="inToLevelEvent" column="in_to_level_event" jdbcType="VARCHAR"/>
-            <result property="outToLiftEvent" column="out_to_lift_event" jdbcType="VARCHAR"/>
-            <result property="outToLineEvent" column="out_to_line_event" jdbcType="VARCHAR"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="groupId" column="group_id" jdbcType="INTEGER"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="port" column="port" jdbcType="INTEGER"/>
+        <result property="workmode" column="workmode" jdbcType="INTEGER"/>
+        <result property="allowLevel" column="allow_level" jdbcType="VARCHAR"/>
+        <result property="pos" column="pos" jdbcType="INTEGER"/>
+        <result property="boxNumber" column="box_number" jdbcType="VARCHAR"/>
+        <result property="targetLevel" column="target_level" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="liftArea" column="lift_area" jdbcType="VARCHAR"/>
+        <result property="announceContent" column="announce_content" jdbcType="VARCHAR"/>
+        <result property="useS7" column="use_s7" jdbcType="INTEGER"/>
+        <result property="rack" column="rack" jdbcType="INTEGER"/>
+        <result property="slot" column="slot" jdbcType="INTEGER"/>
+        <result property="boxliftStateDbNum" column="boxlift_state_db_num" jdbcType="INTEGER"/>
+        <result property="boxliftStateDbStart" column="boxlift_state_db_start" jdbcType="INTEGER"/>
+        <result property="barcodeLength" column="barcode_length" jdbcType="INTEGER"/>
+        <result property="barcodeCount" column="barcode_count" jdbcType="INTEGER"/>
+        <result property="deviceCount" column="device_count" jdbcType="INTEGER"/>
+        <result property="boxliftId" column="boxlift_id" jdbcType="INTEGER"/>
+        <result property="requesetLevel" column="requeset_level" jdbcType="INTEGER"/>
+        <result property="inLongError" column="in_long_error" jdbcType="INTEGER"/>
+        <result property="outLongError" column="out_long_error" jdbcType="INTEGER"/>
+        <result property="isMaster" column="is_master" jdbcType="INTEGER"/>
+        <result property="requestLevel" column="request_level" jdbcType="INTEGER"/>
+        <result property="virtualLevel" column="virtual_level" jdbcType="INTEGER"/>
+        <result property="inToLiftEvent" column="in_to_lift_event" jdbcType="VARCHAR"/>
+        <result property="inToLevelEvent" column="in_to_level_event" jdbcType="VARCHAR"/>
+        <result property="outToLiftEvent" column="out_to_lift_event" jdbcType="VARCHAR"/>
+        <result property="outToLineEvent" column="out_to_line_event" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,type,group_id,
+        id
+        ,type,group_id,
         ip,port,workmode,
         allow_level,pos,box_number,
         target_level,state,lift_area,
