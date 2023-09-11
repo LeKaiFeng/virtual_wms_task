@@ -27,13 +27,13 @@ public class DeviceShelfPdServiceImpl extends ServiceImpl<DeviceShelfPdMapper, D
 
     @Override
     public DeviceShelfPd selectPd(int level, int inboundPos) {
-        return shelfPdMapper.selectOne(new QueryWrapper<DeviceShelfPd>().eq("level", level).eq("inbound_pos", inboundPos));
+        return shelfPdMapper.selectOne(new QueryWrapper<DeviceShelfPd>().eq("level", level).eq("inbound_pos", inboundPos).eq("active", 1));
 
     }
 
     @Override
     public List<DeviceShelfPd> selectPds(int inboundPos) {
-        return shelfPdMapper.selectList(new QueryWrapper<DeviceShelfPd>().eq("inbound_pos", inboundPos));
+        return shelfPdMapper.selectList(new QueryWrapper<DeviceShelfPd>().eq("inbound_pos", inboundPos).eq("active", 1));
 
     }
 }

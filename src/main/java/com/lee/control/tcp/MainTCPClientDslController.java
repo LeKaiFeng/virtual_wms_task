@@ -31,8 +31,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @FXMLController
@@ -42,36 +44,28 @@ import java.util.stream.Collectors;
 public class MainTCPClientDslController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTCPClientDslController.class);
-    @Value("${server.GSEE.IP}")
-    public String gseeIp;
-    @Value("${server.GSEE.port}")
-    public String gseePort;
+    @Value("${server.mfc.IP}")
+    public String mfcIp;
+    @Value("${server.mfc.port}")
+    public String mfcPort;
     @Value("${server.WMS.end}")
     public String wmsEnd;
-    @Value("${server.GSEE.end}")
-    public String gseeEnd;
+    @Value("${server.mfc.end}")
+    public String mfcEnd;
     @Value("${strategy.inbound.machine}")
     public String inboundMachine;
     @Value("${strategy.inbound.isAppoint}")
     public boolean isAppoint;
     @Value("${strategy.inbound.intervalTime}")
     public Long inboundIntervalTime;
-    @Value("${strategy.inbound.exitArea}")
-    public boolean inboundExitArea;
     @Value("${strategy.outbound.everyLevelNums}")
     public int outboundEveryLevelNums;
     @Value("${strategy.outbound.ignoreExitTask}")
     public boolean outboundIgnoreExitTask;
-    //@Value("${strategy.outbound.exitArea}")
-    //public boolean outboundExitArea;
-    //@Value("${strategy.move.intervalTime}")
-    //public Long moveIntervalTime;
     @Value("${strategy.move.everyLevelNums}")
     public int moveEveryLevelNums;
     @Value("${strategy.move.ignoreExitTask}")
     public boolean moveIgnoreExitTask;
-    @Value("${strategy.move.exitArea}")
-    public boolean moveExitArea;
 
     @FXML
     protected JFXToggleButton autoInbound, autoOutbound, autoMove;
@@ -79,10 +73,10 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     protected TextField ip, port;
     @FXML
     protected JFXButton connectBtn, description;
-    @Autowired
+    @Resource
     protected DeviceBoxLiftServiceImpl boxLiftService;
     @Autowired
-    protected DeviceShelfPdServiceImpl boxliftshelfpdService;
+    protected DeviceShelfPdServiceImpl shelfPdService;
     @Autowired
     protected ResourceTaskServiceImpl taskService;
     @Autowired
@@ -92,10 +86,9 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     @Autowired
     protected GaRunningMessageReceiveServiceImpl messageReceiveService;
     public NettyClient nettyClient;
-    public volatile int msgId = 1;
-    protected int inboundBoxId;
-    public volatile int outBoxId = 1;
-    public volatile int moveBoxId = 1;
+    protected AtomicInteger msgNum = new AtomicInteger(1);
+    public AtomicInteger outBoxNum = new AtomicInteger(1);
+    public AtomicInteger moveBoxNum = new AtomicInteger(1);
     List<Integer> levels = new ArrayList<>();
     List<Integer> aisles = new ArrayList<>();
     List<DeviceBoxLift> lifts = new ArrayList<>();
@@ -103,29 +96,29 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
-        boxLiftService.list().forEach(boxLift -> {
-            log.info("boxLift-{} 线程启动", boxLift.getId());
+        boxLiftService.allLift().forEach(boxLift -> {
+            log.info("boxLift-{} thread start", boxLift.getId());
             lifts.add(boxLift);
-//            ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> sendRequest(boxLift)).start();
+            ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskGenerate(boxLift)).start();
+            ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> sendRequest(boxLift)).start();
         });
         connectBtn.setOnMouseClicked(event -> {
-            log.info("开始连接GSEE...");
+            log.info("开始连接mfc...");
             connect();
         });
 
-        ip.setText(gseeIp);
-        port.setText(gseePort);
+        ip.setText(mfcIp);
+        port.setText(mfcPort);
         log.info("init success");
     }
 
     public void initId() {
-        msgId = messageReceiveService.count() + 1;
-        inboundBoxId = taskService.initTaskIdByType(1);
-        outBoxId = taskService.initTaskIdByType(2);
-        moveBoxId = taskService.initTaskIdByType(15);
+        msgNum.set(messageReceiveService.count() + 1);
+        outBoxNum.set(taskService.initTaskIdByType(2));
+        moveBoxNum.set(taskService.initTaskIdByType(15));
         levels = locationsService.levels();
         aisles = locationsService.aisles();
-        log.info("init msgId: {}, outBoxId: {}, moveBoxId: {}", msgId, outBoxId, moveBoxId);
+        log.info("init msgId: {}, outBoxId: {}, moveBoxId: {}", msgNum.get(), outBoxNum.get(), moveBoxNum.get());
         log.info("levels: {}", ArrayUtil.toString(levels));
         log.info("aisles: {}", ArrayUtil.toString(aisles));
     }
@@ -135,10 +128,9 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
         Integer portValue = Convert.toInt(port.getText());
         nettyClient = new NettyClient(ipValue, portValue, new ChannelInitializer<SocketChannel>() {
             @Override
-            protected void initChannel(SocketChannel socketChannel) throws Exception {
+            protected void initChannel(SocketChannel socketChannel) {
                 socketChannel.pipeline()
-                        //.addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer("\r\n".getBytes())))
-                        .addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer(gseeEnd.getBytes())))
+                        .addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer(mfcEnd.getBytes())))
                         .addLast(new StringDecoder())
                         .addLast(new StringEncoder())
                         .addLast("clientHandler", new NettyClientHandler());
@@ -151,65 +143,68 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
         port.setDisable(true);
     }
 
-    @Scheduled(fixedRate = 1000, initialDelay = 1000 * 3)
-    public void pushTaskGenerate() {
-        if (autoInbound.isSelected()) {
-            for (DeviceBoxLift lift : lifts) {
-                int liftId = lift.getId();
-                List<ResourceTask> totalTask = taskService.getLiftInboundTask(-1, liftId);
-                levels.forEach(level -> {
-                    List<ResourceTask> currentLevelTask = totalTask.stream().filter(task ->
-                            task.getStartLevel().equals(level)).collect(Collectors.toList());
-                    if (currentLevelTask.size() == 0) {
-                        List<ResourceLocation> inbound = locationsService.inboundLocations(level, aisles);
-                        aisles.forEach(aisle -> {
-                            if (autoInbound.isSelected()) {
+    public void pushTaskGenerate(DeviceBoxLift lift) {
+        int liftId = lift.getId();
+        int liftPos = lift.getPos();
+        AtomicInteger boxNum = new AtomicInteger(1);
+        boxNum.set(taskService.initBoxId(liftPos));
+        while (true) {
+            try {
+                if (!autoInbound.isSelected()) {
+                    List<ResourceTask> totalTask = taskService.getLiftInboundTask(-1, liftId);
+                    levels.forEach(level -> {
+                        List<ResourceTask> currentLevelTask = totalTask.stream().filter(task ->
+                                task.getStartLevel().equals(level)).collect(Collectors.toList());
+                        if (currentLevelTask.size() == 0) {
+                            List<ResourceLocation> inbound = locationsService.inboundLocations(level, aisles);
+                            aisles.forEach(aisle -> {
+                                if (autoInbound.isSelected()) {
+                                    List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
+                                    if (currentLevelAisle.size() > 0) {
+                                        String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
+                                        ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
+                                        if (location == null) {
+                                            log.info("货位确失-> level:{}, aisle:{}", level, aisle);
+                                            return;
+                                        }
+                                        location.setBarcode(boxId);
+                                        inbound.remove(location);
+                                        String request = DealDSSRequest.pushTaskGenerate(1, msgNum.getAndIncrement(), liftId, boxId, null, location);
+                                        boolean tcpSend = send(request);
+                                        int times = 0;
+                                        if (!tcpSend) {
+                                            do {
+                                                times++;
+                                                log.info("入库 发送失败并重发");
+                                                ThreadUtil.sleep(500);
+                                            } while (send(request) && times < 10);
+                                        }
+                                        if (times == 10) {
+                                            log.info("{}次重发未成功,request:{}", times, request);
+                                        }
+                                        ThreadUtil.sleep(100);
 
-
-                                List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
-                                if (currentLevelAisle.size() > 0) {
-                                    String boxId = Constance.BOX_PREFIX + liftId + "-" + inboundBoxId;
-                                    ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
-                                    if (location == null) {
-                                        log.info("货位确失-> level:{}, aisle:{}", level, aisle);
-                                        return;
+                                        log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, location.getLocation());
                                     }
-                                    location.setBarcode(boxId);
-                                    inbound.remove(location);
-                                    String request = DealDSSRequest.pushTaskGenerate(1, msgId, liftId, boxId, null, location);
-                                    boolean tcpSend = send(request);
-                                    int times = 0;
-                                    if (!tcpSend) {
-                                        do {
-                                            times++;
-                                            log.info("入库 发送失败并重发");
-                                            ThreadUtil.sleep(500);
-                                        } while (send(request) && times < 10);
-                                    }
-                                    if (times == 10) {
-                                        log.info("{}次重发未成功,request:{}", times, request);
-                                    }
-                                    ThreadUtil.sleep(500);
-                                    inboundBoxId++;
-                                    msgId++;
-                                    log.info("insert task  barcode:{} to level/location: {}/{} ", boxId, level, location.getLocation());
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                } else {
+                    ThreadUtil.sleep(1000);
+                }
+            } catch (Exception e) {
+                log.info("Lift-[{}], pushTaskGenerate failed; {}", liftId, e.getMessage());
+                break;
             }
-        } else {
-            ThreadUtil.sleep(1000);
         }
-
     }
 
-    public void sendRequest(DeviceBoxLift boxlift) {
-        int liftId = boxlift.getId();
-        int liftPos = boxlift.getPos();
+    public void sendRequest(DeviceBoxLift boxLift) {
+        int liftId = boxLift.getId();
+        int liftPos = boxLift.getPos();
 //        int inboundId = taskService.initTaskIdByLift(liftPos);
-        String deviceIp = boxlift.getIp();
+        String deviceIp = boxLift.getIp();
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
         while (true) {
             try {
@@ -219,7 +214,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                 }
                 List<ResourceTask> tasks = taskService.getLiftInboundTask(-1, liftId);
                 //直接去task表找任务
-                List<DeviceShelfPd> pds = boxliftshelfpdService.selectPds(liftPos);
+                List<DeviceShelfPd> pds = shelfPdService.selectPds(liftPos);
                 for (ResourceTask task : tasks) {
                     int level = task.getStartLevel();
                     String boxId = task.getBarcode();
@@ -257,7 +252,8 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                 }
                 ThreadUtil.sleep(1000);
             } catch (Exception e) {
-                log.info(e.getMessage());
+                log.info("Lift-{} request failed; {}", liftId, e.getMessage());
+                break;
             }
         }
     }
@@ -304,9 +300,9 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                         for (int i = currentLevelAndAisleTask.size(); i < times; i++) {
                             ResourceLocation outLocation = CommonUtil.randomFromList(locations);
                             locations.remove(outLocation);
-                            String boxId = Constance.OUT_BOX_PREFIX + outBoxId;
+                            String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
                             outLocation.setBarcode(boxId);
-                            String request = DealDSSRequest.pushTaskGenerate(2, msgId, 0, boxId, outLocation, null);
+                            String request = DealDSSRequest.pushTaskGenerate(2, msgNum.getAndIncrement(), 0, boxId, outLocation, null);
                             log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
                             boolean tcpSend = send(request);
                             if (!tcpSend) {
@@ -315,8 +311,6 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                                     ThreadUtil.sleep(500);
                                 } while (send(request));
                             }
-                            msgId++;
-                            outBoxId++;
                         }
                         ThreadUtil.sleep(500);
                     });
@@ -339,7 +333,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
             levels.forEach(level -> {
                 List<ResourceTask> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getStartLevel().equals(level)).collect(Collectors.toList());
                 // 每次 随机一个巷道生成一条跨层任务
-                Integer aisleChoose = CommonUtil.randomFromList(aisles);
+//                Integer aisleChoose = CommonUtil.randomFromList(aisles);
                 if (currentLevelMoveTask.size() <= 1) {
                     aisles.forEach(aisle -> {
                         if (!autoMove.isSelected()) {
@@ -348,10 +342,10 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                         List<ResourceLocation> startLocations = locationsService.outLocations(level, aisles);
                         for (int i = currentLevelMoveTask.size(); i < times; i++) {
                             ResourceLocation start = CommonUtil.randomFromList(startLocations);
-                            String boxId = Constance.MOVE_BOX_PREFIX + moveBoxId;
+                            String boxId = Constance.MOVE_BOX_PREFIX + moveBoxNum.getAndIncrement();
                             start.setBarcode(boxId);
                             startLocations.remove(start);
-                            List<Integer> moveAisles = aisles;
+//                            List<Integer> moveAisles = aisles;
 
                             List<ResourceLocation> endLocations = locationsService.inboundLocations(level, aisles);
                             ResourceLocation end = CommonUtil.randomFromList(endLocations);
@@ -361,7 +355,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                             }
                             log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
                                     start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
-                            String request = DealDSSRequest.pushTaskGenerate(15, msgId, 0, boxId, start, end);
+                            String request = DealDSSRequest.pushTaskGenerate(15, msgNum.getAndIncrement(), 0, boxId, start, end);
                             boolean tcpSend = send(request);
                             if (!tcpSend) {
                                 do {
@@ -369,8 +363,6 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                                     ThreadUtil.sleep(500);
                                 } while (send(request));
                             }
-                            msgId++;
-                            moveBoxId++;
                             ThreadUtil.sleep(500);
                         }
                     });

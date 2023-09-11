@@ -64,6 +64,7 @@ public class DealDSSRequest {
                 put("length", (RandomUtil.randomInt(5) + 3) * 100); //0,1,2,3,4-> 3,4,5,6,7
                 put("height", (RandomUtil.randomInt(4) + 1) * 100);
                 put("weight", (RandomUtil.randomInt(5) + 1) * 10);
+                put("boxAttr", RandomUtil.randomInt(3) + 1);
             }
         };
         return fixTaskList(task);
@@ -101,6 +102,7 @@ public class DealDSSRequest {
                 put("weight", (RandomUtil.randomInt(5) + 1) * 10);
                 put("outLevel", RandomUtil.randomInt(3) + 1);
                 put("priority", 1100);
+                put("boxAttr", RandomUtil.randomInt(3) + 1);
             }
         };
 
@@ -146,6 +148,7 @@ public class DealDSSRequest {
                 put("height", (RandomUtil.randomInt(4) + 1) * 100);
                 put("weight", (RandomUtil.randomInt(5) + 1) * 10);
                 put("priority", 1001);
+                put("boxAttr", RandomUtil.randomInt(3) + 1);
             }
         };
         return fixTaskList(task);

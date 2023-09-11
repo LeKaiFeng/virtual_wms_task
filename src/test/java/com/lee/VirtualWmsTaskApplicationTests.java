@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest
 public class VirtualWmsTaskApplicationTests {
 
-    @Autowired
-    protected PositionMapper positionService;
 
     @Test
     public void t1() {
-        List<Position> positions = positionService.selectAllByLevelAndAisle(1, 11);
-        positions.forEach(System.out::println);
+        AtomicInteger num = new AtomicInteger(1);
+        int num1 = num.getAndIncrement();
+        int num2 = num.incrementAndGet();
+        System.out.println(num1 + " , " + num2);
     }
 
 }

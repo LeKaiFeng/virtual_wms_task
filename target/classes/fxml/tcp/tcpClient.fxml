@@ -24,7 +24,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                             <children>
-                                <Label text="GSEE"/>
+                                <Label text="mfc"/>
                                 <Label text="IP :"/>
                                 <TextField fx:id="ip" alignment="CENTER" prefHeight="30.0" prefWidth="140.0"/>
                                 <Label text="PORT :"/>

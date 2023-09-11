@@ -6,9 +6,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    #    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://10.2.7.164:3306/dss-dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
-#  *** mk/std/dss ***
+
 mybatis:
   mapper-locations=classpath:mapper/*/*.xml:
 
@@ -18,9 +19,9 @@ server:
   WMS:
     port: 9999
     end: "#"
-  GSEE:
-    IP: 127.0.0.1
-    port: 2000
+  mfc:
+    IP: 10.2.7.164
+    port: 9392
     end: "*"
 
 

@@ -46,12 +46,12 @@ import java.util.stream.Collectors;
 public class MainTCPClientController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTCPClientController.class);
-    @Value("${server.GSEE.IP}")
-    public String gseeIp;
-    @Value("${server.GSEE.port}")
-    public String gseePort;
-    @Value("${server.GSEE.end}")
-    public String gseeEnd;
+    @Value("${server.mfc.IP}")
+    public String mfcIp;
+    @Value("${server.mfc.port}")
+    public String mfcPort;
+    @Value("${server.mfc.end}")
+    public String mfcEnd;
     @Value("${strategy.inbound.machine}")
     public String inboundMachine;
     @Value("${strategy.inbound.isAppoint}")
@@ -117,12 +117,12 @@ public class MainTCPClientController extends AbstractFxmlView implements Initial
             ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> inboundTask(boxLift)).start();
         });
         connectBtn.setOnMouseClicked(event -> {
-            log.info("开始连接GSEE...");
+            log.info("开始连接mfc...");
             connect();
         });
 
-        ip.setText(gseeIp);
-        port.setText(gseePort);
+        ip.setText(mfcIp);
+        port.setText(mfcPort);
         log.info("init success");
     }
 
@@ -147,7 +147,7 @@ public class MainTCPClientController extends AbstractFxmlView implements Initial
             protected void initChannel(SocketChannel socketChannel) throws Exception {
                 socketChannel.pipeline()
                         //.addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer("\r\n".getBytes())))
-                        //.addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer(gseeEnd.getBytes())))
+                        //.addLast(new DelimiterBasedFrameDecoder(10240, Unpooled.copiedBuffer(mfcEnd.getBytes())))
                         .addLast(new StringDecoder())
                         .addLast(new StringEncoder())
                         .addLast("clientHandler", new NettyClientHandler());

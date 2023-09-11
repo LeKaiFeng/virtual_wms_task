@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface IDeviceBoxLiftService extends IService<DeviceBoxLift> {
 
+    List<DeviceBoxLift> allLift();
+
     List<DeviceBoxLift> inboundLiftByAisle(List<Integer> aisles);
 
     List<DeviceBoxLift> outboundLiftByAisle();

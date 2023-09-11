@@ -26,12 +26,17 @@ public class DeviceBoxLiftServiceImpl extends ServiceImpl<DeviceBoxLiftMapper, D
 
 
     @Override
+    public List<DeviceBoxLift> allLift() {
+        return boxLiftMapper.selectList(new QueryWrapper<DeviceBoxLift>().eq("active", 1));
+    }
+
+    @Override
     public List<DeviceBoxLift> inboundLiftByAisle(List<Integer> aisles) {
-        return boxLiftMapper.selectList(new QueryWrapper<DeviceBoxLift>().select("id,inbound_aisle,inbound_pos").in("inbound_aisle", aisles));
+        return boxLiftMapper.selectList(new QueryWrapper<DeviceBoxLift>().select("id,inbound_aisle,inbound_pos").in("inbound_aisle", aisles).eq("active", 1));
     }
 
     @Override
     public List<DeviceBoxLift> outboundLiftByAisle() {
-        return boxLiftMapper.selectList(new QueryWrapper<DeviceBoxLift>().select("DISTINCT outbound_aisle"));
+        return boxLiftMapper.selectList(new QueryWrapper<DeviceBoxLift>().select("DISTINCT outbound_aisle").eq("active", 1));
     }
 }
