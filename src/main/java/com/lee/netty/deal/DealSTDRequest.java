@@ -50,6 +50,38 @@ public class DealSTDRequest {
         return JSONUtil.toJsonStr(responseMap);
     }
 
+    public static String pushAppointStockOutKB(int megId, Locations locations) {
+        HashMap<Object, Object> responseMap = new LinkedHashMap<Object, Object>() {
+            {
+                put("id", megId);
+                put("messageName", "appointStockOut");
+                put("boxId", locations.getBoxNumber());
+                put("level", locations.getLevel());
+                put("location", locations.getLocation());
+                put("wmsId", RandomUtil.randomString(10));
+                put("priority", 1);
+                put("outbound", RandomUtil.randomString(4));
+            }
+        };
+        return JSONUtil.toJsonStr(responseMap);
+    }
+
+    public static String pushMoveLibraryKB(int megId, Locations start, Locations end) {
+        HashMap<Object, Object> responseMap = new LinkedHashMap<Object, Object>() {
+            {
+                put("id", megId);
+                put("messageName", "moveLibrary");
+                put("boxId", start.getBoxNumber());
+                put("level", start.getLevel());
+                put("s_location", start.getLocation());
+                put("e_location", end.getLocation());
+                put("wmsId", RandomUtil.randomString(10));
+                put("priority", 1);
+            }
+        };
+        return JSONUtil.toJsonStr(responseMap);
+    }
+
 
     /**
      * TODO 预约入库（WMS->MFC) 一汽解放

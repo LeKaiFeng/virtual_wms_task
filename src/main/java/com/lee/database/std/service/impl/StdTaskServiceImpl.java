@@ -44,6 +44,7 @@ public class StdTaskServiceImpl extends ServiceImpl<TaskStdMapper, Task> impleme
     @Override
     public int initBoxId(int boxLiftPos) {
         Task task = stdMapper.selectOne(new QueryWrapper<Task>()
+//                        .select("type","s_level","e_level","state","status","box_number")
                 .eq("type", 1)
                 .eq("s_pos", boxLiftPos)
                 .orderByDesc("id")
@@ -51,8 +52,11 @@ public class StdTaskServiceImpl extends ServiceImpl<TaskStdMapper, Task> impleme
         if (task == null) {
             return 1;
         }
-        List<String> split = StrUtil.split(task.getBoxNumber(), "-");
-        return Convert.toInt(split.get(1)) + 1;
+        if (task.getBoxNumber().contains("-")) {
+            List<String> split = StrUtil.split(task.getBoxNumber(), "-");
+            return Convert.toInt(split.get(1)) + 1;
+        }
+        return 1;
     }
 
     @Override
@@ -87,6 +91,12 @@ public class StdTaskServiceImpl extends ServiceImpl<TaskStdMapper, Task> impleme
 
     @Override
     public List<Task> outboundTask(int level, int aisle) {
+        if (level == -1 && aisle == -1) {
+            return stdMapper.selectList(new QueryWrapper<Task>()
+                    .eq("type", 2)
+                    .in("status", 0, 1, 2)
+            );
+        }
         return stdMapper.selectList(new QueryWrapper<Task>()
                 .eq("type", 2)
                 .eq("s_level", level)
@@ -97,6 +107,11 @@ public class StdTaskServiceImpl extends ServiceImpl<TaskStdMapper, Task> impleme
 
     @Override
     public List<Task> moveTask(int liftPos) {
+        if (liftPos == -1) {
+            return stdMapper.selectList(new QueryWrapper<Task>()
+                    .eq("type", 15)
+                    .in("status", 0, 1, 2));
+        }
         return stdMapper.selectList(new QueryWrapper<Task>()
                 //.eq("s_level", level)
                 .eq("type", 15)

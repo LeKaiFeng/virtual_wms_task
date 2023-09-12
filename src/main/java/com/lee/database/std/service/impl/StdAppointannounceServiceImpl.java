@@ -45,12 +45,21 @@ public class StdAppointannounceServiceImpl extends ServiceImpl<AppointannounceSt
 
     @Override
     public List<Appointannounce> isExitAppoint(int level, int liftId) {
+        if (level == -1) {
+            return appointannounceStdMapper.selectList(new QueryWrapper<Appointannounce>()
+                    .select("id", "\"level\"", "box_number", "state")
+                    .eq("state", 0)
+                    .like("box_number", Constance.BOX_PREFIX + liftId + "-%")
+            );
+        }
         return appointannounceStdMapper.selectList(new QueryWrapper<Appointannounce>()
+                .select("id", "\"level\"", "box_number", "state")
                 .eq("state", 0)
-                .eq("level", level)
+                .eq("\"level\"", level)
                 .like("box_number", Constance.BOX_PREFIX + liftId + "-%")
         );
     }
+
 
     @Override
     public List<Appointannounce> isExitAppoint(String barcode) {

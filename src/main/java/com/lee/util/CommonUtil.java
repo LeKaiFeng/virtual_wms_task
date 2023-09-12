@@ -10,4 +10,16 @@ public class CommonUtil {
         return list.get(RandomUtil.randomInt(list.size()));
     }
 
+    public static int getTimes(int createNum, int aisleNum) {
+        int num = 1;
+        if (createNum < aisleNum) {
+            return num;
+        } else {
+            if (createNum % aisleNum == 0) {
+                return createNum / aisleNum;
+            } else {
+                return createNum / aisleNum + 1;
+            }
+        }
+    }
 }

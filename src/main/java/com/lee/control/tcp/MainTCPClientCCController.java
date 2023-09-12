@@ -10,10 +10,7 @@ import com.lee.database.dss.entity.DeviceShelfPd;
 import com.lee.database.dss.entity.ResourceLocation;
 import com.lee.database.dss.entity.ResourceTask;
 import com.lee.database.dss.service.impl.*;
-import com.lee.database.std.entity.Announce;
-import com.lee.database.std.entity.Boxlift;
-import com.lee.database.std.entity.Boxliftshelfpd;
-import com.lee.database.std.entity.Locations;
+import com.lee.database.std.entity.*;
 import com.lee.database.std.service.impl.*;
 import com.lee.netty.NettyClient;
 import com.lee.netty.NettyClientHandler;
@@ -107,15 +104,17 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
     protected StdBoxliftshelfpdServiceImpl shelfPdService;
     @Autowired
     protected StdAnnounceServiceImpl announceService;
+    @Autowired
+    protected StdAppointannounceServiceImpl appointAnnounceService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
-        boxLiftService.query().select("id", "pos", "ip").list().forEach(boxLift -> {
+        boxLiftService.query().select("id", "pos", "ip", "is_master").eq("is_master", 1).list().forEach(boxLift -> {
             log.info("boxLift-{} thread start", boxLift.getId());
             lifts.add(boxLift);
-//            ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskGenerate(boxLift)).start();
-//            ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> sendRequest(boxLift)).start();
+            ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskMFC(boxLift)).start();
+            ThreadUtil.createThread("MK-" + boxLift.getId(), () -> sendRequest(boxLift)).start();
         });
         connectBtn.setOnMouseClicked(event -> {
             log.info("开始连接mfc...");
@@ -163,33 +162,36 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
         int liftPos = lift.getPos();
         AtomicInteger boxNum = new AtomicInteger(1);
         boxNum.set(taskService.initBoxId(liftPos));
-        List<Boxliftshelfpd> pds = shelfPdService.selectPds(liftPos);
         while (true) {
             try {
                 if (autoInbound.isSelected()) {
-                    List<Announce> exitAnnounce = announceService.isExitAnnounce(liftId);
-                    if (exitAnnounce.size() == 0) {
+                    List<Appointannounce> totalAppoint = appointAnnounceService.isExitAppoint(-1, liftId);
+                    if (totalAppoint.size() == 0) {
                         List<Locations> locations = locationsService.inboundLocations(-1);
                         levels.forEach(level -> {
-                            List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
-                            Locations inbound = CommonUtil.randomFromList(currentLevelLocations);
-                            String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
-                            inbound.setBoxNumber(boxId);
-                            String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound);
-                            boolean tcpSend = send(request);
-                            int times = 0;
-                            if (!tcpSend) {
-                                do {
-                                    times++;
-                                    log.info("入库 发送失败并重发");
-                                    ThreadUtil.sleep(500);
-                                } while (send(request) && times < 10);
+                            if (autoInbound.isSelected()) {
+                                List<Appointannounce> currentAppoint = totalAppoint.stream().filter(appoint -> appoint.getLevel().equals(level)).collect(Collectors.toList());
+                                List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
+                                Locations inbound = CommonUtil.randomFromList(currentLevelLocations);
+                                String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
+                                inbound.setBoxNumber(boxId);
+                                String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound);
+                                boolean tcpSend = send(request);
+                                int times = 0;
+                                if (!tcpSend) {
+                                    do {
+                                        times++;
+                                        log.info("入库 发送失败并重发");
+                                        ThreadUtil.sleep(500);
+                                    } while (send(request) && times < 10);
+                                }
+                                if (times == 10) {
+                                    log.info("{}次重发未成功,request:{}", times, request);
+                                }
+                                ThreadUtil.sleep(100);
+                                log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, inbound.getLocation());
                             }
-                            if (times == 10) {
-                                log.info("{}次重发未成功,request:{}", times, request);
-                            }
-                            ThreadUtil.sleep(100);
-                            log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, inbound.getLocation());
+
                         });
                     }
                 } else {
@@ -199,6 +201,160 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                 log.info("Lift-[{}], pushTaskGenerate failed close Thread; {}", liftId, e.getMessage());
                 break;
             }
+        }
+    }
+
+
+    public void sendRequest(Boxlift boxLift) {
+        int liftId = boxLift.getId();
+        int liftPos = boxLift.getPos();
+        String deviceIp = boxLift.getIp();
+        log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
+        while (true) {
+            try {
+                if (!autoInbound.isSelected()) {
+                    ThreadUtil.sleep(1000);
+                    continue;
+                }
+                List<Boxliftshelfpd> pds = shelfPdService.selectPds(liftPos);
+                List<Appointannounce> totalAppoint = appointAnnounceService.isExitAppoint(-1, liftId);
+                for (Boxliftshelfpd pd : pds) {
+                    int pdLevel = pd.getLevel();
+                    if (!autoInbound.isSelected()) {
+                        continue;
+                    }
+                    if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
+                        return;
+                    }
+                    List<Appointannounce> currentLevelAppoint = totalAppoint.stream().filter(appointannounce -> appointannounce.getLevel().equals(pdLevel)).collect(Collectors.toList());
+                    if (currentLevelAppoint.size() == 0) {
+                        continue;
+                    }
+                    Appointannounce appointannounce = currentLevelAppoint.get(0);
+                    String boxId = appointannounce.getBoxNumber();
+                    //送至提升机
+                    String requestMk = DeviceHttpRequest.sendRequest(deviceIp, 1, liftId, 1, boxId);
+                    log.info("MK-[{}], request level:{}, barcode:{} {}", liftId, pdLevel, boxId, requestMk);
+                    ThreadUtil.sleep(1000);
+                    Announce exitAnnounce = announceService.isExitAnnounce(boxId);
+                    int times = 0;
+                    do {
+                        if (times > 0) {
+                            log.info("MK-[{}], box:{} not found on announce, times:{}", liftId, boxId, times);
+                            ThreadUtil.sleep(500);
+                            exitAnnounce = announceService.isExitAnnounce(boxId);
+                        }
+                        times++;
+                    } while (exitAnnounce == null && times < 10);
+                    if (times == 10) {
+                        log.info("MK-[{}], barcode:{}, {}次 ,announce任务未生成,不发了", liftId, boxId, times);
+                        continue;
+                    }
+
+
+                    String requestPD = DeviceHttpRequest.sendRequest(deviceIp, 2, pd.getId(), 1, boxId);
+                    log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), pdLevel, boxId, requestPD);
+                    ThreadUtil.sleep(500);
+                }
+                ThreadUtil.sleep(1000);
+            } catch (Exception e) {
+                log.info("Lift-{} request failed close Thread, {}", liftId, e.getMessage());
+                break;
+            }
+        }
+
+    }
+
+
+    @Scheduled(fixedRateString = "${strategy.outbound.intervalTime}", initialDelay = 1000 * 3)
+    // 延时10s启动，之后每5s执行一次
+    public void outboundTask() {
+        try {
+            if (!autoOutbound.isSelected()) {
+                return;
+            }
+            int times = CommonUtil.getTimes(outboundEveryLevelNums, aisles.size());
+            List<Task> totalTasks = taskService.outboundTask(-1, -1);
+            List<Locations> locations = locationsService.outLocations();
+            levels.forEach(level -> {
+                List<Task> currentLevelTask = totalTasks.stream().filter(task -> Objects.equals(task.getSLevel(), level)).collect(Collectors.toList());
+
+                if (currentLevelTask.size() == 0) {
+                    List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
+                    if (currentLevelLocations.size() > 0) {
+                        aisles.forEach(aisle -> {
+                            if (!autoOutbound.isSelected()) {
+                                return;
+                            }
+                            List<Locations> currentLevelAndAisleLocations = currentLevelLocations.stream().filter(lt -> lt.getAisle() == aisle).collect(Collectors.toList());
+                            if (currentLevelAndAisleLocations.size() > 0) {
+                                for (int i = currentLevelAndAisleLocations.size(); i < times; i++) {
+                                    Locations outLocation = CommonUtil.randomFromList(locations);
+                                    currentLevelLocations.remove(outLocation);
+                                    String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
+                                    outLocation.setBoxNumber(boxId);
+                                    String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation);
+                                    log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
+                                    boolean tcpSend = send(request);
+                                    if (!tcpSend) {
+                                        do {
+                                            log.info("发送失败,重发");
+                                            ThreadUtil.sleep(500);
+                                        } while (send(request));
+                                    }
+                                }
+                            }
+                            ThreadUtil.sleep(500);
+                        });
+                    }
+                }
+            });
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+    }
+
+
+    @Scheduled(initialDelay = 1000 * 5, fixedRateString = "${strategy.move.intervalTime}") // 延时10s启动，之后每5s执行一次
+    public void moveTask() {
+        try {
+            if (!autoMove.isSelected()) {
+                return;
+            }
+            int times = CommonUtil.getTimes(moveEveryLevelNums, aisles.size());
+            List<Task> totalMoveTask = taskService.moveTask(-1);
+            List<Locations> locations = locationsService.outLocations();
+            levels.forEach(level -> {
+                List<Task> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getSLevel().equals(level)).collect(Collectors.toList());
+                if (currentLevelMoveTask.size() == 0) {
+                    aisles.forEach(aisle -> {
+                        if (!autoMove.isSelected()) {
+                            return;
+                        }
+                        for (int i = currentLevelMoveTask.size(); i < times; i++) {
+                            Locations start = CommonUtil.randomFromList(locations);
+                            String boxId = Constance.MOVE_BOX_PREFIX + moveBoxNum.getAndIncrement();
+                            start.setBoxNumber(boxId);
+                            locations.remove(start);
+                            Locations end = CommonUtil.randomFromList(locations);
+                            locations.remove(end);
+                            log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
+                                    start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
+                            String request = DealSTDRequest.pushMoveLibraryKB(msgNum.getAndIncrement(), start, end);
+                            boolean tcpSend = send(request);
+                            if (!tcpSend) {
+                                do {
+                                    log.info("移库 发送失败并重发");
+                                    ThreadUtil.sleep(500);
+                                } while (send(request));
+                            }
+                            ThreadUtil.sleep(500);
+                        }
+                    });
+                }
+            });
+        } catch (Exception e) {
+            log.info(e.getMessage());
         }
     }
 

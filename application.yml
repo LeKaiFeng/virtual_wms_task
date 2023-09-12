@@ -7,7 +7,7 @@ spring:
     username: system
     password: Galaxis@2023@KDB
     #    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    url: jdbc:kingbase8://121.229.145.162:54321/xahk?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:kingbase8://121.229.145.162:54321/xahk2?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
 
 mybatis:
@@ -17,11 +17,11 @@ mybatis:
 server:
   type: TCP
   WMS:
-    port: 9999
+    port: 2000
     end: "\r\n"
   mfc:
-    IP: 10.2.7.164
-    port: 9392
+    IP: 127.0.0.1
+    port: 1200
     end: "\r\n"
 
 

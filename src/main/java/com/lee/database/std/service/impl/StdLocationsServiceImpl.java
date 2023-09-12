@@ -69,7 +69,14 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
 
     @Override
     public List<Locations> inboundLocations(int level) {
+        if (level == -1) {
+            return locationsMapperStd.selectList(new QueryWrapper<Locations>()
+                    .select("\"level\"", "pos", "location", "aisle", "type", "state", "box_number")
+                    .eq("state", 0)
+                    .eq("type", 0));
+        }
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
+                .select("\"level\"", "pos", "location", "aisle", "type", "state", "box_number")
                 .eq("\"level\"", level)
                 .eq("state", 0)
                 .eq("type", 0));

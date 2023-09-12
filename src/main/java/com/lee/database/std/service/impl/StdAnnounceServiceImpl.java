@@ -31,20 +31,25 @@ public class StdAnnounceServiceImpl extends ServiceImpl<AnnounceStdMapper, Annou
     @Override
     public List<Announce> selectByIdAndLevel(int liftId, int level) {
         return announceStdMapper.selectList(new QueryWrapper<Announce>()
-                .eq("state", 0).eq("level", level).like("box_number", Constance.BOX_PREFIX + liftId + "%"));
+                .eq("state", 0)
+                .eq("level", level)
+                .like("box_number", Constance.BOX_PREFIX + liftId + "%"));
     }
 
     @Override
     public List<Announce> selectAnnounce(String area) {
         return announceStdMapper.selectList(new QueryWrapper<Announce>()
-                .eq("state", 0).eq("area", area).isNull("arrive_time"));
+                .eq("state", 0)
+                .eq("area", area)
+                .isNull("arrive_time"));
     }
 
     @Override
     public List<Announce> selectAnnounce() {
 
         return announceStdMapper.selectList(new QueryWrapper<Announce>()
-                .eq("state", 0).isNull("arrive_time"));
+                .eq("state", 0)
+                .isNull("arrive_time"));
     }
 
     @Override
@@ -80,6 +85,7 @@ public class StdAnnounceServiceImpl extends ServiceImpl<AnnounceStdMapper, Annou
     @Override
     public Announce isExitAnnounce(String boxId) {
         return announceStdMapper.selectOne(new QueryWrapper<Announce>()
+                .select("id", "\"level\"", "box_number", "state")
                 .eq("state", 0)
                 .eq("box_number", boxId)
         );
@@ -96,6 +102,7 @@ public class StdAnnounceServiceImpl extends ServiceImpl<AnnounceStdMapper, Annou
     @Override
     public List<Announce> isExitAnnounce(int liftId) {
         return announceStdMapper.selectList(new QueryWrapper<Announce>()
+                .select("id", "box_number", "wmsid", "state", "\"level\"", "location")
                 .eq("state", 0)
                 .like("box_number", Constance.BOX_PREFIX + liftId + "-%")
         );
