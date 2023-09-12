@@ -107,6 +107,8 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
     @Autowired
     protected StdAppointannounceServiceImpl appointAnnounceService;
 
+    protected List<Locations> locations = new ArrayList<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
@@ -131,6 +133,7 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
         moveBoxNum.set(taskService.initId(15));
         levels = locationsService.allLevels();
         aisles = locationsService.allAisles();
+        locations = locationsService.outLocations();
         log.info("init msgId: {}, outBoxId: {}, moveBoxId: {}", msgNum.get(), outBoxNum.get(), moveBoxNum.get());
         log.info("levels: {}", ArrayUtil.toString(levels));
         log.info("aisles: {}", ArrayUtil.toString(aisles));
@@ -273,24 +276,26 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
             if (!autoOutbound.isSelected()) {
                 return;
             }
+            if (locations.size() == 0) {
+                locations = locationsService.outLocations();
+            }
             int times = CommonUtil.getTimes(outboundEveryLevelNums, aisles.size());
             List<Task> totalTasks = taskService.outboundTask(-1, -1);
-            List<Locations> locations = locationsService.outLocations();
-            levels.forEach(level -> {
+            for (Integer level : levels) {
                 List<Task> currentLevelTask = totalTasks.stream().filter(task -> Objects.equals(task.getSLevel(), level)).collect(Collectors.toList());
-
                 if (currentLevelTask.size() == 0) {
                     List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
                     if (currentLevelLocations.size() > 0) {
-                        aisles.forEach(aisle -> {
+                        for (Integer aisle : aisles) {
                             if (!autoOutbound.isSelected()) {
                                 return;
                             }
                             List<Locations> currentLevelAndAisleLocations = currentLevelLocations.stream().filter(lt -> lt.getAisle() == aisle).collect(Collectors.toList());
                             if (currentLevelAndAisleLocations.size() > 0) {
-                                for (int i = currentLevelAndAisleLocations.size(); i < times; i++) {
+                                for (int i = 0; i < times; i++) {
                                     Locations outLocation = CommonUtil.randomFromList(locations);
                                     currentLevelLocations.remove(outLocation);
+                                    locations.remove(outLocation);
                                     String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
                                     outLocation.setBoxNumber(boxId);
                                     String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation);
@@ -302,13 +307,14 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                                             ThreadUtil.sleep(500);
                                         } while (send(request));
                                     }
+                                    ThreadUtil.sleep(100);
                                 }
                             }
-                            ThreadUtil.sleep(500);
-                        });
+                        }
                     }
                 }
-            });
+            }
+
         } catch (Exception e) {
             log.info(e.getMessage());
         }
@@ -321,9 +327,11 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
             if (!autoMove.isSelected()) {
                 return;
             }
+            if (locations.size() <= 10) {
+                locations = locationsService.outLocations();
+            }
             int times = CommonUtil.getTimes(moveEveryLevelNums, aisles.size());
             List<Task> totalMoveTask = taskService.moveTask(-1);
-            List<Locations> locations = locationsService.outLocations();
             levels.forEach(level -> {
                 List<Task> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getSLevel().equals(level)).collect(Collectors.toList());
                 if (currentLevelMoveTask.size() == 0) {

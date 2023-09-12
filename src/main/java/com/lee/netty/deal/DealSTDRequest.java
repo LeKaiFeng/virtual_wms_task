@@ -60,7 +60,7 @@ public class DealSTDRequest {
                 put("location", locations.getLocation());
                 put("wmsId", RandomUtil.randomString(10));
                 put("priority", 1);
-                put("outbound", RandomUtil.randomString(4));
+                put("outbound", 0);
             }
         };
         return JSONUtil.toJsonStr(responseMap);

@@ -56,6 +56,7 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     @Override
     public List<Locations> outLocations() {
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
+                .select("\"level\"", "location", "pos", "aisle", "state", "type")
                 .eq("type", 0));
     }
 
