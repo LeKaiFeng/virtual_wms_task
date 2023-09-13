@@ -1,6 +1,6 @@
 spring:
   profiles:
-    #   *** 根据项目配置 ***
+    # *** 根据项目配置 ***
     active: std
   datasource:
     driver-class-name: com.mysql.Driver
@@ -12,7 +12,7 @@ spring:
 mybatis:
   mapper-locations=classpath:mapper/*/*.xml:
 
-# WMS、 mfc ==> TCP双工通讯
+# WMS、mfc ==> TCP双工通讯
 server:
   type: TCP
   WMS:
@@ -26,20 +26,20 @@ server:
 # 任务生成策略
 strategy:
   inbound:
-    machine: boxLift     # 入库提升机选择 【boxLift: 仅料箱提升机入库;】 【lift: 仅换层提升机入库;】 【boxLift、lift: 双入库】
+    machine: boxLift        # 入库提升机选择 【boxLift: 仅料箱提升机入库;】 【lift: 仅换层提升机入库;】 【boxLift、lift: 双入库】
     isAppoint: true         # 是否指定入库货位
-    intervalTime: 3000     # 任务间隔时间单位：秒
-    async: true         # 异步指定入库 正泰，香港bps
-    exitArea: false           # false:没分区  true:有分区
+    intervalTime: 3000      # 任务间隔时间单位：毫秒
+    async: true             # 异步指定入库 正泰，香港bps
+    exitArea: false         # false:没分区  true:有分区
   outbound:
     intervalTime: 10000
-    everyLevelNums: 9    # 当每层任务数设置为与巷道数相等的条件下，当前层每个巷道生成一条任务
-    ignoreExitTask: false     # N：当前层有任务则不生成任务，当任务数小于等于2时，开始生成任务； Y：持续不间断的生成任务；但任务积压上限100
+    everyLevelNums: 9       # 当每层任务数设置为与巷道数相等的条件下，当前层每个巷道生成一条任务
+    ignoreExitTask: false   # N：当前层有任务则不生成任务，当任务数小于等于2时，开始生成任务； Y：持续不间断的生成任务；但任务积压上限100
   move:
     intervalTime: 10000
     everyLevelNums: 9
     ignoreExitTask: false
-    exitArea: false           # false:没分区  true:有分区
+    exitArea: false         # false:没分区  true:有分区
 
 project:
   name: ${spring.profiles.active}
