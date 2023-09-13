@@ -10,7 +10,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0"
             prefWidth="663.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.lee.control.tcp.MainTCPClientSiYuanController">
+            fx:controller="com.lee.control.tcp.MainTcpStdClientController">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -36,9 +36,9 @@
                                 <Insets top="40.0"/>
                             </VBox.margin>
                         </HBox>
-                        <JFXToggleButton fx:id="autoInbound" text="SY入库任务"/>
-                        <JFXToggleButton fx:id="autoOutbound" text="SY出库任务"/>
-                        <JFXToggleButton fx:id="autoMove" text="SY移库任务"/>
+                        <JFXToggleButton fx:id="autoInbound" text="入库任务"/>
+                        <JFXToggleButton fx:id="autoOutbound" text="出库任务"/>
+                        <JFXToggleButton fx:id="autoMove" text="移库任务"/>
                     </children>
                 </VBox>
             </children>

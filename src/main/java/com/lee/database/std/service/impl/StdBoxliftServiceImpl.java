@@ -1,5 +1,6 @@
 package com.lee.database.std.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lee.database.std.entity.Boxlift;
@@ -7,6 +8,8 @@ import com.lee.database.std.mapper.BoxliftStdMapper;
 import com.lee.database.std.service.IBoxliftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,7 +32,12 @@ public class StdBoxliftServiceImpl extends ServiceImpl<BoxliftStdMapper, Boxlift
 
     @Override
     public int cleanVirtualLevel(int liftId) {
-
         return stdBoxLiftMapper.update(null, new UpdateWrapper<Boxlift>().eq("id", liftId).set("virtual_level", 0));
+    }
+
+    @Override
+    public List<Boxlift> selectAll() {
+        return stdBoxLiftMapper.selectList(new QueryWrapper<Boxlift>()
+                .eq("is_master", 1));
     }
 }

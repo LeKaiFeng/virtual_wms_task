@@ -35,23 +35,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/**
- * @Date: 2022/12/6 9:05
- * @Description: TODO
- */
 @FXMLController
 @FXMLView(value = "/fxml/tcp/tcpServer.fxml")
 public class MainTCPServerController extends AbstractFxmlView implements Initializable {
-
     private static final Logger log = LoggerFactory.getLogger(MainTCPClientController.class);
-
     @FXML
     protected TextField port;
     @FXML
     protected JFXButton startBtn;
-
     public NettyServer nettyServer;
-
     @Value("${server.WMS.port}")
     public String wmsPort;
     @Value("${server.WMS.end}")
@@ -59,7 +51,6 @@ public class MainTCPServerController extends AbstractFxmlView implements Initial
 
     @Autowired
     private LocationsServiceImpl locationsService;
-
     protected List<Integer> aisles;
     protected List<Integer> levels;
 
@@ -77,10 +68,8 @@ public class MainTCPServerController extends AbstractFxmlView implements Initial
         });
     }
 
-
     public void openServer() {
         Integer portValue = Convert.toInt(port.getText());
-
         nettyServer = new NettyServer(portValue, new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
@@ -109,9 +98,7 @@ public class MainTCPServerController extends AbstractFxmlView implements Initial
                     //System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
                     String body = entry.getValue();
                     JSONObject bodyJson = JSONUtil.parseObj(body);
-
                     String boxId = bodyJson.getStr("boxId");
-
                     Integer level = CommonUtil.randomFromList(levels);
                     Integer aisle = CommonUtil.randomFromList(aisles);
                     if (level == null || aisle == null) {
@@ -136,14 +123,10 @@ public class MainTCPServerController extends AbstractFxmlView implements Initial
                     NettyServerHandler.cacheBoxAnnounceMap.remove(entry.getKey());
                     ThreadUtil.sleep(100);
                     log.info("clean cache:{}", body);
-
                 }
             }
         } catch (Exception e) {
             log.info(e.getMessage());
         }
-
     }
-
-
 }

@@ -1,19 +1,18 @@
 spring:
   profiles:
     #   *** 根据项目配置 ***
-    active: cc
+    active: std
   datasource:
-    driver-class-name: com.kingbase8.Driver
-    username: system
-    password: Galaxis@2023@KDB
+    driver-class-name: com.mysql.Driver
+    username: root
+    password: root
     #    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    url: jdbc:kingbase8://121.229.145.162:54321/xahk2?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-
+    url: jdbc:mysql://127.0.0.1:3306/bk?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
 mybatis:
   mapper-locations=classpath:mapper/*/*.xml:
 
-# WMS、 GSEE ==> TCP双工通讯
+# WMS、 mfc ==> TCP双工通讯
 server:
   type: TCP
   WMS:
@@ -24,12 +23,8 @@ server:
     port: 1200
     end: "\r\n"
 
-
 # 任务生成策略
 strategy:
-  project:
-    type: DSS           # STD/HS/DSS
-    name: common        # 一般配common ,特殊定制化需求配对应的项目拼音全称（例：dibai）
   inbound:
     machine: boxLift     # 入库提升机选择 【boxLift: 仅料箱提升机入库;】 【lift: 仅换层提升机入库;】 【boxLift、lift: 双入库】
     isAppoint: true         # 是否指定入库货位

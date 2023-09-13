@@ -5,16 +5,10 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
-import com.lee.database.dss.entity.DeviceBoxLift;
-import com.lee.database.dss.entity.DeviceShelfPd;
-import com.lee.database.dss.entity.ResourceLocation;
-import com.lee.database.dss.entity.ResourceTask;
-import com.lee.database.dss.service.impl.*;
 import com.lee.database.std.entity.*;
 import com.lee.database.std.service.impl.*;
 import com.lee.netty.NettyClient;
 import com.lee.netty.NettyClientHandler;
-import com.lee.netty.deal.DealDSSRequest;
 import com.lee.netty.deal.DealSTDRequest;
 import com.lee.util.CommonUtil;
 import com.lee.util.Constance;
@@ -40,7 +34,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +43,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @FXMLController
-@FXMLView(value = "/fxml/tcp/tcpClientCC.fxml")
+@FXMLView(value = "/fxml/tcp/tcpStdClient.fxml")
 @Component
-@ConditionalOnProperty(name = "project.name", havingValue = "cc")
-public class MainTCPClientCCController extends AbstractFxmlView implements Initializable {
+@ConditionalOnProperty(name = "project.name", havingValue = "std")
+public class MainTcpStdClientController extends AbstractFxmlView implements Initializable {
 
-    private static final Logger log = LoggerFactory.getLogger(MainTCPClientCCController.class);
+    private static final Logger log = LoggerFactory.getLogger(MainTcpStdClientController.class);
     @Value("${server.mfc.IP}")
     public String mfcIp;
     @Value("${server.mfc.port}")
@@ -92,7 +85,6 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
     public AtomicInteger moveBoxNum = new AtomicInteger(1);
     List<Integer> levels = new ArrayList<>();
     List<Integer> aisles = new ArrayList<>();
-    List<Boxlift> lifts = new ArrayList<>();
 
     @Autowired
     protected StdBoxliftServiceImpl boxLiftService;
@@ -112,9 +104,8 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
-        boxLiftService.query().select("id", "pos", "ip", "is_master").eq("is_master", 1).list().forEach(boxLift -> {
+        boxLiftService.selectAll().forEach(boxLift -> {
             log.info("boxLift-{} thread start", boxLift.getId());
-            lifts.add(boxLift);
             ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskMFC(boxLift)).start();
             ThreadUtil.createThread("MK-" + boxLift.getId(), () -> sendRequest(boxLift)).start();
         });
@@ -122,7 +113,6 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
             log.info("开始连接mfc...");
             connect();
         });
-
         ip.setText(mfcIp);
         port.setText(mfcPort);
         log.info("init success");
