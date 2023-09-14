@@ -42,6 +42,9 @@ public class ResourceTaskServiceImpl extends ServiceImpl<ResourceTaskMapper, Res
         if (task == null) {
             return 1;
         }
+        if (!task.getBarcode().contains("-")) {
+            return 1;
+        }
         List<String> split = StrUtil.split(task.getBarcode(), "-");
         return Convert.toInt(split.get(2)) + 1;
     }
