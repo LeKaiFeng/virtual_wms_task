@@ -1,7 +1,7 @@
 spring:
   profiles:
     #   *** 根据项目配置 ***
-    active: dsl
+    active: dss
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -27,9 +27,6 @@ server:
 
 # 任务生成策略
 strategy:
-  project:
-    type: DSS           # STD/HS/DSS
-    name: common        # 一般配common ,特殊定制化需求配对应的项目拼音全称（例：dibai）
   inbound:
     machine: boxLift     # 入库提升机选择 【boxLift: 仅料箱提升机入库;】 【lift: 仅换层提升机入库;】 【boxLift、lift: 双入库】
     isAppoint: true         # 是否指定入库货位

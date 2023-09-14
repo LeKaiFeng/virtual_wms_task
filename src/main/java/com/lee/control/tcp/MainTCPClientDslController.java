@@ -38,9 +38,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @FXMLController
-@FXMLView(value = "/fxml/tcp/tcpClientDsl.fxml")
+@FXMLView(value = "/fxml/tcp/tcpClientDss.fxml")
 @Component
-@ConditionalOnProperty(name = "project.name", havingValue = "dsl")
+@ConditionalOnProperty(name = "project.name", havingValue = "dss")
 public class MainTCPClientDslController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTCPClientDslController.class);
