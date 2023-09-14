@@ -1,7 +1,7 @@
 spring:
   profiles:
     #   *** 根据项目配置 ***
-    active: cc
+    active: std
   datasource:
     driver-class-name: com.kingbase8.Driver
     username: system
@@ -27,9 +27,6 @@ server:
 
 # 任务生成策略
 strategy:
-  project:
-    type: DSS           # STD/HS/DSS
-    name: common        # 一般配common ,特殊定制化需求配对应的项目拼音全称（例：dibai）
   inbound:
     machine: boxLift     # 入库提升机选择 【boxLift: 仅料箱提升机入库;】 【lift: 仅换层提升机入库;】 【boxLift、lift: 双入库】
     isAppoint: true         # 是否指定入库货位
@@ -38,11 +35,11 @@ strategy:
     exitArea: false           # false:没分区  true:有分区
   outbound:
     intervalTime: 10000
-    everyLevelNums: 9    # 当每层任务数设置为与巷道数相等的条件下，当前层每个巷道生成一条任务
+    everyLevelNums: 8    # 当每层任务数设置为与巷道数相等的条件下，当前层每个巷道生成一条任务
     ignoreExitTask: false     # N：当前层有任务则不生成任务，当任务数小于等于2时，开始生成任务； Y：持续不间断的生成任务；但任务积压上限100
   move:
     intervalTime: 10000
-    everyLevelNums: 9
+    everyLevelNums: 8
     ignoreExitTask: false
     exitArea: false           # false:没分区  true:有分区
 

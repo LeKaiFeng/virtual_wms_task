@@ -25,7 +25,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<String> {
         //buf.readBytes(bytes);
         //String body = new String(bytes, StandardCharsets.UTF_8);
         //body = StrUtil.replace(body, "|", "");
-        log.info("client rec from [{}] , msg: {}", ctx.channel().remoteAddress(), body);
+        log.debug("client rec from [{}] , msg: {}", ctx.channel().remoteAddress(), body);
         //JSONObject responseJson = JSONUtil.parseObj(body);
         //int id = responseJson.getInt("id");
         //cacheClientRecMsgMap.put(id, body);
