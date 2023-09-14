@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 @FXMLController
 @FXMLView(value = "/fxml/tcp/tcpServer.fxml")
 public class MainTCPServerController extends AbstractFxmlView implements Initializable {
-    private static final Logger log = LoggerFactory.getLogger(MainTCPClientController.class);
+    private static final Logger log = LoggerFactory.getLogger(MainTCPServerController.class);
     @FXML
     protected TextField port;
     @FXML

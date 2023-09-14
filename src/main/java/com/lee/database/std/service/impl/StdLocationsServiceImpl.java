@@ -31,10 +31,9 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     @Override
     public List<Integer> allLevels() {
         List<Locations> locations = locationsMapperStd.selectList(new QueryWrapper<Locations>()
-//                        .select("\"level\"","location","pos","aisle","state","type")
-                        .eq("type", 0)
-                        .select("DISTINCT \"level\"")
-                        .orderByAsc("\"level\"")
+                .eq("type", 0)
+                .select("DISTINCT level")
+                .orderByAsc("level")
         );
         List<Integer> levelChoices = new ArrayList<>();
         locations.forEach(lt -> levelChoices.add(lt.getLevel()));
@@ -44,7 +43,7 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     @Override
     public List<Integer> allAisles() {
         List<Locations> locations = locationsMapperStd.selectList(new QueryWrapper<Locations>()
-                .select("\"level\"", "location", "pos", "aisle", "state", "type")
+                .select("level", "location", "pos", "aisle", "state", "type")
                 .eq("type", 0)
                 .select("DISTINCT aisle")
                 .orderByAsc("aisle"));
@@ -56,14 +55,14 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     @Override
     public List<Locations> outLocations() {
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
-                .select("\"level\"", "location", "pos", "aisle", "state", "type")
+                .select("level", "location", "pos", "aisle", "state", "type")
                 .eq("type", 0));
     }
 
     @Override
     public List<Locations> outLocations(int level) {
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
-                .eq("\"level\"", level)
+                .eq("level", level)
                 //.eq("state", 10)
                 .eq("type", 0));
     }
@@ -72,13 +71,13 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     public List<Locations> inboundLocations(int level) {
         if (level == -1) {
             return locationsMapperStd.selectList(new QueryWrapper<Locations>()
-                    .select("\"level\"", "pos", "location", "aisle", "type", "state", "box_number")
+                    .select("level", "pos", "location", "aisle", "type", "state", "box_number")
                     .eq("state", 0)
                     .eq("type", 0));
         }
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
-                .select("\"level\"", "pos", "location", "aisle", "type", "state", "box_number")
-                .eq("\"level\"", level)
+                .select("level", "pos", "location", "aisle", "type", "state", "box_number")
+                .eq("level", level)
                 .eq("state", 0)
                 .eq("type", 0));
     }
@@ -87,7 +86,7 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     public List<Locations> outLocations(int level, int aisle) {
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
                 //.select("level")
-                .eq("\"level\"", level)
+                .eq("level", level)
                 //.eq("state", 10)
                 .eq("aisle", aisle)
                 .eq("type", 0));
@@ -96,7 +95,7 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     @Override
     public List<Locations> inboundLocations(int level, int aisle) {
         return locationsMapperStd.selectList(new QueryWrapper<Locations>()
-                .select("\"level\"", "location", "pos", "state", "aisle", "type", "box_number")
+                .select("level", "location", "pos", "state", "aisle", "type", "box_number")
                 .eq("level", level)
                 .eq("state", 0)
                 .eq("aisle", aisle)
@@ -106,7 +105,7 @@ public class StdLocationsServiceImpl extends ServiceImpl<LocationsStdMapper, Loc
     @Override
     public int occupyLocation(Locations location) {
         return locationsMapperStd.update(null, new UpdateWrapper<Locations>()
-                .eq("\"level\"", location.getLevel())
+                .eq("level", location.getLevel())
                 .eq("location", location.getLocation())
                 .eq("state", 10)
                 .eq("type", 0)

@@ -24,10 +24,10 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                             <children>
-                                <Label text="mfc"/>
-                                <Label text="IP :"/>
+                                <Label text="mfc server -> "/>
+                                <Label text="ip: "/>
                                 <TextField fx:id="ip" alignment="CENTER" prefHeight="30.0" prefWidth="140.0"/>
-                                <Label text="PORT :"/>
+                                <Label text="port: "/>
                                 <TextField fx:id="port" alignment="CENTER" prefHeight="30.0" prefWidth="70.0"/>
                                 <JFXButton fx:id="connectBtn" prefHeight="30.0" prefWidth="70.0"
                                            style="-fx-background-color: Gainsboro;" text="连接"/>
