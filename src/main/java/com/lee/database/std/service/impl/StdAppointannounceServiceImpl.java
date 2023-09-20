@@ -50,6 +50,7 @@ public class StdAppointannounceServiceImpl extends ServiceImpl<AppointannounceSt
                     .select("id", "\"level\"", "box_number", "state")
                     .eq("state", 0)
                     .like("box_number", Constance.BOX_PREFIX + liftId + "-%")
+                    .orderByAsc("\"level\"")
             );
         }
         return appointannounceStdMapper.selectList(new QueryWrapper<Appointannounce>()

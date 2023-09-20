@@ -56,6 +56,8 @@ import java.util.stream.Collectors;
 public class MainTCPClientCCController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTCPClientCCController.class);
+    @Value("${device.ip}")
+    public String deviceIp;
     @Value("${server.mfc.IP}")
     public String mfcIp;
     @Value("${server.mfc.port}")
@@ -113,6 +115,9 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
         boxLiftService.query().select("id", "pos", "ip", "is_master").eq("is_master", 1).list().forEach(boxLift -> {
+            if (boxLift.getId() != 1) {
+                return;
+            }
             log.info("boxLift-{} thread start", boxLift.getId());
             lifts.add(boxLift);
             ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskMFC(boxLift)).start();
@@ -184,15 +189,16 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                                 if (!tcpSend) {
                                     do {
                                         times++;
-                                        log.info("入库 发送失败并重发");
+                                        log.debug("入库 发送失败并重发");
                                         ThreadUtil.sleep(500);
                                     } while (send(request) && times < 10);
                                 }
-                                if (times == 10) {
-                                    log.info("{}次重发未成功,request:{}", times, request);
+                                if (times >= 10) {
+                                    log.info("pushTaskToMFC, {}次, 发送失败, request: {}", times, request);
+                                } else {
+                                    log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, inbound.getLocation());
                                 }
                                 ThreadUtil.sleep(100);
-                                log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, inbound.getLocation());
                             }
 
                         });
@@ -211,7 +217,6 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
     public void sendRequest(Boxlift boxLift) {
         int liftId = boxLift.getId();
         int liftPos = boxLift.getPos();
-        String deviceIp = boxLift.getIp();
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
         while (true) {
             try {
@@ -227,7 +232,7 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                         continue;
                     }
                     if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
-                        return;
+                        continue;
                     }
                     List<Appointannounce> currentLevelAppoint = totalAppoint.stream().filter(appointannounce -> appointannounce.getLevel().equals(pdLevel)).collect(Collectors.toList());
                     if (currentLevelAppoint.size() == 0) {
@@ -243,18 +248,16 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                     int times = 0;
                     do {
                         if (times > 0) {
-                            log.info("MK-[{}], box:{} not found on announce, times:{}", liftId, boxId, times);
+                            log.debug("MK-[{}], box:{} not found on announce, times:{}", liftId, boxId, times);
                             ThreadUtil.sleep(500);
                             exitAnnounce = announceService.isExitAnnounce(boxId);
                         }
                         times++;
                     } while (exitAnnounce == null && times < 10);
                     if (times == 10) {
-                        log.info("MK-[{}], barcode:{}, {}次 ,announce任务未生成,不发了", liftId, boxId, times);
+                        log.info("MK-[{}], send barcode:{}, {}次 ,announce任务未生成,不发了", liftId, boxId, times);
                         continue;
                     }
-
-
                     String requestPD = DeviceHttpRequest.sendRequest(deviceIp, 2, pd.getId(), 1, boxId);
                     log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), pdLevel, boxId, requestPD);
                     ThreadUtil.sleep(500);
@@ -267,7 +270,6 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
         }
 
     }
-
 
     @Scheduled(fixedRateString = "${strategy.outbound.intervalTime}", initialDelay = 1000 * 3)
     // 延时10s启动，之后每5s执行一次
@@ -299,13 +301,19 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                                     String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
                                     outLocation.setBoxNumber(boxId);
                                     String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation);
-                                    log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
                                     boolean tcpSend = send(request);
+                                    int num = 0;
                                     if (!tcpSend) {
                                         do {
-                                            log.info("发送失败,重发");
+                                            num++;
+                                            log.debug("发送失败,重发");
                                             ThreadUtil.sleep(500);
-                                        } while (send(request));
+                                        } while (send(request) && num < 10);
+                                    }
+                                    if (num >= 10) {
+                                        log.info("超出重发最大次数: request:{}", request);
+                                    } else {
+                                        log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
                                     }
                                     ThreadUtil.sleep(100);
                                 }
@@ -346,15 +354,21 @@ public class MainTCPClientCCController extends AbstractFxmlView implements Initi
                             locations.remove(start);
                             Locations end = CommonUtil.randomFromList(locations);
                             locations.remove(end);
-                            log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
-                                    start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
                             String request = DealSTDRequest.pushMoveLibraryKB(msgNum.getAndIncrement(), start, end);
                             boolean tcpSend = send(request);
+                            int num = 0;
                             if (!tcpSend) {
                                 do {
-                                    log.info("移库 发送失败并重发");
+                                    num++;
+                                    log.debug("移库 发送失败并重发");
                                     ThreadUtil.sleep(500);
-                                } while (send(request));
+                                } while (send(request) && num < 10);
+                            }
+                            if (num >= 10) {
+                                log.info("超出重发最大次数: request:{}", request);
+                            } else {
+                                log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
+                                        start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
                             }
                             ThreadUtil.sleep(500);
                         }
