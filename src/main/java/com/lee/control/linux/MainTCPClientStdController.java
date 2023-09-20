@@ -102,6 +102,8 @@ public class MainTCPClientStdController {
                 ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskMFC(boxLift)).start();
                 ThreadUtil.createThread("MK-" + boxLift.getId(), () -> sendRequest(boxLift)).start();
             });
+            ThreadUtil.createThread("outBound", this::outboundTask).start();
+            ThreadUtil.createThread("moveTask", this::moveTask).start();
             openServer();
             connect();
             log.info("init success");
@@ -252,96 +254,109 @@ public class MainTCPClientStdController {
     }
 
 
-    @Scheduled(fixedRateString = "${strategy.outbound.intervalTime}", initialDelay = 1000 * 3)
+    //    @Scheduled(fixedRateString = "${strategy.outbound.intervalTime}", initialDelay = 1000 * 3)
     public void outboundTask() {
-        try {
-            if (locations.size() == 0) {
-                locations = locationsService.outLocations();
-            }
-            int times = CommonUtil.getTimes(outboundEveryLevelNums, aisles.size());
-            List<Task> totalTasks = taskService.outboundTask(-1, -1);
-            for (Integer level : levels) {
-                List<Task> currentLevelTask = totalTasks.stream().filter(task -> Objects.equals(task.getSLevel(), level)).collect(Collectors.toList());
-                if (currentLevelTask.size() > 0) {
-                    continue;
+        while (true) {
+            try {
+                if (locations.size() == 0) {
+                    locations = locationsService.outLocations();
                 }
-                List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
-                if (currentLevelLocations.size() == 0) {
-                    continue;
-                }
-                for (Integer aisle : aisles) {
-                    List<Locations> currentLevelAndAisleLocations = currentLevelLocations.stream().filter(lt -> lt.getAisle() == aisle).collect(Collectors.toList());
-                    if (currentLevelAndAisleLocations.size() == 0) {
+                int times = CommonUtil.getTimes(outboundEveryLevelNums, aisles.size());
+                List<Task> totalTasks = taskService.outboundTask(-1, -1);
+                for (Integer level : levels) {
+                    List<Task> currentLevelTask = totalTasks.stream().filter(task -> Objects.equals(task.getSLevel(), level)).collect(Collectors.toList());
+                    if (currentLevelTask.size() > 0) {
                         continue;
                     }
-                    for (int i = 0; i < times; i++) {
-                        Locations outLocation = CommonUtil.randomFromList(currentLevelAndAisleLocations);
-                        currentLevelLocations.remove(outLocation);
-                        locations.remove(outLocation);
-                        String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
-                        outLocation.setBoxNumber(boxId);
-                        String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation);
-                        log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
-                        boolean tcpSend = send(request);
-                        if (!tcpSend) {
-                            do {
-                                log.info("发送失败,重发");
-                                ThreadUtil.sleep(500);
-                            } while (send(request));
-                        }
-                        ThreadUtil.sleep(200);
+                    List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
+                    if (currentLevelLocations.size() == 0) {
+                        continue;
                     }
+                    for (Integer aisle : aisles) {
+                        List<Locations> currentLevelAndAisleLocations = currentLevelLocations.stream().filter(lt -> lt.getAisle() == aisle).collect(Collectors.toList());
+                        if (currentLevelAndAisleLocations.size() == 0) {
+                            continue;
+                        }
+                        for (int i = 0; i < times; i++) {
+                            Locations outLocation = CommonUtil.randomFromList(currentLevelAndAisleLocations);
+                            currentLevelLocations.remove(outLocation);
+                            locations.remove(outLocation);
+                            String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
+                            outLocation.setBoxNumber(boxId);
+                            String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation);
+                            log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
+                            boolean tcpSend = send(request);
+                            int nums = 0;
+                            if (!tcpSend) {
+                                do {
+                                    nums++;
+//                                    log.info("发送失败,重发");
+                                    ThreadUtil.sleep(500);
+                                } while (send(request) && nums <= 10);
+                            }
+                            if (nums > 10) {
+                                log.info("num: {}次, 重发超时: {}", nums, request);
+                            }
+                            ThreadUtil.sleep(200);
+                        }
 
+
+                    }
 
                 }
 
+            } catch (Exception e) {
+                log.info(e.getMessage());
             }
-
-        } catch (Exception e) {
-            log.info(e.getMessage());
         }
     }
 
 
-    @Scheduled(initialDelay = 1000 * 5, fixedRateString = "${strategy.move.intervalTime}") // 延时10s启动，之后每5s执行一次
+    //    @Scheduled(initialDelay = 1000 * 5, fixedRateString = "${strategy.move.intervalTime}") // 延时10s启动，之后每5s执行一次
     public void moveTask() {
-        try {
-            if (locations.size() <= 10) {
-                locations = locationsService.outLocations();
-            }
-            int times = CommonUtil.getTimes(moveEveryLevelNums, aisles.size());
-            List<Task> totalMoveTask = taskService.moveTask(-1);
-            levels.forEach(level -> {
-                List<Task> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getSLevel().equals(level)).collect(Collectors.toList());
-                if (currentLevelMoveTask.size() == 0) {
-                    aisles.forEach(aisle -> {
-                        List<Locations> currentLevelAndAisleLocations = locations.stream().filter(lt -> lt.getLevel() == level && lt.getAisle() == aisle).collect(Collectors.toList());
-                        for (int i = 0; i < times; i++) {
-                            Locations start = CommonUtil.randomFromList(currentLevelAndAisleLocations);
-                            String boxId = Constance.MOVE_BOX_PREFIX + moveBoxNum.getAndIncrement();
-                            start.setBoxNumber(boxId);
-                            currentLevelAndAisleLocations.remove(start);
-                            locations.remove(start);
-                            List<Locations> currentLevelAndOtherAisleLocations = locations.stream().filter(lt -> lt.getLevel() == level && lt.getAisle() != aisle).collect(Collectors.toList());
-                            Locations end = CommonUtil.randomFromList(currentLevelAndOtherAisleLocations);
-                            locations.remove(end);
-                            log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
-                                    start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
-                            String request = DealSTDRequest.pushMoveLibraryKB(msgNum.getAndIncrement(), start, end);
-                            boolean tcpSend = send(request);
-                            if (!tcpSend) {
-                                do {
-                                    log.info("移库 发送失败并重发");
-                                    ThreadUtil.sleep(500);
-                                } while (send(request));
-                            }
-                            ThreadUtil.sleep(500);
-                        }
-                    });
+        while (true) {
+            try {
+                if (locations.size() <= 10) {
+                    locations = locationsService.outLocations();
                 }
-            });
-        } catch (Exception e) {
-            log.info(e.getMessage());
+                int times = CommonUtil.getTimes(moveEveryLevelNums, aisles.size());
+                List<Task> totalMoveTask = taskService.moveTask(-1);
+                levels.forEach(level -> {
+                    List<Task> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getSLevel().equals(level)).collect(Collectors.toList());
+                    if (currentLevelMoveTask.size() == 0) {
+                        aisles.forEach(aisle -> {
+                            List<Locations> currentLevelAndAisleLocations = locations.stream().filter(lt -> lt.getLevel() == level && lt.getAisle() == aisle).collect(Collectors.toList());
+                            for (int i = 0; i < times; i++) {
+                                Locations start = CommonUtil.randomFromList(currentLevelAndAisleLocations);
+                                String boxId = Constance.MOVE_BOX_PREFIX + moveBoxNum.getAndIncrement();
+                                start.setBoxNumber(boxId);
+                                currentLevelAndAisleLocations.remove(start);
+                                locations.remove(start);
+                                List<Locations> currentLevelAndOtherAisleLocations = locations.stream().filter(lt -> lt.getLevel() == level && lt.getAisle() != aisle).collect(Collectors.toList());
+                                Locations end = CommonUtil.randomFromList(currentLevelAndOtherAisleLocations);
+                                locations.remove(end);
+                                log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
+                                        start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
+                                String request = DealSTDRequest.pushMoveLibraryKB(msgNum.getAndIncrement(), start, end);
+                                boolean tcpSend = send(request);
+                                int num = 0;
+                                if (!tcpSend) {
+                                    do {
+                                        num++;
+                                        ThreadUtil.sleep(500);
+                                    } while (send(request) && num <= 10);
+                                }
+                                if (num > 10) {
+                                    log.info("num: {}次, 重发超时: {}", num, request);
+                                }
+                                ThreadUtil.sleep(500);
+                            }
+                        });
+                    }
+                });
+            } catch (Exception e) {
+                log.info(e.getMessage());
+            }
         }
     }
 
