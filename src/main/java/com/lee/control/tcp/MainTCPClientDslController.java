@@ -44,6 +44,8 @@ import java.util.stream.Collectors;
 public class MainTCPClientDslController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTCPClientDslController.class);
+    @Value("${server.device.ip}")
+    public String deviceIp;
     @Value("${server.mfc.IP}")
     public String mfcIp;
     @Value("${server.mfc.port}")
@@ -165,6 +167,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                                         List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
                                         if (currentLevelAisle.size() > 0) {
                                             String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
+
                                             ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
                                             if (location == null) {
                                                 log.info("货位确失-> level:{}, aisle:{}", level, aisle);
@@ -208,8 +211,6 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public void sendRequest(DeviceBoxLift boxLift) {
         int liftId = boxLift.getId();
         int liftPos = boxLift.getPos();
-//        int inboundId = taskService.initTaskIdByLift(liftPos);
-        String deviceIp = boxLift.getIp();
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
         while (true) {
             try {
@@ -221,6 +222,10 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                 //直接去task表找任务
                 List<DeviceShelfPd> pds = shelfPdService.selectPds(liftPos);
                 for (ResourceTask task : tasks) {
+                    if (!autoInbound.isSelected()) {
+                        ThreadUtil.sleep(1000);
+                        continue;
+                    }
                     int level = task.getStartLevel();
                     String boxId = task.getBarcode();
                     List<DeviceShelfPd> pdList = pds.stream().filter(pd -> pd.getLevel() == level).collect(Collectors.toList());
@@ -230,7 +235,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                             log.info("boxLift-{} ,level: {}, pd-{}, exit box: {}", liftId, level, pd.getId(), pd.getInboundBarcode());
                             continue;
                         }
-                        String requestLift = DeviceHttpRequest.sendRequest(deviceIp, 1, liftId, 1, boxId);
+                        String requestLift = DeviceHttpRequest.sendDslLiftRequest(deviceIp, 1, liftId, 1, boxId, -1, -1, -1);
                         log.info("boxLift-[{}], request level:{}, barcode:{} {}", liftId, level, boxId, requestLift);
                         if (!requestLift.equalsIgnoreCase("success")) {
                             log.info("boxLift-[{}], level:{}, request {} failed,请检查设备IP", liftId, level, requestLift);
@@ -241,16 +246,15 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                         int times = 0;
                         do {
                             if (times > 0) {
-                                log.info("boxLift-[{}], level:{} box:{} state≠1,wait task change 1 and times:{}", liftId, level, boxId, times);
-                                ThreadUtil.sleep(500);
+                                ThreadUtil.sleep(1000);
                             }
                             times++;
                         } while (taskService.isOnLiftTask(boxId, level).getState() != 1 && times < 10);
                         if (times == 10) {
-                            log.info("10次请求失败,不发了");
+                            log.info("boxLift-[{}], level:{}, box:{} state≠1 ,等待超时,不发了", liftId, level, boxId);
                             continue;
                         }
-                        String requestPD = DeviceHttpRequest.sendRequest(deviceIp, 2, pd.getId(), 1, boxId);
+                        String requestPD = DeviceHttpRequest.senDslPDRequest(deviceIp, 2, pd.getId(), 1, boxId, -1, -1, -1);
                         log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), level, boxId, requestPD);
                         ThreadUtil.sleep(500);
                     }

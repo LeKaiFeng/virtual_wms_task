@@ -51,6 +51,30 @@ public class DeviceHttpRequest {
         return result;
     }
 
+    public static String senDslPDRequest(String ip, int type, int deviceId, int req, String barcode, int pdCache, int rollState, int outboundAllow) {
+        String input = String.format("http://%s:%s/input?type=%s&id=%s&reqType=1&req=%s&barcode=%s&pdCache=%s&rollState=%s&outboundAllow=%s",
+                ip, HTTP_PORT, type, deviceId, req, barcode, pdCache, rollState, outboundAllow);
+        String result = null;
+        try {
+            log.debug("input: {}", input);
+            result = HttpUtil.get(input, CharsetUtil.CHARSET_UTF_8);
+        } catch (Exception e) {
+            log.info("请求失败 -> {}  {}", input, result);
+        }
+        return result;
+    }
+
+    public static String sendDslLiftRequest(String ip, int type, int deviceId, int req, String barcode, int weight, int size, int boxType) {
+        String input = String.format("http://%s:%s/input?type=%s&id=%s&reqType=1&req=%s&barcode=%s&weight=%s&size=%s&boxType=%s ", ip, HTTP_PORT, type, deviceId, req, barcode, weight, size, boxType);
+        String result = null;
+        try {
+            log.debug("input: {}", input);
+            result = HttpUtil.get(input, CharsetUtil.CHARSET_UTF_8);
+        } catch (Exception e) {
+            log.info("请求失败 -> {}  {}", input, result);
+        }
+        return result;
+    }
 
     public static String sendTaskGenerate(String ip, String json) {
 
