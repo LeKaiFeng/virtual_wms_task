@@ -49,6 +49,8 @@ import java.util.stream.Collectors;
 public class MainTcpStdClientController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTcpStdClientController.class);
+    @Value("${server.device.ip}")
+    public String deviceIp;
     @Value("${server.mfc.IP}")
     public String mfcIp;
     @Value("${server.mfc.port}")
@@ -201,7 +203,6 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     public void sendRequest(Boxlift boxLift) {
         int liftId = boxLift.getId();
         int liftPos = boxLift.getPos();
-        String deviceIp = boxLift.getIp();
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
         while (true) {
             try {

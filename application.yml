@@ -22,6 +22,8 @@ server:
     IP: 127.0.0.1
     port: 1200
     end: "\r\n"
+  device:
+    ip: 127.0.0.1
 
 # 任务生成策略
 strategy:
