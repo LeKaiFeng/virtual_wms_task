@@ -7,22 +7,25 @@ spring:
     username: root
     password: root
     #    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    url: jdbc:mysql://10.2.7.164:3306/dss-dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://10.2.2.80:3306/dss-dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
 
 mybatis:
   mapper-locations=classpath:mapper/*/*.xml:
 
-# WMS、 GSEE ==> TCP双工通讯
+# WMS、 MFC ==> TCP双工通讯
 server:
   type: TCP
   WMS:
     port: 9999
     end: "#"
   mfc:
-    IP: 10.2.7.164
+    IP: 10.2.2.84
     port: 9392
     end: "*"
+  device:
+    #    ip: 10.2.2.84
+    ip: 127.0.0.1
 
 
 # 任务生成策略

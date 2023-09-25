@@ -36,7 +36,7 @@ public class ResourceTaskServiceImpl extends ServiceImpl<ResourceTaskMapper, Res
     public int initBoxId(int boxLiftPos) {
         ResourceTask task = taskMapper.selectOne(new QueryWrapper<ResourceTask>()
                 .eq("type", 1)
-                .eq("start_pos", boxLiftPos)
+                .eq("start_pos", boxLiftPos).or().eq("start_aisle", boxLiftPos / 10000)
                 .orderByDesc("id")
                 .last("limit 1"));
         if (task == null) {
@@ -125,7 +125,7 @@ public class ResourceTaskServiceImpl extends ServiceImpl<ResourceTaskMapper, Res
                 .eq("type", 1)
                 .eq("start_level", level)
                 .eq("barcode", barcode)
-                .in("state", 1));
+        );
     }
 
     @Override
