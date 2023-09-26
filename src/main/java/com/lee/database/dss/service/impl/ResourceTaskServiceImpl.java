@@ -34,19 +34,14 @@ public class ResourceTaskServiceImpl extends ServiceImpl<ResourceTaskMapper, Res
 
     @Override
     public int initBoxId(int boxLiftPos) {
-        ResourceTask task = taskMapper.selectOne(new QueryWrapper<ResourceTask>()
+        List<ResourceTask> tasks = taskMapper.selectList(new QueryWrapper<ResourceTask>()
                 .eq("type", 1)
-                .eq("start_pos", boxLiftPos).or().eq("start_aisle", boxLiftPos / 10000)
-                .orderByDesc("id")
-                .last("limit 1"));
-        if (task == null) {
+                .eq("start_aisle", boxLiftPos / 10000)
+        );
+        if (tasks.size() == 0) {
             return 1;
         }
-        if (!task.getBarcode().contains("-")) {
-            return 1;
-        }
-        List<String> split = StrUtil.split(task.getBarcode(), "-");
-        return Convert.toInt(split.get(2)) + 1;
+        return tasks.size() + 1;
     }
 
     @Override
@@ -88,17 +83,20 @@ public class ResourceTaskServiceImpl extends ServiceImpl<ResourceTaskMapper, Res
     public List<ResourceTask> getLiftInboundTask(int level, int liftId) {
         if (level == -1) {
             return taskMapper.selectList(new QueryWrapper<ResourceTask>()
-                    .select("id,start_level,state,type,barcode")
+                    .select("DISTINCT start_level,id,type,barcode,start_aisle,state")
                     .eq("type", 1)
+                    .isNull("assign_time")
                     .like("barcode", "BoxLift-" + liftId + "-%")
-                    .in("state", 0, 1, 2, 7));
+                    .in("state", 0, 1)
+            );
         }
         return taskMapper.selectList(new QueryWrapper<ResourceTask>()
                 .select("id,start_level,state,type,barcode")
                 .eq("type", 1)
+                .isNull("assign_time")
                 .eq("start_level", level)
                 .like("barcode", "BoxLift-" + liftId + "-%")
-                .in("state", 0, 1, 2, 7));
+                .in("state", 0, 1));
     }
 
     @Override

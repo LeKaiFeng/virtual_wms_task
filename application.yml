@@ -24,8 +24,7 @@ server:
     port: 9392
     end: "*"
   device:
-    #    ip: 10.2.2.84
-    ip: 127.0.0.1
+    ip: 10.2.2.84
 
 
 # 任务生成策略
@@ -36,6 +35,7 @@ strategy:
     intervalTime: 3000     # 任务间隔时间单位：秒
     async: true         # 异步指定入库 正泰，香港bps
     exitArea: false           # false:没分区  true:有分区
+    everyLevelNums: 1     #针对的是单个提升机, 而不是库内当前层, ==>>单个提升机每层最多送多少箱子
   outbound:
     intervalTime: 10000
     everyLevelNums: 9    # 当每层任务数设置为与巷道数相等的条件下，当前层每个巷道生成一条任务

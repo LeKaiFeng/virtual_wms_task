@@ -55,18 +55,14 @@ public class ResourceLocationServiceImpl extends ServiceImpl<ResourceLocationMap
     public List<ResourceLocation> outLocations(int level, List<Integer> aisles) {
         if (aisles == null) {
             return locationMapper.selectList(new QueryWrapper<ResourceLocation>()
-                            .select("level,location,barcode")
-                            .ne("state", -100)
+                    .select("level,location,barcode,aisle")
                             .eq("level", level)
-                    //.eq("state", 10)
             );
         }
         return locationMapper.selectList(new QueryWrapper<ResourceLocation>()
-                        .select("level,location,barcode")
-                        .ne("state", -100)
+                .select("level,location,barcode,aisle")
                         .in("aisle", aisles)
                         .eq("level", level)
-                //.eq("state", 10)
         );
     }
 

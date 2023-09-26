@@ -36,7 +36,8 @@
                                 <Insets top="40.0"/>
                             </VBox.margin>
                         </HBox>
-                        <JFXToggleButton fx:id="autoInbound" text="入库任务"/>
+                        <JFXToggleButton fx:id="autoInbound" text="下发任务"/>
+                        <JFXToggleButton fx:id="autoReq" text="设备请求"/>
                         <JFXToggleButton fx:id="autoOutbound" text="出库任务"/>
                         <JFXToggleButton fx:id="autoMove" text="移库任务"/>
                     </children>

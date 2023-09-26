@@ -60,6 +60,8 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public boolean isAppoint;
     @Value("${strategy.inbound.intervalTime}")
     public Long inboundIntervalTime;
+    @Value("${strategy.inbound.everyLevelNums}")
+    public int inboundEveryLevelNums;
     @Value("${strategy.outbound.everyLevelNums}")
     public int outboundEveryLevelNums;
     @Value("${strategy.outbound.ignoreExitTask}")
@@ -70,7 +72,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public boolean moveIgnoreExitTask;
 
     @FXML
-    protected JFXToggleButton autoInbound, autoOutbound, autoMove;
+    protected JFXToggleButton autoInbound, autoReq, autoOutbound, autoMove;
     @FXML
     protected TextField ip, port;
     @FXML
@@ -99,19 +101,16 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
         boxLiftService.allLift().forEach(boxLift -> {
-            log.info("boxLift-{} thread start", boxLift.getId());
             lifts.add(boxLift);
-            ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskGenerate(boxLift)).start();
-            ThreadUtil.createThread("boxLift" + boxLift.getId(), () -> sendRequest(boxLift)).start();
+            ThreadUtil.createThread("TaskGenerate-" + boxLift.getId(), () -> pushTaskGenerate(boxLift)).start();
+            ThreadUtil.createThread("MK-" + boxLift.getId(), () -> sendRequest(boxLift)).start();
         });
         connectBtn.setOnMouseClicked(event -> {
             log.info("开始连接mfc...");
             connect();
         });
-
         ip.setText(mfcIp);
         port.setText(mfcPort);
-        log.info("init success");
     }
 
     public void initId() {
@@ -148,8 +147,9 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
     public void pushTaskGenerate(DeviceBoxLift lift) {
         int liftId = lift.getId();
         int liftPos = lift.getPos();
-        AtomicInteger boxNum = new AtomicInteger(1);
-        boxNum.set(taskService.initBoxId(liftPos));
+        int num = taskService.initBoxId(liftPos);
+        AtomicInteger boxNum = new AtomicInteger(num);
+        log.info("mk-[{}], inbound boxId:{}", liftId, num);
         List<DeviceShelfPd> pds = shelfPdService.selectPds(liftPos);
         while (true) {
             try {
@@ -162,38 +162,39 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                                     task.getStartLevel().equals(level)).collect(Collectors.toList());
                             if (currentLevelTask.size() == 0) {
                                 List<ResourceLocation> inbound = locationsService.inboundLocations(level, aisles);
-                                aisles.forEach(aisle -> {
-                                    if (autoInbound.isSelected()) {
-                                        List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
-                                        if (currentLevelAisle.size() > 0) {
-                                            String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
-
-                                            ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
-                                            if (location == null) {
-                                                log.info("货位确失-> level:{}, aisle:{}", level, aisle);
-                                                return;
-                                            }
-                                            location.setBarcode(boxId);
-                                            inbound.remove(location);
-                                            String request = DealDSSRequest.pushTaskGenerate(1, msgNum.getAndIncrement(), liftId, boxId, null, location);
-                                            boolean tcpSend = send(request);
-                                            int times = 0;
-                                            if (!tcpSend) {
-                                                do {
-                                                    times++;
-                                                    log.info("入库 发送失败并重发");
-                                                    ThreadUtil.sleep(500);
-                                                } while (send(request) && times < 10);
-                                            }
-                                            if (times == 10) {
-                                                log.info("{}次重发未成功,request:{}", times, request);
-                                            }
-                                            ThreadUtil.sleep(100);
-
-                                            log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, location.getLocation());
-                                        }
+                                for (int i = 0; i < inboundEveryLevelNums; i++) {
+                                    if (!autoInbound.isSelected()) {
+                                        continue;
                                     }
-                                });
+                                    Integer aisle = CommonUtil.randomFromList(aisles);
+                                    String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
+                                    List<ResourceLocation> currentLevelAisle = inbound.stream().filter(in -> Objects.equals(in.getAisle(), aisle)).collect(Collectors.toList());
+                                    if (currentLevelAisle.size() == 0) {
+                                        continue;
+                                    }
+                                    ResourceLocation location = CommonUtil.randomFromList(currentLevelAisle);
+                                    if (location == null) {
+                                        log.info("货位确失-> level:{}, aisle:{}", level, aisle);
+                                        return;
+                                    }
+                                    location.setBarcode(boxId);
+                                    inbound.remove(location);
+                                    String request = DealDSSRequest.pushTaskGenerate(1, msgNum.getAndIncrement(), liftId, boxId, null, location);
+                                    boolean tcpSend = send(request);
+                                    int times = 0;
+                                    if (!tcpSend) {
+                                        do {
+                                            times++;
+                                            log.info("入库 发送失败并重发");
+                                            ThreadUtil.sleep(500);
+                                        } while (send(request) && times < 10);
+                                    }
+                                    if (times == 10) {
+                                        log.info("{}次重发未成功,request:{}", times, request);
+                                    }
+                                    ThreadUtil.sleep(1000);
+                                    log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, location.getLocation());
+                                }
                             }
                         }
 
@@ -214,27 +215,34 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
         while (true) {
             try {
-                if (!autoInbound.isSelected()) {
+                if (!autoReq.isSelected()) {
                     ThreadUtil.sleep(1000);
                     continue;
                 }
                 List<ResourceTask> tasks = taskService.getLiftInboundTask(-1, liftId);
-                //直接去task表找任务
-                List<DeviceShelfPd> pds = shelfPdService.selectPds(liftPos);
                 for (ResourceTask task : tasks) {
-                    if (!autoInbound.isSelected()) {
+                    if (!autoReq.isSelected()) {
                         ThreadUtil.sleep(1000);
                         continue;
                     }
                     int level = task.getStartLevel();
                     String boxId = task.getBarcode();
-                    List<DeviceShelfPd> pdList = pds.stream().filter(pd -> pd.getLevel() == level).collect(Collectors.toList());
-                    if (pdList.size() == 1) {
-                        DeviceShelfPd pd = pdList.get(0);
-                        if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
-                            log.info("boxLift-{} ,level: {}, pd-{}, exit box: {}", liftId, level, pd.getId(), pd.getInboundBarcode());
-                            continue;
-                        }
+
+                    /*
+                     * TODO 该提升机，该层，是否允许继续送箱子
+                     *  1. pd表 对应leve、pos 没有箱子
+                     *  2. task表 对应leve,pos,任务状态为0或1
+                     */
+                    DeviceShelfPd pd = shelfPdService.selectPd(level, liftPos);
+                    if (pd == null) {
+                        log.debug("Lift-[{}], {}层, 没有入库PD", liftId, level);
+                        continue;
+                    }
+                    if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
+                        log.debug("boxLift-{} ,level: {}, pd-{}, box: {} 存在入库请求", liftId, level, pd.getId(), pd.getInboundBarcode());
+                        continue;
+                    }
+                    if (task.getState() == 0) {
                         String requestLift = DeviceHttpRequest.sendDslLiftRequest(deviceIp, 1, liftId, 1, boxId, -1, -1, -1);
                         log.info("boxLift-[{}], request level:{}, barcode:{} {}", liftId, level, boxId, requestLift);
                         if (!requestLift.equalsIgnoreCase("success")) {
@@ -242,7 +250,6 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                             continue;
                         }
                         ThreadUtil.sleep(1000);
-
                         int times = 0;
                         do {
                             if (times > 0) {
@@ -254,12 +261,15 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
                             log.info("boxLift-[{}], level:{}, box:{} state≠1 ,等待超时,不发了", liftId, level, boxId);
                             continue;
                         }
-                        String requestPD = DeviceHttpRequest.senDslPDRequest(deviceIp, 2, pd.getId(), 1, boxId, -1, -1, -1);
-                        log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), level, boxId, requestPD);
-                        ThreadUtil.sleep(500);
                     }
+                    if (task.getState() == 7) {
+                        continue;
+                    }
+                    String requestPD = DeviceHttpRequest.senDslPDRequest(deviceIp, 2, pd.getId(), 1, boxId, -1, -1, -1);
+                    log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), level, boxId, requestPD);
+                    ThreadUtil.sleep(1000);
                 }
-                ThreadUtil.sleep(1000);
+                ThreadUtil.sleep(5000);
             } catch (Exception e) {
                 log.info("Lift-{} request failed close Thread, {}", liftId, e.getMessage());
                 break;
