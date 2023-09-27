@@ -56,13 +56,15 @@ public class ResourceLocationServiceImpl extends ServiceImpl<ResourceLocationMap
         if (aisles == null) {
             return locationMapper.selectList(new QueryWrapper<ResourceLocation>()
                     .select("level,location,barcode,aisle")
-                            .eq("level", level)
+                    .eq("level", level)
+                    .eq("type", 0)
             );
         }
         return locationMapper.selectList(new QueryWrapper<ResourceLocation>()
                 .select("level,location,barcode,aisle")
-                        .in("aisle", aisles)
-                        .eq("level", level)
+                .in("aisle", aisles)
+                .eq("level", level)
+                .eq("type", 0)
         );
     }
 
@@ -72,13 +74,17 @@ public class ResourceLocationServiceImpl extends ServiceImpl<ResourceLocationMap
             return locationMapper.selectList(new QueryWrapper<ResourceLocation>()
                     .ne("state", -100)
                     .eq("level", level)
-                    .eq("state", 0));
+                    .eq("state", 0)
+                    .eq("type", 0)
+            );
         }
         return locationMapper.selectList(new QueryWrapper<ResourceLocation>()
                 .ne("state", -100)
                 .in("aisle", aisles)
                 .eq("level", level)
-                .eq("state", 0));
+                .eq("state", 0)
+                .eq("type", 0)
+        );
     }
 
     @Override

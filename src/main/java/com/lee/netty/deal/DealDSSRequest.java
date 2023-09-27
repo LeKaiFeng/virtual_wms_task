@@ -51,6 +51,12 @@ public class DealDSSRequest {
     }
 
     public static HashMap<Object, Object> createDslInboundTask(String boxId, int mkId, ResourceLocation endLocation) {
+        int length = (RandomUtil.randomInt(5) + 3) * 100;
+        int width = (RandomUtil.randomInt(4) + 3) * 100;
+        while (width > length) {
+            width -= 50;
+        }
+        int finalWidth = width;
         HashMap<Object, Object> task = new LinkedHashMap<Object, Object>() {
             {
                 put("wmsId", RandomUtil.randomString(12));
@@ -60,8 +66,8 @@ public class DealDSSRequest {
                 put("endLocation", endLocation.getLocation());
                 put("mkId", mkId);
                 put("boxType", RandomUtil.randomInt(3) + 1);
-                put("width", (RandomUtil.randomInt(4) + 3) * 100); // 0,1,2,3-> 3,4,5,6
-                put("length", (RandomUtil.randomInt(5) + 3) * 100); //0,1,2,3,4-> 3,4,5,6,7
+                put("length", length); //0,1,2,3,4-> 3,4,5,6,7
+                put("width", finalWidth); // 0,1,2,3-> 3,4,5,6
                 put("height", (RandomUtil.randomInt(4) + 1) * 100);
                 put("weight", (RandomUtil.randomInt(5) + 1) * 10);
                 put("boxAttr", RandomUtil.randomInt(3) + 1);
@@ -87,6 +93,12 @@ public class DealDSSRequest {
     }
 
     public static HashMap<Object, Object> createDslOutboundTask(String boxId, ResourceLocation locations) {
+        int length = (RandomUtil.randomInt(5) + 3) * 100;
+        int width = (RandomUtil.randomInt(4) + 3) * 100;
+        while (width > length) {
+            width -= 50;
+        }
+        int finalWidth = width;
         HashMap<Object, Object> task = new LinkedHashMap<Object, Object>() {
             {
                 put("wmsId", RandomUtil.randomString(12));
@@ -96,8 +108,8 @@ public class DealDSSRequest {
                 put("startLocation", locations.getLocation());
                 put("mkId", RandomUtil.randomInt(6) + 1);
                 put("boxType", RandomUtil.randomInt(3) + 1);
-                put("width", (RandomUtil.randomInt(4) + 3) * 100); // 0,1,2,3-> 3,4,5,6
-                put("length", (RandomUtil.randomInt(5) + 3) * 100); //0,1,2,3,4-> 3,4,5,6,7
+                put("width", finalWidth); // 0,1,2,3-> 3,4,5,6
+                put("length", length); //0,1,2,3,4-> 3,4,5,6,7
                 put("height", (RandomUtil.randomInt(4) + 1) * 100);
                 put("weight", (RandomUtil.randomInt(5) + 1) * 10);
                 put("outLevel", RandomUtil.randomInt(3) + 1);
@@ -134,6 +146,12 @@ public class DealDSSRequest {
     }
 
     public static HashMap<Object, Object> createDslMoveTask(String boxId, ResourceLocation sLocations, ResourceLocation eLocations) {
+        int length = (RandomUtil.randomInt(5) + 3) * 100;
+        int width = (RandomUtil.randomInt(4) + 3) * 100;
+        while (width > length) {
+            width -= 50;
+        }
+        int finalWidth = width;
         HashMap<Object, Object> task = new LinkedHashMap<Object, Object>() {
             {
                 put("wmsId", RandomUtil.randomString(8));
@@ -143,8 +161,8 @@ public class DealDSSRequest {
                 put("startLocation", sLocations.getLocation());
                 put("endLocation", eLocations.getLocation());
                 put("boxType", RandomUtil.randomInt(3) + 1);
-                put("width", (RandomUtil.randomInt(4) + 3) * 100); // 0,1,2,3-> 3,4,5,6
-                put("length", (RandomUtil.randomInt(5) + 3) * 100); //0,1,2,3,4-> 3,4,5,6,7
+                put("width", finalWidth); // 0,1,2,3-> 3,4,5,6
+                put("length", length); //0,1,2,3,4-> 3,4,5,6,7
                 put("height", (RandomUtil.randomInt(4) + 1) * 100);
                 put("weight", (RandomUtil.randomInt(5) + 1) * 10);
                 put("priority", 1001);
