@@ -20,7 +20,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tp" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="   tcp wms server    ">
                             <content>
@@ -29,7 +29,7 @@
                         </Tab>
                         <Tab text="   tcp wms client    ">
                             <content>
-                                <fx:include fx:id="tcpClient" source="tcpClientDss.fxml"/>
+                                <fx:include fx:id="tcpClient" source="dss/tcpClientDss.fxml"/>
                             </content>
                         </Tab>
                     </tabs>

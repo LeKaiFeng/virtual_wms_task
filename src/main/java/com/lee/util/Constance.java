@@ -1,6 +1,12 @@
 package com.lee.util;
 
 public interface Constance {
+
+
+    String DSS = "dss";
+    String OES = "oes";
+    String MK = "mk";
+    String STD = "std";
     String EMPTY = "";
     int HTTP_PORT = 8090;
     String BOX_PREFIX = "BoxLift-";

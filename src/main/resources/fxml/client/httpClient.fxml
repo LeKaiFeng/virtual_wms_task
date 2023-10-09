@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0"
-            prefWidth="663.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.lee.control.tcp.MainTCPClientDslController">
+            prefWidth="663.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -24,13 +23,8 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                             <children>
-                                <Label text="mfc server ->"/>
-                                <Label text="ip :"/>
-                                <TextField fx:id="ip" alignment="CENTER" prefHeight="30.0" prefWidth="140.0"/>
-                                <Label text="port :"/>
-                                <TextField fx:id="port" alignment="CENTER" prefHeight="30.0" prefWidth="70.0"/>
-                                <JFXButton fx:id="connectBtn" prefHeight="30.0" prefWidth="70.0"
-                                           style="-fx-background-color: Gainsboro;" text="连接"/>
+                                <Label text="http : "/>
+                                <TextField fx:id="httpAddr" alignment="CENTER" prefHeight="30.0" prefWidth="373.0"/>
                             </children>
                             <VBox.margin>
                                 <Insets top="40.0"/>

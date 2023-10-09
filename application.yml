@@ -1,21 +1,23 @@
 spring:
   profiles:
-    #   *** 根据项目配置 ***
-    active: dss
+    active: common    #   *** 根据项目配置,极个别特殊项目才需配置,正常情况: common ***
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
     #    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    url: jdbc:mysql://10.2.2.80:3306/dss-dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/dsl?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
 
-mybatis:
-  mapper-locations=classpath:mapper/*/*.xml:
-
-# WMS、 MFC ==> TCP双工通讯
+# WMS 任务生产方式, 通讯地址配置
 server:
-  type: TCP
+  # dss、oes、mk、std  系统版本, 必须配置
+  #  version: dss
+  #  对应具体定制化项目, 与系统版本一致则默认无定制化需求
+  #  project: dss
+  # tcp、 http、 db(直接插数据库)  通讯方式/任务生成方式, 必须配置
+  #  type: tcp
+  #  connType: tcp
   WMS:
     port: 9999
     end: "#"
@@ -25,7 +27,6 @@ server:
     end: "*"
   device:
     ip: 10.2.2.84
-
 
 # 任务生成策略
 strategy:
@@ -45,6 +46,9 @@ strategy:
     everyLevelNums: 9
     ignoreExitTask: false
     exitArea: false           # false:没分区  true:有分区
+
+mybatis:
+  mapper-locations=classpath:mapper/*/*.xml:
 
 project:
   name: ${spring.profiles.active}

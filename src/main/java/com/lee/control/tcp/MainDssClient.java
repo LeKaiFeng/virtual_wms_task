@@ -5,12 +5,18 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
-import com.lee.database.dss.entity.*;
+import com.lee.database.dss.entity.DeviceBoxLift;
+import com.lee.database.dss.entity.DeviceShelfPd;
+import com.lee.database.dss.entity.ResourceLocation;
+import com.lee.database.dss.entity.ResourceTask;
 import com.lee.database.dss.service.impl.*;
 import com.lee.netty.NettyClient;
 import com.lee.netty.NettyClientHandler;
 import com.lee.netty.deal.DealDSSRequest;
-import com.lee.util.*;
+import com.lee.util.CommonUtil;
+import com.lee.util.Constance;
+import com.lee.util.DeviceHttpRequest;
+import com.lee.util.ThreadUtil;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLController;
 import de.felixroske.jfxsupport.FXMLView;
@@ -27,23 +33,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @FXMLController
-@FXMLView(value = "/fxml/tcp/tcpClientDss.fxml")
-@Component
-@ConditionalOnProperty(name = "project.name", havingValue = "dss")
-public class MainTCPClientDslController extends AbstractFxmlView implements Initializable {
+@FXMLView(value = "/fxml/tcp/dss/dssClient.fxml")
+//@Component
+public class MainDssClient extends AbstractFxmlView implements Initializable {
 
-    private static final Logger log = LoggerFactory.getLogger(MainTCPClientDslController.class);
+    private static final Logger log = LoggerFactory.getLogger(MainDssClient.class);
     @Value("${server.device.ip}")
     public String deviceIp;
     @Value("${server.mfc.IP}")
@@ -99,6 +106,7 @@ public class MainTCPClientDslController extends AbstractFxmlView implements Init
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        log.info("This is dss tcp !");
         ThreadUtil.execute(this::initId);
         boxLiftService.allLift().forEach(boxLift -> {
             lifts.add(boxLift);
