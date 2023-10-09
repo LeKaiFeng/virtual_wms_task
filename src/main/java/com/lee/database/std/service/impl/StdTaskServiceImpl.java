@@ -60,6 +60,12 @@ public class StdTaskServiceImpl extends ServiceImpl<TaskStdMapper, Task> impleme
     }
 
     @Override
+    public int initLiftBoxNumByPreStr(String liftBoxPre) {
+        List<Task> tasks = stdMapper.selectList(new QueryWrapper<Task>().likeLeft("box_number", liftBoxPre));
+        return tasks.size() + 1;
+    }
+
+    @Override
     public int initId(int type) {
         List<Task> taskList = stdMapper.selectList(new QueryWrapper<Task>().select("type", "id").eq("type", type));
         return taskList.size() + 1;

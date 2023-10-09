@@ -60,6 +60,16 @@ public class StdAppointannounceServiceImpl extends ServiceImpl<AppointannounceSt
         );
     }
 
+    @Override
+    public List<Appointannounce> checkAppoint(String pre) {
+        return appointannounceStdMapper.selectList(new QueryWrapper<Appointannounce>()
+                .select("id", "level", "box_number", "state")
+                .eq("state", 0)
+                .like("box_number", Constance.LIFT_PREFIX + "%")
+        );
+
+    }
+
 
     @Override
     public List<Appointannounce> isExitAppoint(String barcode) {

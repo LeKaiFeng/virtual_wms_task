@@ -4,6 +4,7 @@ public interface Constance {
     String EMPTY = "";
     int HTTP_PORT = 8090;
     String BOX_PREFIX = "BoxLift-";
+    String LIFT_PREFIX = "Lift-";
     String OUT_BOX_PREFIX = "OUTBOUND-";
     String MOVE_BOX_PREFIX = "MOVE-";
 

@@ -29,6 +29,16 @@ public class StdBoxliftshelfpdServiceImpl extends ServiceImpl<BoxliftshelfpdStdM
         return boxliftshelfpdStdMapper.selectList(new QueryWrapper<Boxliftshelfpd>()
                 .select("id", "pos", "level", "inbound_state", "inbound_request", "inbound_box", "ip", "port", "type")
                 .eq("pos", pos)
+                .eq("pd_type", 1)
+        );
+    }
+
+    @Override
+    public List<Boxliftshelfpd> selectPds(List<Integer> pdPos) {
+        return boxliftshelfpdStdMapper.selectList(new QueryWrapper<Boxliftshelfpd>()
+                .select("id", "pos", "level", "inbound_state", "inbound_request", "inbound_box", "ip", "port", "type")
+                .in("pos", pdPos)
+                .eq("pd_type", 1)
         );
     }
 

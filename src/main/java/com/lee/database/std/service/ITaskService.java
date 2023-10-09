@@ -22,6 +22,8 @@ public interface ITaskService extends IService<Task> {
     //根据提升机pos，初始化boxId
     int initBoxId(int boxLiftPos);
 
+    int initLiftBoxNumByPreStr(String liftBoxPre);
+
     int initId(int type);
 
     int initBoxIdSK(int boxLiftPos);

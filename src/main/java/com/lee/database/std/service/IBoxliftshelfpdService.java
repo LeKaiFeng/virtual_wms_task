@@ -16,6 +16,8 @@ import java.util.List;
 public interface IBoxliftshelfpdService extends IService<Boxliftshelfpd> {
     List<Boxliftshelfpd> selectPds(int pos);
 
+    List<Boxliftshelfpd> selectPds(List<Integer> pdPos);
+
     Boxliftshelfpd selectPds(int level, int pos);
 
     List<Boxliftshelfpd> selectPds(int level, int pos, int dir);

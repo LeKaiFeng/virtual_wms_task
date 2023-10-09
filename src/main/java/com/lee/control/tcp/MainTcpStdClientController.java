@@ -35,12 +35,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @FXMLController
 @FXMLView(value = "/fxml/tcp/tcpStdClient.fxml")
@@ -49,6 +47,10 @@ import java.util.stream.Collectors;
 public class MainTcpStdClientController extends AbstractFxmlView implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger(MainTcpStdClientController.class);
+    @Value("${strategy.project}")
+    public String project;
+    @Value("${log.print}")
+    public boolean print;
     @Value("${server.device.ip}")
     public String deviceIp;
     @Value("${server.mfc.IP}")
@@ -75,7 +77,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     public boolean moveIgnoreExitTask;
 
     @FXML
-    protected JFXToggleButton autoInbound, autoOutbound, autoMove;
+    protected JFXToggleButton autoAppoint, autoReq, autoOutbound, autoMove;
     @FXML
     protected TextField ip, port;
     @FXML
@@ -85,6 +87,9 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     protected AtomicInteger msgNum = new AtomicInteger(1);
     public AtomicInteger outBoxNum = new AtomicInteger(1);
     public AtomicInteger moveBoxNum = new AtomicInteger(1);
+
+    public AtomicInteger liftBoxNum = new AtomicInteger(1);
+
     List<Integer> levels = new ArrayList<>();
     List<Integer> aisles = new ArrayList<>();
 
@@ -107,8 +112,13 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     public void initialize(URL location, ResourceBundle resources) {
         ThreadUtil.execute(this::initId);
         boxLiftService.selectAll().forEach(boxLift -> {
+            if (project.equalsIgnoreCase("bake") && boxLift.getId() == 2) {
+                //2号提升机为出库提升机,只是配在了数据库
+                ThreadUtil.createThread("嵌入式-" + boxLift.getId(), this::sendBakeRequest).start();
+                return;
+            }
             log.info("boxLift-{} thread start", boxLift.getId());
-            ThreadUtil.createThread("TaskGenerate" + boxLift.getId(), () -> pushTaskMFC(boxLift)).start();
+            ThreadUtil.createThread("TaskGenerate-" + boxLift.getId(), () -> pushTaskMFC(boxLift)).start();
             ThreadUtil.createThread("MK-" + boxLift.getId(), () -> sendRequest(boxLift)).start();
         });
         connectBtn.setOnMouseClicked(event -> {
@@ -123,7 +133,10 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     public void initId() {
         outBoxNum.set(taskService.initId(2));
         moveBoxNum.set(taskService.initId(15));
+        liftBoxNum.set(taskService.initLiftBoxNumByPreStr(Constance.LIFT_PREFIX));
         levels = locationsService.allLevels();
+        levels = levels.stream().sorted().collect(Collectors.toList());
+
         aisles = locationsService.allAisles();
         locations = locationsService.outLocations();
         log.info("init msgId: {}, outBoxId: {}, moveBoxId: {}", msgNum.get(), outBoxNum.get(), moveBoxNum.get());
@@ -158,16 +171,21 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
         AtomicInteger boxNum = new AtomicInteger(1);
         boxNum.set(taskService.initBoxId(liftPos));
         while (true) {
+
             try {
-                if (autoInbound.isSelected()) {
+                if (autoAppoint.isSelected()) {
                     List<Appointannounce> totalAppoint = appointAnnounceService.isExitAppoint(-1, liftId);
                     if (totalAppoint.size() == 0) {
-                        List<Locations> locations = locationsService.inboundLocations(-1);
+                        List<Locations> inboundLocations = locations.stream().filter(lt -> lt.getState() == 0).collect(Collectors.toList());
+                        if (inboundLocations.size() < 10) {
+                            locations = locationsService.outLocations();
+                        }
                         levels.forEach(level -> {
-                            if (autoInbound.isSelected()) {
-                                List<Appointannounce> currentAppoint = totalAppoint.stream().filter(appoint -> appoint.getLevel().equals(level)).collect(Collectors.toList());
-                                List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
+                            if (autoAppoint.isSelected()) {
+                                List<Locations> currentLevelLocations = inboundLocations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
                                 Locations inbound = CommonUtil.randomFromList(currentLevelLocations);
+                                inboundLocations.remove(inbound);
+                                locations.remove(inbound);
                                 String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
                                 inbound.setBoxNumber(boxId);
                                 String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound);
@@ -185,8 +203,11 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                                 }
                                 ThreadUtil.sleep(100);
                                 log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, inbound.getLocation());
-                            }
 
+                                if (project.equalsIgnoreCase("bake") && (level == 1 || level == 20)) {
+                                    pushTaskBakeMFC(level, locations);
+                                }
+                            }
                         });
                     }
                 } else {
@@ -199,6 +220,42 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
         }
     }
 
+    public void pushTaskBakeMFC(int level, List<Locations> locations) {
+
+        try {
+            if (autoAppoint.isSelected()) {
+                List<Appointannounce> totalAppoint = appointAnnounceService.checkAppoint(Constance.LIFT_PREFIX + level);
+                for (int i = totalAppoint.size(); i < 3; i++) {
+                    if (autoAppoint.isSelected()) {
+                        Locations inbound = CommonUtil.randomFromList(locations);
+                        String boxId = Constance.LIFT_PREFIX + level + "-" + liftBoxNum.getAndIncrement();
+                        inbound.setBoxNumber(boxId);
+                        locations.remove(inbound);
+                        String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound);
+                        boolean tcpSend = send(request);
+                        int times = 0;
+                        if (!tcpSend) {
+                            do {
+                                times++;
+                                log.info("入库 发送失败并重发");
+                                ThreadUtil.sleep(500);
+                            } while (send(request) && times < 10);
+                        }
+                        if (times == 10) {
+                            log.info("{}次重发未成功,request:{}", times, request);
+                        }
+                        ThreadUtil.sleep(100);
+                        log.info("push task[{}] barcode: {} to level/location: {}/{} ", "BACK", boxId, level, inbound.getLocation());
+                    }
+                }
+            } else {
+                ThreadUtil.sleep(1000);
+            }
+        } catch (Exception e) {
+            log.info("Lift-[{}], pushTaskGenerate failed close Thread; {}", 2, e.getMessage());
+        }
+    }
+
 
     public void sendRequest(Boxlift boxLift) {
         int liftId = boxLift.getId();
@@ -206,7 +263,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
         while (true) {
             try {
-                if (!autoInbound.isSelected()) {
+                if (!autoReq.isSelected()) {
                     ThreadUtil.sleep(1000);
                     continue;
                 }
@@ -214,7 +271,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                 List<Appointannounce> totalAppoint = appointAnnounceService.isExitAppoint(-1, liftId);
                 for (Boxliftshelfpd pd : pds) {
                     int pdLevel = pd.getLevel();
-                    if (!autoInbound.isSelected()) {
+                    if (!autoReq.isSelected()) {
                         continue;
                     }
                     if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
@@ -259,6 +316,53 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
 
     }
 
+    public List<String> senderBox = new ArrayList<>();
+
+    public void sendBakeRequest() {
+        log.info("嵌入式提升机");
+        List<Integer> pdList = Arrays.asList(113000, 114000, 115000);
+        while (true) {
+            try {
+                if (!autoReq.isSelected()) {
+                    ThreadUtil.sleep(1000);
+                    continue;
+                }
+                List<Boxliftshelfpd> pds = shelfPdService.selectPds(pdList);
+                List<Appointannounce> appointAnnounces = appointAnnounceService.checkAppoint(Constance.LIFT_PREFIX);
+                List<Appointannounce> appoints = appointAnnounces.stream().filter(appointannounce -> appointannounce.getState() == 0).collect(Collectors.toList());
+                for (Boxliftshelfpd pd : pds) {
+                    int pdLevel = pd.getLevel();
+                    if (!autoReq.isSelected()) {
+                        continue;
+                    }
+                    if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
+                        return;
+                    }
+                    if (appoints.size() == 0) {
+                        continue;
+                    }
+
+                    Appointannounce appointannounce = appoints.get(0);
+                    String boxId = appointannounce.getBoxNumber();
+                    if (senderBox.contains(boxId)) {
+                        continue;
+                    }
+                    appoints.remove(appointannounce);
+
+                    String requestPD = DeviceHttpRequest.sendRequest(deviceIp, 2, pd.getId(), 1, boxId);
+                    log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), pdLevel, boxId, requestPD);
+                    senderBox.add(boxId);
+                    ThreadUtil.sleep(500);
+                }
+                ThreadUtil.sleep(1000);
+            } catch (Exception e) {
+                log.info("Lift-{} request failed close Thread, {}", "嵌入式", e.getMessage());
+                break;
+            }
+        }
+
+    }
+
 
     @Scheduled(fixedRateString = "${strategy.outbound.intervalTime}", initialDelay = 1000 * 3)
     // 延时10s启动，之后每5s执行一次
@@ -284,7 +388,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                             List<Locations> currentLevelAndAisleLocations = currentLevelLocations.stream().filter(lt -> lt.getAisle() == aisle).collect(Collectors.toList());
                             if (currentLevelAndAisleLocations.size() > 0) {
                                 for (int i = 0; i < times; i++) {
-                                    Locations outLocation = CommonUtil.randomFromList(locations);
+                                    Locations outLocation = CommonUtil.randomFromList(currentLevelAndAisleLocations);
                                     currentLevelLocations.remove(outLocation);
                                     locations.remove(outLocation);
                                     String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
@@ -323,19 +427,23 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
             }
             int times = CommonUtil.getTimes(moveEveryLevelNums, aisles.size());
             List<Task> totalMoveTask = taskService.moveTask(-1);
+
             levels.forEach(level -> {
                 List<Task> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getSLevel().equals(level)).collect(Collectors.toList());
+                List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
                 if (currentLevelMoveTask.size() == 0) {
                     aisles.forEach(aisle -> {
                         if (!autoMove.isSelected()) {
                             return;
                         }
                         for (int i = currentLevelMoveTask.size(); i < times; i++) {
-                            Locations start = CommonUtil.randomFromList(locations);
+                            Locations start = CommonUtil.randomFromList(currentLevelLocations);
                             String boxId = Constance.MOVE_BOX_PREFIX + moveBoxNum.getAndIncrement();
                             start.setBoxNumber(boxId);
+                            currentLevelLocations.remove(start);
                             locations.remove(start);
-                            Locations end = CommonUtil.randomFromList(locations);
+                            Locations end = CommonUtil.randomFromList(currentLevelLocations);
+                            currentLevelLocations.remove(end);
                             locations.remove(end);
                             log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
                                     start.getLevel(), start.getLocation(), end.getLevel(), end.getLocation(), boxId);
@@ -347,7 +455,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                                     ThreadUtil.sleep(500);
                                 } while (send(request));
                             }
-                            ThreadUtil.sleep(500);
+                            ThreadUtil.sleep(200);
                         }
                     });
                 }
@@ -361,7 +469,9 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     public boolean send(String request) {
         if (nettyClient.isConnect()) {
             boolean write = nettyClient.write(Unpooled.wrappedBuffer((request + wmsEnd).getBytes()));
-            log.info("client send : {}", request);
+            if (print) {
+                log.info("client send : {}", request);
+            }
             return write;
         } else {
             log.info("尚未建立连接，发送失败 msg:{} ...", request);

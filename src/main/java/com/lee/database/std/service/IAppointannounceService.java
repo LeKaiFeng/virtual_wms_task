@@ -23,6 +23,8 @@ public interface IAppointannounceService extends IService<Appointannounce> {
 
     List<Appointannounce> isExitAppoint(int level, int liftId);
 
+    public List<Appointannounce> checkAppoint(String pre);
+
     List<Appointannounce> isExitAppoint(String barcode);
 
     int initAppointIdSK(Boxlift lift);

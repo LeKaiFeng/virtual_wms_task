@@ -24,7 +24,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                             <children>
-                                <Label text="mfc server -> "/>
+                                <Label text="mfc server -&gt; "/>
                                 <Label text="ip: "/>
                                 <TextField fx:id="ip" alignment="CENTER" prefHeight="30.0" prefWidth="140.0"/>
                                 <Label text="port: "/>
@@ -36,7 +36,8 @@
                                 <Insets top="40.0"/>
                             </VBox.margin>
                         </HBox>
-                        <JFXToggleButton fx:id="autoInbound" text="入库任务"/>
+                        <JFXToggleButton fx:id="autoAppoint" text="预约任务"/>
+                        <JFXToggleButton fx:id="autoReq" text="入库请求"/>
                         <JFXToggleButton fx:id="autoOutbound" text="出库任务"/>
                         <JFXToggleButton fx:id="autoMove" text="移库任务"/>
                     </children>
