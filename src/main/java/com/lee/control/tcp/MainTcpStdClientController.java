@@ -5,6 +5,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import com.lee.database.mk.service.impl.BoxliftshelfpdServiceImpl;
 import com.lee.database.std.entity.*;
 import com.lee.database.std.service.impl.*;
 import com.lee.netty.NettyClient;
@@ -92,6 +93,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
 
     List<Integer> levels = new ArrayList<>();
     List<Integer> aisles = new ArrayList<>();
+    List<Boxliftshelfpd> allPds = new ArrayList<>();
 
     @Autowired
     protected StdBoxliftServiceImpl boxLiftService;
@@ -136,7 +138,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
         liftBoxNum.set(taskService.initLiftBoxNumByPreStr(Constance.LIFT_PREFIX));
         levels = locationsService.allLevels();
         levels = levels.stream().sorted().collect(Collectors.toList());
-
+        allPds = shelfPdService.list();
         aisles = locationsService.allAisles();
         locations = locationsService.outLocations();
         log.info("init msgId: {}, outBoxId: {}, moveBoxId: {}", msgNum.get(), outBoxNum.get(), moveBoxNum.get());
@@ -188,19 +190,8 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                                 locations.remove(inbound);
                                 String boxId = Constance.BOX_PREFIX + liftId + "-" + boxNum.getAndIncrement();
                                 inbound.setBoxNumber(boxId);
-                                String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound);
-                                boolean tcpSend = send(request);
-                                int times = 0;
-                                if (!tcpSend) {
-                                    do {
-                                        times++;
-                                        log.info("入库 发送失败并重发");
-                                        ThreadUtil.sleep(500);
-                                    } while (send(request) && times < 10);
-                                }
-                                if (times == 10) {
-                                    log.info("{}次重发未成功,request:{}", times, request);
-                                }
+                                String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound, 1);
+                                sendOrReSend("入库", request);
                                 ThreadUtil.sleep(100);
                                 log.info("push task barcode: {} to level/location: {}/{} ", boxId, level, inbound.getLocation());
 
@@ -224,26 +215,15 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
 
         try {
             if (autoAppoint.isSelected()) {
-                List<Appointannounce> totalAppoint = appointAnnounceService.checkAppoint(Constance.LIFT_PREFIX + level);
-                for (int i = totalAppoint.size(); i < 3; i++) {
+                List<Announce> announces = announceService.checkAnnounce(Constance.LIFT_PREFIX + level);
+                for (int i = announces.size(); i < 3; i++) {
                     if (autoAppoint.isSelected()) {
                         Locations inbound = CommonUtil.randomFromList(locations);
                         String boxId = Constance.LIFT_PREFIX + level + "-" + liftBoxNum.getAndIncrement();
                         inbound.setBoxNumber(boxId);
                         locations.remove(inbound);
-                        String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound);
-                        boolean tcpSend = send(request);
-                        int times = 0;
-                        if (!tcpSend) {
-                            do {
-                                times++;
-                                log.info("入库 发送失败并重发");
-                                ThreadUtil.sleep(500);
-                            } while (send(request) && times < 10);
-                        }
-                        if (times == 10) {
-                            log.info("{}次重发未成功,request:{}", times, request);
-                        }
+                        String request = DealSTDRequest.pushBoxAnnounceKB(msgNum.getAndIncrement(), boxId, inbound, 2);
+                        sendOrReSend("入库(bake)", request);
                         ThreadUtil.sleep(100);
                         log.info("push task[{}] barcode: {} to level/location: {}/{} ", "BACK", boxId, level, inbound.getLocation());
                     }
@@ -256,6 +236,20 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
         }
     }
 
+    public void sendOrReSend(String name, String request) {
+        boolean tcpSend = send(request);
+        int times = 0;
+        if (!tcpSend) {
+            do {
+                times++;
+                log.info("{} 发送失败并重发", name);
+                ThreadUtil.sleep(500);
+            } while (send(request) && times < 10);
+        }
+        if (times == 10) {
+            log.info("{}次重发未成功,request:{}", times, request);
+        }
+    }
 
     public void sendRequest(Boxlift boxLift) {
         int liftId = boxLift.getId();
@@ -283,6 +277,9 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                     }
                     Appointannounce appointannounce = currentLevelAppoint.get(0);
                     String boxId = appointannounce.getBoxNumber();
+                    if (senderBox.contains(boxId)) {
+                        continue;
+                    }
                     //送至提升机
                     String requestMk = DeviceHttpRequest.sendRequest(deviceIp, 1, liftId, 1, boxId);
                     log.info("MK-[{}], request level:{}, barcode:{} {}", liftId, pdLevel, boxId, requestMk);
@@ -305,6 +302,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
 
                     String requestPD = DeviceHttpRequest.sendRequest(deviceIp, 2, pd.getId(), 1, boxId);
                     log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), pdLevel, boxId, requestPD);
+                    senderBox.add(boxId);
                     ThreadUtil.sleep(500);
                 }
                 ThreadUtil.sleep(1000);
@@ -328,8 +326,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                     continue;
                 }
                 List<Boxliftshelfpd> pds = shelfPdService.selectPds(pdList);
-                List<Appointannounce> appointAnnounces = appointAnnounceService.checkAppoint(Constance.LIFT_PREFIX);
-                List<Appointannounce> appoints = appointAnnounces.stream().filter(appointannounce -> appointannounce.getState() == 0).collect(Collectors.toList());
+                List<Announce> announces = announceService.checkAnnounce(Constance.LIFT_PREFIX);
                 for (Boxliftshelfpd pd : pds) {
                     int pdLevel = pd.getLevel();
                     if (!autoReq.isSelected()) {
@@ -338,16 +335,17 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                     if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
                         return;
                     }
-                    if (appoints.size() == 0) {
+                    if (announces.size() == 0) {
                         continue;
                     }
 
-                    Appointannounce appointannounce = appoints.get(0);
-                    String boxId = appointannounce.getBoxNumber();
+                    Announce announce = announces.get(0);
+                    String boxId = announce.getBoxNumber();
                     if (senderBox.contains(boxId)) {
+                        log.debug("重复箱号");
                         continue;
                     }
-                    appoints.remove(appointannounce);
+                    announces.remove(announce);
 
                     String requestPD = DeviceHttpRequest.sendRequest(deviceIp, 2, pd.getId(), 1, boxId);
                     log.info("PD---[{}], request level:{}, barcode:{} {}", pd.getId(), pdLevel, boxId, requestPD);
@@ -393,8 +391,31 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                                     locations.remove(outLocation);
                                     String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
                                     outLocation.setBoxNumber(boxId);
-                                    String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation);
-                                    log.info("出库 - > level/location:{}/{}, boxId:{}", level, outLocation.getLocation(), boxId);
+                                    //嵌入式提升机： 出库任意层,及target_floor
+                                    //料箱提升机： 只能出到当前层,及target_floor
+                                    String request = "";
+                                    int targetFloor = 0;
+                                    int outbound = 0;
+                                    if (project.equalsIgnoreCase("bake")) {
+                                        List<Boxliftshelfpd> outboundPds = allPds.stream().filter(pd ->
+                                                Objects.equals(pd.getLevel(), level) && pd.getPdType() == 2).collect(Collectors.toList());
+                                        if (outboundPds.size() > 0) {
+                                            Boxliftshelfpd outPd = CommonUtil.randomFromList(outboundPds);
+                                            if (outPd.getId() > 4000) {
+                                                targetFloor = CommonUtil.randomFromList(levels);
+                                            } else {
+                                                targetFloor = 1;
+                                            }
+                                            outbound = outPd.getId();
+                                        } else {
+                                            outbound = 1;
+                                            log.info("level:{}, 没有找到出库层间线", level);
+                                        }
+                                        request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation, outbound, targetFloor);
+                                    } else {
+                                        request = "common";
+                                    }
+                                    log.info("出库 - > level/location:{}/{}, boxId:{}, outbound:{}, targetFloor:{}", level, outLocation.getLocation(), boxId, outbound, targetFloor);
                                     boolean tcpSend = send(request);
                                     if (!tcpSend) {
                                         do {
@@ -410,9 +431,11 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                 }
             }
 
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             log.info(e.getMessage());
         }
+
     }
 
 

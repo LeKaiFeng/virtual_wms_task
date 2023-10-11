@@ -35,7 +35,7 @@ public class DealSTDRequest {
     public static volatile int id = 1;
 
 
-    public static String pushBoxAnnounceKB(int megId, String boxId, Locations locations) {
+    public static String pushBoxAnnounceKB(int megId, String boxId, Locations locations, int type) {
         HashMap<Object, Object> responseMap = new LinkedHashMap<Object, Object>() {
             {
                 put("id", megId);
@@ -45,12 +45,13 @@ public class DealSTDRequest {
                 put("location", locations.getLocation());
                 put("weight", 20);
                 put("wmsId", RandomUtil.randomString(10));
+                put("type", type);
             }
         };
         return JSONUtil.toJsonStr(responseMap);
     }
 
-    public static String pushAppointStockOutKB(int megId, Locations locations) {
+    public static String pushAppointStockOutKB(int megId, Locations locations, int outbound, int targetFloor) {
         HashMap<Object, Object> responseMap = new LinkedHashMap<Object, Object>() {
             {
                 put("id", megId);
@@ -60,7 +61,8 @@ public class DealSTDRequest {
                 put("location", locations.getLocation());
                 put("wmsId", RandomUtil.randomString(10));
                 put("priority", 1);
-                put("outbound", 0);
+                put("outbound", outbound);
+                put("target_floor", targetFloor);
             }
         };
         return JSONUtil.toJsonStr(responseMap);

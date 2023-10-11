@@ -28,6 +28,8 @@ public interface IAnnounceService extends IService<Announce> {
 
     List<Announce> isExitAnnounce(int level, int liftId);
 
+    List<Announce> checkAnnounce(String pre);
+
     Announce isExitAnnounce(String boxId);
 
     List<Announce> isExitAnnounce(int liftId);

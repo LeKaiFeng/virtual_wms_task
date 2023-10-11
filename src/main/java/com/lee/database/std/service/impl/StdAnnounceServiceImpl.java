@@ -83,6 +83,14 @@ public class StdAnnounceServiceImpl extends ServiceImpl<AnnounceStdMapper, Annou
     }
 
     @Override
+    public List<Announce> checkAnnounce(String pre) {
+        return announceStdMapper.selectList(new QueryWrapper<Announce>()
+                .eq("state", 0)
+                .like("box_number", Constance.LIFT_PREFIX + "%")
+        );
+    }
+
+    @Override
     public Announce isExitAnnounce(String boxId) {
         return announceStdMapper.selectOne(new QueryWrapper<Announce>()
                 .select("id", "level", "box_number", "state")
