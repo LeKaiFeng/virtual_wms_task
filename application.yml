@@ -6,7 +6,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://127.0.0.1:3306/bake?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    #    url: jdbc:mysql://127.0.0.1:3306/bake?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://10.2.2.80:3306/hanwha_3f?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
 
 mybatis:
   mapper-locations=classpath:mapper/*/*.xml:
@@ -17,32 +18,34 @@ server:
     port: 2000
     end: "\r\n"
   mfc:
-    IP: 127.0.0.1
+    IP: 10.2.7.239
     port: 1200
     end: "\r\n"
   device:
-    ip: 127.0.0.1
+    ip: 10.2.7.239
 
 # 任务生成策略
 strategy:
-  project: bake             # 正常通用为common,定制化为具体项目名称
+  project: common             # 正常通用为：common,定制化为具体项目名称
+  flashType: 2              #  两向车：2； 四向车：4 ; 决定是否生产垮巷道任务
   inbound:
     machine: boxLift        # 入库提升机选择 【boxLift: 仅料箱提升机入库;】 【lift: 仅换层提升机入库;】 【boxLift、lift: 双入库】
     isAppoint: true         # 是否指定入库货位
     intervalTime: 3000      # 任务间隔时间单位：毫秒
-    async: true             # 异步指定入库 正泰，香港bps
+    async: false             # 异步指定入库 正泰，香港bps
     exitArea: false         # false:没分区  true:有分区
   outbound:
     intervalTime: 10000
     everyLevelNums: 3       # 当每层任务数设置为与巷道数相等的条件下，当前层每个巷道生成一条任务
-    ignoreExitTask: false   # N：当前层有任务则不生成任务，当任务数小于等于2时，开始生成任务； Y：持续不间断的生成任务；但任务积压上限100
+    ignoreExitTask: false   # false：当前层有任务则不生成任务； true：持续不间断的生成任务；
+    appointOutbound: false  # 出库是否指定出库口
   move:
     intervalTime: 10000
     everyLevelNums: 3
     ignoreExitTask: false
     exitArea: false         # false:没分区  true:有分区
 
-log.print: false            #是否显示日志
+log.print: false            #是否显示详细日志
 
 project:
   name: ${spring.profiles.active}

@@ -10,25 +10,7 @@ import com.lee.database.std.entity.Locations;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-/**
- * @Author: Lee
- * @Date: Created in 13:39 2022/6/19
- * @Description: TODO 消息回复，WMS做client, 主动下发消息并等待回复
- * <p>
- * 1. mfc 作 client , wms 作 server 时,
- * mfc发送的updateMovement消息，wms 是用server端回复完成； 还是client端回复完成
- * <p>
- * 2.一条消息请求之后，需不需要等待回复再发下一条; （发完不管则缓存，回复后请缓存）
- * <p>
- * 3. 缓存： ① 内存中，一旦异常数据丢失
- * ② 数据库持久化，a.共用ga_message(id会不会冲突) b.新建virtual_message,各查各的
- * <p>
- * 4.是否需要管货位.....（反正是模拟车，货位状态可管可不管）
- * <p>
- * 5.......好多种消息类型，时序繁琐，工作量大
- * <p>
- * 7.界面化 （后期需不需要整合到模拟器）
- */
+
 public class DealSTDRequest {
 
     public static final Log log = LogFactory.get();
@@ -75,6 +57,8 @@ public class DealSTDRequest {
                 put("messageName", "moveLibrary");
                 put("boxId", start.getBoxNumber());
                 put("level", start.getLevel());
+                put("s_level", start.getLevel());
+                put("e_level", start.getLevel());
                 put("s_location", start.getLocation());
                 put("e_location", end.getLocation());
                 put("wmsId", RandomUtil.randomString(10));

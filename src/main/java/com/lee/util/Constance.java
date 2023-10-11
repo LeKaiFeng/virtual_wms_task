@@ -18,5 +18,7 @@ public interface Constance {
         return String.format("http://%s:8080/GSEE/receiveTask", ip);
     }
 
+    String BAKE = "bake";
+
 
 }

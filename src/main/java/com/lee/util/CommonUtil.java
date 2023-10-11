@@ -22,4 +22,11 @@ public class CommonUtil {
             }
         }
     }
+
+    public static int posPre(int pos) {
+        if (pos < 100000 && pos > 100) {
+            return pos;
+        }
+        return pos / 100;
+    }
 }

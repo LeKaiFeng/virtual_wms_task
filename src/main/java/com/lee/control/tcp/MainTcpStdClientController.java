@@ -5,7 +5,6 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
-import com.lee.database.mk.service.impl.BoxliftshelfpdServiceImpl;
 import com.lee.database.std.entity.*;
 import com.lee.database.std.service.impl.*;
 import com.lee.netty.NettyClient;
@@ -39,7 +38,6 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @FXMLController
 @FXMLView(value = "/fxml/tcp/tcpStdClient.fxml")
@@ -50,6 +48,8 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     private static final Logger log = LoggerFactory.getLogger(MainTcpStdClientController.class);
     @Value("${strategy.project}")
     public String project;
+    @Value("${strategy.flashType}")
+    public int flashType;
     @Value("${log.print}")
     public boolean print;
     @Value("${server.device.ip}")
@@ -72,6 +72,8 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
     public int outboundEveryLevelNums;
     @Value("${strategy.outbound.ignoreExitTask}")
     public boolean outboundIgnoreExitTask;
+    @Value("${strategy.outbound.appointOutbound}")
+    public boolean appointOutbound;
     @Value("${strategy.move.everyLevelNums}")
     public int moveEveryLevelNums;
     @Value("${strategy.move.ignoreExitTask}")
@@ -185,6 +187,9 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                         levels.forEach(level -> {
                             if (autoAppoint.isSelected()) {
                                 List<Locations> currentLevelLocations = inboundLocations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
+                                if (flashType == 2) {
+                                    currentLevelLocations = inboundLocations.stream().filter(lt -> lt.getLevel() == level && lt.getAisle() == liftPos / 1000).collect(Collectors.toList());
+                                }
                                 Locations inbound = CommonUtil.randomFromList(currentLevelLocations);
                                 inboundLocations.remove(inbound);
                                 locations.remove(inbound);
@@ -255,6 +260,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
         int liftId = boxLift.getId();
         int liftPos = boxLift.getPos();
         log.info("BoxLift-[{}], pos: {}, ip: {}, start...", liftId, liftPos, deviceIp);
+        ThreadUtil.sleep(1000);
         while (true) {
             try {
                 if (!autoReq.isSelected()) {
@@ -265,13 +271,19 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                 List<Appointannounce> totalAppoint = appointAnnounceService.isExitAppoint(-1, liftId);
                 for (Boxliftshelfpd pd : pds) {
                     int pdLevel = pd.getLevel();
+                    int pdPos = pd.getPos();
                     if (!autoReq.isSelected()) {
                         continue;
                     }
                     if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
-                        return;
+                        continue;
                     }
-                    List<Appointannounce> currentLevelAppoint = totalAppoint.stream().filter(appointannounce -> appointannounce.getLevel().equals(pdLevel)).collect(Collectors.toList());
+                    List<Appointannounce> currentLevelAppoint = new ArrayList<>();
+                    if (flashType == 2) {
+                        currentLevelAppoint = totalAppoint.stream().filter(app -> app.getLevel().equals(pdLevel) && app.getLocation() / 1000 == pdPos / 1000).collect(Collectors.toList());
+                    } else if (flashType == 4) {
+                        currentLevelAppoint = totalAppoint.stream().filter(appointannounce -> appointannounce.getLevel().equals(pdLevel)).collect(Collectors.toList());
+                    }
                     if (currentLevelAppoint.size() == 0) {
                         continue;
                     }
@@ -333,7 +345,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                         continue;
                     }
                     if (pd.getInboundRequest() == 1 || pd.getInboundState() == 3) {
-                        return;
+                        continue;
                     }
                     if (announces.size() == 0) {
                         continue;
@@ -383,6 +395,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                             if (!autoOutbound.isSelected()) {
                                 return;
                             }
+
                             List<Locations> currentLevelAndAisleLocations = currentLevelLocations.stream().filter(lt -> lt.getAisle() == aisle).collect(Collectors.toList());
                             if (currentLevelAndAisleLocations.size() > 0) {
                                 for (int i = 0; i < times; i++) {
@@ -391,30 +404,9 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                                     locations.remove(outLocation);
                                     String boxId = Constance.OUT_BOX_PREFIX + outBoxNum.getAndIncrement();
                                     outLocation.setBoxNumber(boxId);
-                                    //嵌入式提升机： 出库任意层,及target_floor
-                                    //料箱提升机： 只能出到当前层,及target_floor
-                                    String request = "";
-                                    int targetFloor = 0;
-                                    int outbound = 0;
-                                    if (project.equalsIgnoreCase("bake")) {
-                                        List<Boxliftshelfpd> outboundPds = allPds.stream().filter(pd ->
-                                                Objects.equals(pd.getLevel(), level) && pd.getPdType() == 2).collect(Collectors.toList());
-                                        if (outboundPds.size() > 0) {
-                                            Boxliftshelfpd outPd = CommonUtil.randomFromList(outboundPds);
-                                            if (outPd.getId() > 4000) {
-                                                targetFloor = CommonUtil.randomFromList(levels);
-                                            } else {
-                                                targetFloor = 1;
-                                            }
-                                            outbound = outPd.getId();
-                                        } else {
-                                            outbound = 1;
-                                            log.info("level:{}, 没有找到出库层间线", level);
-                                        }
-                                        request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation, outbound, targetFloor);
-                                    } else {
-                                        request = "common";
-                                    }
+                                    int outbound = getOutbound(level);      //指定出库PD
+                                    int targetFloor = getFloor(level);      //指定出库层     嵌入式提升机：出库任意层,及target_floor; 料箱提升机： 只能出到当前层,及target_floor
+                                    String request = DealSTDRequest.pushAppointStockOutKB(msgNum.getAndIncrement(), outLocation, outbound, targetFloor);
                                     log.info("出库 - > level/location:{}/{}, boxId:{}, outbound:{}, targetFloor:{}", level, outLocation.getLocation(), boxId, outbound, targetFloor);
                                     boolean tcpSend = send(request);
                                     if (!tcpSend) {
@@ -438,6 +430,40 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
 
     }
 
+    //指定出库层
+    public int getFloor(int level) {
+        if (project.equalsIgnoreCase(Constance.BAKE)) {
+
+            List<Boxliftshelfpd> outboundPds = allPds.stream().filter(pd ->
+                    Objects.equals(pd.getLevel(), level) && pd.getPdType() == 2).collect(Collectors.toList());
+            if (outboundPds.size() == 0) {
+                return 1;
+            }
+            Boxliftshelfpd outPd = CommonUtil.randomFromList(outboundPds);
+            if (outPd.getId() > 4000) {
+                return CommonUtil.randomFromList(levels);
+            }
+        }
+        return 1;
+    }
+
+    //指定出库口
+    public int getOutbound(int level) {
+        if (!appointOutbound) {
+            return 1;
+        }
+        boolean b = allPds.stream().allMatch(pd -> pd.getPdType() == 1);
+        List<Boxliftshelfpd> outboundPds;
+        if (b) {  //pd只有一种类型
+            outboundPds = allPds.stream().filter(pd ->
+                    Objects.equals(pd.getLevel(), level)).collect(Collectors.toList());
+        } else { //只找pd_type为2的
+            outboundPds = allPds.stream().filter(pd ->
+                    Objects.equals(pd.getLevel(), level) && pd.getPdType() == 2).collect(Collectors.toList());
+        }
+        return outboundPds.size() > 0 ? CommonUtil.randomFromList(outboundPds).getId() : 1;
+    }
+
 
     @Scheduled(initialDelay = 1000 * 5, fixedRateString = "${strategy.move.intervalTime}") // 延时10s启动，之后每5s执行一次
     public void moveTask() {
@@ -454,6 +480,7 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
             levels.forEach(level -> {
                 List<Task> currentLevelMoveTask = totalMoveTask.stream().filter(task -> task.getSLevel().equals(level)).collect(Collectors.toList());
                 List<Locations> currentLevelLocations = locations.stream().filter(lt -> lt.getLevel() == level).collect(Collectors.toList());
+
                 if (currentLevelMoveTask.size() == 0) {
                     aisles.forEach(aisle -> {
                         if (!autoMove.isSelected()) {
@@ -465,7 +492,13 @@ public class MainTcpStdClientController extends AbstractFxmlView implements Init
                             start.setBoxNumber(boxId);
                             currentLevelLocations.remove(start);
                             locations.remove(start);
+
+
                             Locations end = CommonUtil.randomFromList(currentLevelLocations);
+                            if (flashType == 2) {
+                                List<Locations> local = currentLevelLocations.stream().filter(lt -> lt.getAisle() == start.getAisle()).collect(Collectors.toList());
+                                end = CommonUtil.randomFromList(local);
+                            }
                             currentLevelLocations.remove(end);
                             locations.remove(end);
                             log.info("移库 - > s_level/s_location: {}/{}, e_level/e_location: {}/{} boxId:{}",
